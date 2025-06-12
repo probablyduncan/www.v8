@@ -1,11 +1,122 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import "../fonts.css";
+import ListLink from "../components/list-link.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const links = await getCollection("links");
+const linkTags = [...new Set(links.flatMap(l => l.data.tags))].sort();
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>Duncan Petrie</title>
+	</head>
+	<body>
+		<main>
+			<h1 class="ligatures">
+				Duncan Petrie<sup
+					style="cursor: default;"
+					title="This is my website!">*</sup
+				>
+			</h1>
+			<p>
+				(<abbr title="">that’s me</abbr>!) is a London-based
+				photographer and writer from Milwaukee, Wisconsin. I explore
+				nature in the human landscape, and what the world might look
+				like when we are gone.
+			</p>
+			<p data-hover-img="/fal.webp">
+				I graduated from <a href="https://falmouth.ac.uk"
+					>Falmouth University</a
+				> in 2022 with a degree in Marine and Natural History Photography.
+			</p>
+			<p>
+				See my <a href="/palimpsest">recent photography</a> or a <a
+					href="/wind">recent story</a
+				>.
+			</p>
+			<p>
+				<a href="mailto:duncanpetrie1@gmail.com">Email me</a> or find me
+				on
+				<a
+					href="https://instagram.com/probablyduncan"
+					target="_blank"
+					referrerpolicy="no-referrer">Instagram</a
+				>.
+			</p>
+			<br />
+			<h2>Weblinks</h2>
+			<div class="link-tags">{linkTags.map(t => <button>#{t}</button>)}</div>
+			<ul class="link-list">
+				{links.map((l) => <li class="link-item">
+					<ListLink {...l.data} />
+				</li><br/>)}
+			</ul>
+			<!-- <h2>Projects</h2>
+			<p><em>Palimpsest</em> <sup>†</sup></p>
+			<p><em>To Pigeon-Fill the Sky</em> <sup>↗</sup></p>
+			<p><em>Lingermyth</em> <sup>↗</sup></p>
+			<p><em>On Yearning</em> <sup>∮</sup></p>
+			<br />
+			<h2>Socials</h2>
+			<p><em>Instagram</em> <sup>📷</sup></p>
+			<p><em>Bluesky</em> <sup>🦋</sup></p>
+			<p><em>Youtube</em> <sup>🚩</sup></p>
+			<p><em>Linkedin</em> <sup>📂</sup></p> -->
+		</main>
+	</body>
+</html>
+
+<style>
+	body {
+		margin: 0;
+		font-family: Junicode, "Times New Roman", serif;
+	}
+
+	main {
+		position: relative;
+		margin: 1rem;
+		font-size: 20px;
+		/* width: 100%; */
+		/* max-width: 45ch; */
+		width: min(50ch, 100%);
+
+	}
+
+	.link-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+	}
+
+	p:first-of-type {
+		text-indent: 2em;
+	}
+
+	p:first-of-type::before {
+		position: absolute;
+		/* content: "☛"; */
+		content: "→";
+		font-weight: bold;
+		left: -2em;
+	}
+
+	a {
+		/* color: unset; */
+		/* font-weight: bold; */
+		text-decoration: underline dotted;
+	}
+
+	a:hover {
+		text-decoration: underline;
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+	}
+</style>

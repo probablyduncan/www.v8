@@ -1,0 +1,225 @@
+---
+import "../fonts.css";
+
+const symbols = "ↀↁↂↇↈDↃ";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>Duncan Petrie</title>
+    </head>
+    <body>
+        <div data-flipbook></div>
+        <div data-flipname class="ligatures">ụncɑn Petrie</div>
+    </body>
+</html>
+<style>
+    body {
+        color-scheme: light dark;
+        background-color: light-dark(#fafaff, black);
+        color: light-dark(black, white);
+    }
+
+    [data-flipbook] {
+        animation: jitter 0.2s ease-in-out infinite;
+        font-size: 3rem;
+        text-shadow: 0 0 20px white;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100svw;
+        height: 50svh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: font-size 0.2s ease-in-out;
+    }
+
+    [data-flipbook]::after {
+        content: "";
+        animation: flipbook-grow 5s step-end forwards;
+    }
+
+    [data-flipname] {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100svw;
+        height: 50svh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
+        text-shadow: 0 0 20px white;
+    }
+
+    [data-flipname]::before {
+        content: "D";
+        animation:
+            flipbook-d 5s forwards step-end,
+            jitter 0.2s ease-in-out infinite;
+    }
+
+    @keyframes jitter {
+        0% {
+            font-variation-settings:
+                "wght" 400,
+                "wdth" 99.5,
+                "ENLA" 10;
+        }
+
+        25% {
+            font-variation-settings:
+                "wght" 500,
+                "wdth" 100,
+                "ENLA" 5;
+        }
+
+        50% {
+            font-variation-settings:
+                "wght" 400,
+                "wdth" 100.5,
+                "ENLA" 1;
+        }
+
+        75% {
+            font-variation-settings:
+                "wght" 300,
+                "wdth" 100,
+                "ENLA" 5;
+        }
+
+        100% {
+            font-variation-settings:
+                "wght" 400,
+                "wdth" 99.5,
+                "ENLA" 10;
+        }
+    }
+
+    @keyframes flipbook-erratic {
+        0% {
+            content: "ↈ";
+        }
+
+        20% {
+            content: "ↀ";
+        }
+
+        25% {
+            content: "ↂ";
+        }
+
+        45% {
+            content: "ↈ";
+        }
+
+        50% {
+            content: "ↀ";
+        }
+
+        70% {
+            content: "ↈ";
+        }
+
+        75% {
+            content: "ↂ";
+        }
+
+        95% {
+            content: "ↀ";
+        }
+
+        100% {
+            content: "ↈ";
+        }
+    }
+
+    @keyframes flipbook-d {
+        0% {
+            content: "Ⅾ";
+        }
+
+        48% {
+            content: "ↁ";
+        }
+
+        50% {
+            content: "Ⅾ";
+        }
+
+        51% {
+            content: "ↁ";
+        }
+
+        60% {
+            content: "ↇ";
+        }
+
+        61% {
+            content: "ↁ";
+        }
+
+        64% {
+            content: "ↇ";
+        }
+
+        65% {
+            content: "ↁ";
+        }
+
+        68% {
+            content: "ↇ";
+        }
+
+        100% {
+            content: "ↇ";
+        }
+    }
+
+    @keyframes flipbook-grow {
+        0% {
+            content: "ↀ";
+        }
+
+        48% {
+            content: "ↂ";
+        }
+
+        49% {
+            content: "ↀ";
+        }
+
+        50% {
+            content: "ↂ";
+        }
+
+        60% {
+            content: "ↈ";
+        }
+
+        61% {
+            content: "ↂ";
+        }
+
+        64% {
+            content: "ↈ";
+        }
+
+        65% {
+            content: "ↂ";
+        }
+
+        70% {
+            content: "ↈ";
+        }
+
+        100% {
+            content: "ↈ";
+        }
+    }
+</style>

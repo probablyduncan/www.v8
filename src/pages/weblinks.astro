@@ -1,0 +1,268 @@
+---
+import ListLink from "../components/list-link.astro";
+import "../fonts.css";
+import "../reset.css";
+import { getCollection } from "astro:content";
+
+const links = await getCollection("links");
+const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>Duncan Petrie</title>
+    </head>
+    <body>
+        <header>
+            <span data-flipbook></span>
+            <h1>
+                <strong>A few of the websites I have loved</strong>
+            </h1>
+            <p>Sometimes you’re surfing the web and you lose your balance.</p>
+            <p>
+                Your board shoots out from under you, and suddenly you’re
+                tumbling, flailing, breaking against the breaking waves. Water
+                shoots up your nose, and there’s nothing but froth and spray as
+                you are flung, enveloped, imbibed by the water and you are
+            </p>
+            <details>
+                <summary aria-hidden="true">[...]&nbsp;&nbsp;<i>expand</i></summary>
+                <p aria-hidden="true"><span class="invisible">[</span>...</p>
+                <p>
+                    and you are a hyper text transfer protozoa in the primordial
+                    soup of the world wide web, the ebb and the rush of the open
+                    ocean’s tide is turning you ‘round, float: left and luring,
+                    cradling, coaxing you down the water column-gap, whispering
+                    promises in a language of salt and semantics, pulling at
+                    your ankles and you
+                </p>
+                <p>
+                    you could be here forever—you could make a life here
+                    forever, cross-hatched and folded by the current, flex-boxed
+                    and text-wrapped, half-limp, finger-clicking link after link
+                    after link, as the internet archive fills your lungs and
+                    wikimedia’s weight drags you down, further and further, and
+                    you circle into webrings like whirlpools, down, down, to
+                    where there is no light, spinning ‘round, and ‘round, and
+                    ‘round, centrifugal twirl like tumble dry if you weren’t so
+                    soaked in aria mislabels and thirty-year-old footer gifs
+                    like billboards at the geo-city limits and pixel-perfect
+                    mockups best viewed at 800𐍇600 and crafted so lovingly in
+                    photoshop and frankensteined so carefully into schools of
+                    TR’s and TH’s and TD’s darting past in the whirling
+                    maelstrom and the frames of your vision and—
+                </p>
+                <p>
+                    and then you are flung out into the empty, the vastness, the
+                    sunless deep, and hyperlink blue fills your vision,
+                    hyperlink blue, the hyperlink blue of that entrancing,
+                    surging, living abyss, and there is nothing—no framework,
+                    no polyfill, no jquery.min.js or reset.css or
+                    favicon.ico—and you spin, slowly now, in open-eyed awe of
+                    all of the nothing around you, and you are small, and you
+                    are content,
+                </p>
+                <p aria-hidden="true"><span class="invisible">[</span>...</p>
+            </details>
+            <p>and you are glad you went surfing. Anyway,</p>
+        </header>
+        <main>
+            <nav>
+                {tags.map((t) => <button data-tag={t}>#{t}</button>)}
+            </nav>
+            <ul>
+                {
+                    links.map((l) => (
+                        <li>
+                            <ListLink {...l.data} />
+                        </li>
+                    ))
+                }
+            </ul>
+        </main>
+    </body>
+    <style>
+        :root {
+            font-size: 20px;
+        }
+
+        body {
+            padding: 1rem;
+            font-family: Junicode, "Times New Roman", serif;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .invisible {
+            opacity: 0;
+            user-select: none;
+        }
+
+        header,
+        main {
+            width: min(50ch, 100%);
+        }
+
+        h1 {
+            font-size: unset;
+            font-weight: unset;
+        }
+
+        strong {
+            font-variation-settings:
+                "wght" 600,
+                "wdth" 100,
+                "ENLA" 20;
+        }
+
+        details summary {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        details summary i {
+            font-variation-settings:
+                "wght" 400,
+                "wdth" 100,
+                "ENLA" 0;
+            transition: font-variation-settings 0.5s;
+        }
+
+        details summary:hover i {
+            font-variation-settings:
+                "wght" 500,
+                "wdth" 120,
+                "ENLA" 40;
+        }
+
+        details[open] summary {
+            display: none;
+        }
+
+        main {
+            margin-bottom: 50vh;
+        }
+
+        nav button {
+            background-color: unset;
+            border: 1px solid black;
+            border-radius: 4px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 1rem;
+        }
+
+        [data-flipbook] {
+            font-size: 1.5em;
+            animation: jitter 0.2s ease-in-out infinite;
+            text-shadow: 0 0 20px white;
+        }
+
+        [data-flipbook]::after {
+            content: "";
+            display: inline-block;
+            cursor: pointer;
+            animation: flipbook-grow 5s step-end forwards;
+            transition: transform 0.2s ease-out;
+            transform-origin: center 42%;
+        }
+
+        [data-flipbook]:hover::after {
+            transform: scale(1.1);
+        }
+
+        [data-flipbook]:active::after {
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        @keyframes jitter {
+            0% {
+                font-variation-settings:
+                    "wght" 400,
+                    "wdth" 99.5,
+                    "ENLA" 10;
+            }
+
+            25% {
+                font-variation-settings:
+                    "wght" 500,
+                    "wdth" 100,
+                    "ENLA" 5;
+            }
+
+            50% {
+                font-variation-settings:
+                    "wght" 400,
+                    "wdth" 100.5,
+                    "ENLA" 1;
+            }
+
+            75% {
+                font-variation-settings:
+                    "wght" 300,
+                    "wdth" 100,
+                    "ENLA" 5;
+            }
+
+            100% {
+                font-variation-settings:
+                    "wght" 400,
+                    "wdth" 99.5,
+                    "ENLA" 10;
+            }
+        }
+
+        @keyframes flipbook-grow {
+            0% {
+                content: "ↀ";
+            }
+
+            48% {
+                content: "ↂ";
+            }
+
+            49% {
+                content: "ↀ";
+            }
+
+            50% {
+                content: "ↂ";
+            }
+
+            60% {
+                content: "ↈ";
+            }
+
+            61% {
+                content: "ↂ";
+            }
+
+            64% {
+                content: "ↈ";
+            }
+
+            65% {
+                content: "ↂ";
+            }
+
+            70% {
+                content: "ↈ";
+            }
+
+            100% {
+                content: "ↈ";
+            }
+        }
+    </style>
+</html>

@@ -1,0 +1,16 @@
+body {
+    margin: unset;
+}
+
+button {
+    font-size: unset;
+    font-family: unset;
+    padding: unset;
+    border: unset;
+    background-color: unset;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
