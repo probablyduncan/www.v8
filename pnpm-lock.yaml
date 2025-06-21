@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@probablyduncan/common':
+        specifier: ^1.1.5
+        version: 1.1.5
       astro:
         specifier: ^5.4.3
         version: 5.4.3(rollup@4.35.0)(typescript@5.8.2)
@@ -311,6 +314,9 @@ packages:
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
+
+  '@probablyduncan/common@1.1.5':
+    resolution: {integrity: sha512-G4vyGQd2t01T6QFRRdH/afJlBSfSvoVx/+4S7ekWtQHimt9ewbZ4L8EyNG5c56XoXQ2s0ZAqX5zjr2iZBSULRg==}
 
   '@rollup/pluginutils@5.1.4':
     resolution: {integrity: sha512-USm05zrsFxYLPdWWq+K3STlWiT/3ELn3RcV5hJMghpeAIhxfsUIg6mt12CBJBInWMV4VneoV7SfGv8xIwo2qNQ==}
@@ -1573,6 +1579,8 @@ snapshots:
   '@jridgewell/sourcemap-codec@1.5.0': {}
 
   '@oslojs/encoding@1.1.0': {}
+
+  '@probablyduncan/common@1.1.5': {}
 
   '@rollup/pluginutils@5.1.4(rollup@4.35.0)':
     dependencies:

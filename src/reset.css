@@ -2,7 +2,7 @@ body {
     margin: unset;
 }
 
-button {
+input, button {
     font-size: unset;
     font-family: unset;
     padding: unset;

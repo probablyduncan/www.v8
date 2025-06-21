@@ -1,73 +1,108 @@
 ---
-import { getCollection } from "astro:content";
-import "../fonts.css";
-import ListLink from "../components/list-link.astro";
-
-const links = await getCollection("links");
-const linkTags = [...new Set(links.flatMap(l => l.data.tags))].sort();
+import Email from "../components/junicode-snippets/email.astro";
+import Ticker from "../components/ticker.astro";
+import JunicodeLoader from "../components/head/junicode-loader.astro";
+import BaseMetadata from "../components/head/base-metadata.astro";
+import PageMetadata from "../components/head/page-metadata.astro";
+import TryRadio from "../components/try-radio.astro";
+import SuperscriptHover from "../components/superscript-hover.astro";
+import BottomNav from "../components/bottom-nav.astro";
+import LinkCloud from "../components/link-cloud.astro";
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>Duncan Petrie</title>
+		<BaseMetadata />
+		<JunicodeLoader />
+		<PageMetadata
+			title="Duncan Petrie’s Website"
+			desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
+		/>
 	</head>
 	<body>
+		<Ticker />
 		<main>
-			<h1 class="ligatures">
-				Duncan Petrie<sup
-					style="cursor: default;"
-					title="This is my website!">*</sup
-				>
-			</h1>
-			<p>
-				(<abbr title="">that’s me</abbr>!) is a London-based
-				photographer and writer from Milwaukee, Wisconsin. I explore
-				nature in the human landscape, and what the world might look
-				like when we are gone.
-			</p>
-			<p data-hover-img="/fal.webp">
-				I graduated from <a href="https://falmouth.ac.uk"
-					>Falmouth University</a
-				> in 2022 with a degree in Marine and Natural History Photography.
-			</p>
-			<p>
-				See my <a href="/palimpsest">recent photography</a> or a <a
-					href="/wind">recent story</a
-				>.
-			</p>
-			<p>
-				<a href="mailto:duncanpetrie1@gmail.com">Email me</a> or find me
-				on
-				<a
-					href="https://instagram.com/probablyduncan"
-					target="_blank"
-					referrerpolicy="no-referrer">Instagram</a
-				>.
-			</p>
-			<br />
-			<h2>Weblinks</h2>
-			<div class="link-tags">{linkTags.map(t => <button>#{t}</button>)}</div>
-			<ul class="link-list">
-				{links.map((l) => <li class="link-item">
-					<ListLink {...l.data} />
-				</li><br/>)}
+			<header>
+				<h1>
+					<span class="ligatures">Duncan Petrie</span><sup
+						class="aalt">*</sup
+					>
+				</h1>
+				<p>
+					(<abbr
+						title="hey! put your grubby little cursor somewhere else"
+						>that’s me</abbr
+					>!) is a London-based photographer, writer, and web
+					developer from Milwaukee, Wisconsin.
+				</p>
+				<p>This is my website.</p>
+				<p>---</p>
+				<p>
+					New here? Take a look at my <a href="/palimpsest"
+						>photography</a
+					>
+					<br />or read a recent <a href="/wind">story.</a>
+				</p>
+				<p>
+					Or, if you're already sick of this place, you can find links
+					to some other websites <a href="/weblinks">right here</a>.
+				</p>
+				<p>
+					Email me at <a href="mailto:duncanpetrie1@gmail.com"
+						><Email at="@" /></a
+					>.
+				</p>
+				<p>---</p>
+			</header>
+			<TryRadio />
+			<ul>
+				<li>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Aut rerum enim natus in magnam minus delectus, ipsam
+						fugit et. Corporis doloribus ut quibusdam maiores
+						quaerat eos ea ipsa dolorem sequi!
+					</p>
+				</li>
+				<li>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Aut rerum enim natus in magnam minus delectus, ipsam
+						fugit et. Corporis doloribus ut quibusdam maiores
+						quaerat eos ea ipsa dolorem sequi!
+					</p>
+				</li>
+				<li>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Aut rerum enim natus in magnam minus delectus, ipsam
+						fugit et. Corporis doloribus ut quibusdam maiores
+						quaerat eos ea ipsa dolorem sequi!
+					</p>
+				</li>
+				<li>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Aut rerum enim natus in magnam minus delectus, ipsam
+						fugit et. Corporis doloribus ut quibusdam maiores
+						quaerat eos ea ipsa dolorem sequi!
+					</p>
+				</li>
+				<li>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Aut rerum enim natus in magnam minus delectus, ipsam
+						fugit et. Corporis doloribus ut quibusdam maiores
+						quaerat eos ea ipsa dolorem sequi!
+					</p>
+				</li>
 			</ul>
-			<!-- <h2>Projects</h2>
-			<p><em>Palimpsest</em> <sup>†</sup></p>
-			<p><em>To Pigeon-Fill the Sky</em> <sup>↗</sup></p>
-			<p><em>Lingermyth</em> <sup>↗</sup></p>
-			<p><em>On Yearning</em> <sup>∮</sup></p>
-			<br />
-			<h2>Socials</h2>
-			<p><em>Instagram</em> <sup>📷</sup></p>
-			<p><em>Bluesky</em> <sup>🦋</sup></p>
-			<p><em>Youtube</em> <sup>🚩</sup></p>
-			<p><em>Linkedin</em> <sup>📂</sup></p> -->
 		</main>
+		<aside>
+			<LinkCloud />
+		</aside>
+		<BottomNav />
 	</body>
 </html>
 
@@ -75,48 +110,48 @@ const linkTags = [...new Set(links.flatMap(l => l.data.tags))].sort();
 	body {
 		margin: 0;
 		font-family: Junicode, "Times New Roman", serif;
+		display: flex;
+		justify-content: center;
 	}
 
 	main {
 		position: relative;
-		margin: 1rem;
-		font-size: 20px;
-		/* width: 100%; */
-		/* max-width: 45ch; */
-		width: min(50ch, 100%);
-
+		margin: 2rem 0 2rem 2rem;
+		width: min(55ch, 100%);
+		z-index: 10;
+		margin-bottom: 50svh;
 	}
 
-	.link-tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.25rem;
-	}
-
-	p:first-of-type {
-		text-indent: 2em;
-	}
-
-	p:first-of-type::before {
-		position: absolute;
-		/* content: "☛"; */
-		content: "→";
-		font-weight: bold;
-		left: -2em;
-	}
-
-	a {
-		/* color: unset; */
-		/* font-weight: bold; */
-		text-decoration: underline dotted;
-	}
-
-	a:hover {
-		text-decoration: underline;
+	header {
+		width: min(40ch, 100%);
 	}
 
 	ul {
 		list-style: none;
 		padding: 0;
+	}
+
+	a {
+		text-decoration-style: dotted;
+		text-decoration-thickness: 0.0875em;
+		text-underline-offset: 0.125em;
+	}
+
+	a:hover {
+		text-decoration-style: solid;
+	}
+
+	aside {
+		flex: 1;
+		position: sticky;
+		top: 0;
+		height: 100svh;
+		width: 100%;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		background-color: white;
 	}
 </style>

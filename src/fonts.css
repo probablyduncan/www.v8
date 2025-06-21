@@ -18,8 +18,26 @@
     font-family: Junicode;
 }
 
+html {
+    font-size: 1rem;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 500;
+}
+
 .ligatures {
     font-variant-ligatures: discretionary-ligatures;
+}
+
+.frac {
+    font-variant-numeric: diagonal-fractions;
+}
+
+.aalt {
+    font-feature-settings: "aalt";
 }
 
 /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1240,20,1.25,5,0,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */

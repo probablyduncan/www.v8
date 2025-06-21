@@ -1,27 +1,51 @@
 ---
-import ListLink from "../components/list-link.astro";
-import "../fonts.css";
-import "../reset.css";
+import TryCheckbox from "../components/try-checkbox.astro";
+import { formatQuotes } from "@probablyduncan/common/quotes";
 import { getCollection } from "astro:content";
+import Ticker from "../components/ticker.astro";
+import BaseMetadata from "../components/head/base-metadata.astro";
+import JunicodeLoader from "../components/head/junicode-loader.astro";
+import PageMetadata from "../components/head/page-metadata.astro";
 
-const links = await getCollection("links");
+const links = (await getCollection("weblinks")).sort((a, b) =>
+    b.data.date.obj > a.data.date.obj
+        ? 1
+        : a.data.date.obj > b.data.date.obj
+          ? -1
+          : 0,
+);
 const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
+
+// create css for toggling items based on filters
+// need to hide elements whose tags are
+const css =
+    "form[name=filters]:has(input[type=checkbox]:checked) ~ ul .tagged { display: none; } " +
+    tags
+        .map(
+            (t) =>
+                `form[name=filters]:has(input[type=checkbox][name=${t}]:checked) ~ ul .tagged.tag-${t} { display: inherit; }`,
+        )
+        .join(" ");
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>Duncan Petrie</title>
+        <BaseMetadata />
+        <JunicodeLoader />
+        <PageMetadata
+            title="Duncan’s Weblinks"
+            desc="These are some websites that Duncan likes to visit. Personal sites, archives, hypertext poetry, dev tools, and more. Happy exploring."
+        />
+        <title>Duncan's Weblinks</title>
     </head>
     <body>
+        <Ticker />
         <header>
-            <span data-flipbook></span>
-            <h1>
-                <strong>A few of the websites I have loved</strong>
-            </h1>
+            <a href="/" title="back! to the home page"
+                ><span data-flipbook></span></a
+            >
+            <h1>A few of the websites I have loved</h1>
             <p>Sometimes you’re surfing the web and you lose your balance.</p>
             <p>
                 Your board shoots out from under you, and suddenly you’re
@@ -30,7 +54,9 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                 you are flung, enveloped, imbibed by the water and you are
             </p>
             <details>
-                <summary aria-hidden="true">[...]&nbsp;&nbsp;<i>expand</i></summary>
+                <summary aria-hidden="true"
+                    >[...]&nbsp;&nbsp;&nbsp;&nbsp;<i>expand</i></summary
+                >
                 <p aria-hidden="true"><span class="invisible">[</span>...</p>
                 <p>
                     and you are a hyper text transfer protozoa in the primordial
@@ -60,38 +86,54 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                     and then you are flung out into the empty, the vastness, the
                     sunless deep, and hyperlink blue fills your vision,
                     hyperlink blue, the hyperlink blue of that entrancing,
-                    surging, living abyss, and there is nothing—no framework,
-                    no polyfill, no jquery.min.js or reset.css or
-                    favicon.ico—and you spin, slowly now, in open-eyed awe of
-                    all of the nothing around you, and you are small, and you
-                    are content,
+                    surging, living abyss, and there is nothing—no framework, no
+                    polyfill, no jquery.min.js or reset.css or favicon.ico—and
+                    you spin, slowly now, in open-eyed awe of all of the nothing
+                    around you, and you are small, and you are content,
                 </p>
                 <p aria-hidden="true"><span class="invisible">[</span>...</p>
             </details>
             <p>and you are glad you went surfing. Anyway,</p>
         </header>
         <main>
-            <nav>
-                {tags.map((t) => <button data-tag={t}>#{t}</button>)}
-            </nav>
+            <TryCheckbox />
             <ul>
                 {
-                    links.map((l) => (
-                        <li>
-                            <ListLink {...l.data} />
-                        </li>
-                    ))
+                    links.map(({ data: l }) => {
+                        return (
+                            <li
+                                class:list={[
+                                    "tagged",
+                                    l.tags.map((t) => "tag-" + t),
+                                ]}
+                            >
+                                <div class="link-wrapper">
+                                    <div class="link-top">
+                                        <span class="link-date">
+                                            {l.date.text}
+                                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                                        </span>
+                                        <span class="link-tags">
+                                            {l.tags
+                                                .sort()
+                                                .map((tag) => "#" + tag)
+                                                .join(", ")}
+                                        </span>
+                                    </div>
+                                    <div class="link-bottom">
+                                        <span class="link-title">[{l.title}](<a class="link-link" title={`${l.title}: ${l.href}`} href={l.href} target="_blank">{l.href}</a>)</span><span class="link-desc"> <span class="desc-dash">&mdash;</span>&mdash; {formatQuotes(l.desc)}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        );
+                    })
                 }
             </ul>
         </main>
-    </body>
+    </body><style is:global set:html={css}></style>
     <style>
-        :root {
-            font-size: 20px;
-        }
-
         body {
-            padding: 1rem;
+            padding: 2rem;
             font-family: Junicode, "Times New Roman", serif;
             display: flex;
             flex-direction: column;
@@ -99,8 +141,11 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         }
 
         .invisible {
-            opacity: 0;
-            user-select: none;
+            visibility: hidden;
+        }
+
+        header {
+            text-align: justify;
         }
 
         header,
@@ -110,10 +155,6 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 
         h1 {
             font-size: unset;
-            font-weight: unset;
-        }
-
-        strong {
             font-variation-settings:
                 "wght" 600,
                 "wdth" 100,
@@ -148,22 +189,99 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             margin-bottom: 50vh;
         }
 
-        nav button {
-            background-color: unset;
-            border: 1px solid black;
-            border-radius: 4px;
-        }
+        /* WEBLINK ITEMS */
 
         ul {
             list-style: none;
             padding: 0;
+            margin-top: 40px;
         }
 
         li {
             margin-bottom: 1rem;
         }
 
+        .link-wrapper {
+            font-family: Junicode;
+        }
+
+        .link-top {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.125rem;
+        }
+
+        .link-date {
+            color: #222;
+            font-variant-numeric: lining-nums;
+            font-variation-settings:
+                "wght" 500,
+                "wdth" 80,
+                "ENLA" 0;
+            /* font-size: 1.125em; */
+            font-size: 0.8em;
+        }
+
+        .link-tags {
+            color: #444;
+            font-weight: 300;
+            /* font-size: 0.875em; */
+            font-size: 0.8em;
+        }
+
+        .link-bottom {
+            /* font-size: 1.25em; */
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        .link-title {
+            color: #222;
+            font-variation-settings:
+                "wght" 500,
+                "wdth" 80,
+                "ENLA" 20;
+        }
+
+        .link-link {
+            color: blue;
+            text-decoration: underline;
+            font-variation-settings:
+                "wght" 400,
+                "wdth" 87.5,
+                "ENLA" 20;
+            transition: font-variation-settings 0.5s;
+        }
+
+        .link-link:hover {
+            text-decoration-style: dotted;
+            font-variation-settings:
+                "wght" 400,
+                "wdth" 100,
+                "ENLA" 30;
+        }
+
+        .desc-dash {
+            display: none;
+            letter-spacing: -1px;
+        }
+
+        .link-desc {
+            color: #444;
+        }
+
+        /*  */
+
+        /*  */
+
+        /*  */
+
+        /*  */
+
+        /* FLIPBOOK STUFF */
+
         [data-flipbook] {
+            color: black;
             font-size: 1.5em;
             animation: jitter 0.2s ease-in-out infinite;
             text-shadow: 0 0 20px white;
@@ -173,7 +291,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             content: "";
             display: inline-block;
             cursor: pointer;
-            animation: flipbook-grow 5s step-end forwards;
+            animation: flipbook-grow 5s step-end both;
             transition: transform 0.2s ease-out;
             transform-origin: center 42%;
         }
@@ -182,9 +300,9 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             transform: scale(1.1);
         }
 
-        [data-flipbook]:active::after {
+        /* [data-flipbook]:active::after {
             transform: scale(1.1) rotate(180deg);
-        }
+        } */
 
         @keyframes jitter {
             0% {

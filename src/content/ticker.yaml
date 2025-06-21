@@ -1,0 +1,42 @@
+email:
+    text: email
+    href: mailto:duncanpetrie1@gmail.com
+sancho:
+    text: sancho sim
+    href: https://sancho.duncanpetrie.com
+wrapmap:
+    text: wrap map
+    href: https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA
+pizza:
+    text: pizza
+    href: https://youtu.be/-sBHX07eIMY/
+fluffy:
+    text: fluffy cloud
+    href: /fluffy-cloud/
+wiki:
+    text: a triumph
+    href: https://www.youtube.com/watch?v=JRXZAaDxGCQ/
+instagram:
+    text: instagram
+    href: https://instagram.com/probablyduncan
+youtube:
+    text: youtube
+    href: https://www.youtube.com/channel/UCdyoMZUOsWzPmZN-H916jxg
+linkedin:
+    text: linkedin
+    href: https://www.linkedin.com/in/probablyduncan/
+github:
+    text: github
+    href: https://github.com/probablyduncan
+mnhp:
+    text: mnhp
+    href: https://www.falmouth.ac.uk/study/undergraduate/marine-natural-history-photography
+source:
+    text: source
+    href: https://github.com/probablyduncan/duncanpetrie.astro.v3
+bsky:
+    text: bsky
+    href: https://bsky.app/profile/duncanpetrie.com
+weblinks:
+    text: weblinks
+    href: /weblinks

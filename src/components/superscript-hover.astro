@@ -1,0 +1,140 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"a"> {
+    icon: string;
+    supClass?: string;
+    bigSup?: boolean;
+}
+
+const { icon, supClass, bigSup = false, ...a } = Astro.props;
+---
+
+<a data-icon-float data-big-sup={bigSup} {...a}>
+    <slot /><span class:list={[supClass]}>{icon}</span>
+</a>
+<style>
+    a {
+        --underline-thickness: 1.5px;
+        --sup-size: 0.5em;
+
+        display: inline-block;
+        position: relative;
+        padding: 0 calc(var(--underline-thickness) * 3) 0 var(--sup-size);
+        color: unset;
+        text-decoration: none;
+
+        outline-offset: 0.125em;
+
+        font-variation-settings:
+            "wght" 500,
+            "wdth" 80,
+            "ENLA" 100;
+    }
+
+    a[data-big-sup=true] {
+        --sup-size: 1em;
+    }
+
+    a:hover {
+        text-decoration: var(--underline-thickness) underline dotted;
+        text-underline-offset: calc(var(--underline-thickness) * 2);
+    }
+
+    span {
+        display: inline-block;
+        pointer-events: none;
+        mix-blend-mode: difference;
+        color: white;
+        margin-left: 0.125em;
+
+        font-size: var(--sup-size);
+        vertical-align: top;
+    }
+</style>
+<script>
+    import { lerp } from "@probablyduncan/common/math";
+    import Vec2 from "@probablyduncan/common/vec2";
+
+    function initIconFloats() {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            return;
+        }
+
+        document.querySelectorAll("[data-icon-float]").forEach((_e) => {
+            const e = _e as HTMLElement;
+            const icon = e.querySelector("span") as HTMLElement;
+
+            const bigSup = e.dataset.bigSup === "true";
+
+            if (!icon) {
+                return;
+            }
+
+            type State = {
+                translate: Vec2;
+                scale: number;
+            };
+
+            let defaultState: State = {
+                translate: Vec2.Zero,
+                scale: 1,
+            };
+
+            let currentState: State = { ...defaultState };
+            let targetState: State = { ...defaultState };
+
+            e.style.cursor = "none";
+
+            e.addEventListener("mouseenter", () => {
+                targetState.scale = 4;
+                requestAnimationFrame(animate);
+            });
+
+            e.addEventListener("mouseleave", () => {
+                targetState = { ...defaultState };
+            });
+
+            e.addEventListener("mousemove", (e) => {
+                console.log(bigSup);
+                const tl = e.offsetX - icon.offsetLeft - icon.clientWidth / 2;
+                const tt = e.offsetY - icon.offsetTop - (bigSup ? 0 : icon.clientHeight / 2);
+
+                targetState.translate = Vec2.From(tl, tt);
+            });
+
+            function animate(delta: number) {
+                currentState.translate = Vec2.From(0.1).lerp(
+                    currentState.translate,
+                    targetState.translate,
+                );
+
+                currentState.scale = lerp(
+                    currentState.scale,
+                    targetState.scale,
+                    0.1,
+                );
+
+                icon.style.transform = `translate(${currentState.translate.x}px, ${currentState.translate.y}px) scale(${currentState.scale})`;
+
+                // prevent floating point shenanigans
+                const scaleDiff = Math.abs(
+                    currentState.scale - defaultState.scale,
+                );
+                const transDiff = currentState.translate
+                    .subtract(defaultState.translate)
+                    .abs();
+
+                // reset and stop animating
+                if (scaleDiff < 0.1 && transDiff.x < 0.1 && transDiff.y < 0.1) {
+                    currentState = { ...defaultState };
+                    return;
+                }
+
+                requestAnimationFrame(animate);
+            }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initIconFloats);
+</script>

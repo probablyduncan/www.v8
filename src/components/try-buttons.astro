@@ -1,0 +1,136 @@
+---
+import { getCollection } from "astro:content";
+
+const links = await getCollection("weblinks");
+const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
+---
+
+<ul>
+    <li>
+        <button data-clear-filters name="all">all</button>
+    </li>
+    {
+        tags.map((t) => (
+            <li>
+                <button data-filter name={t}>
+                    #{t}
+                </button>
+            </li>
+        ))
+    }
+</ul>
+<style>
+    ul {
+        list-style: none;
+        padding: unset;
+        display: flex;
+        flex-flow: row wrap;
+        gap: 0.25rem;
+    }
+
+    /* label styles when selected */
+    button[selected],
+    ul:not(:has(button[selected])) button[name="all"] {
+        color: white;
+        background-color: blue;
+    }
+
+    button {
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        padding: 4px 6px 0px 4px;
+        position: relative;
+        border: 1px solid black;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-variation-settings:
+            "wght" 500,
+            "wdth" 100,
+            "ENLA" 20;
+        transition:
+            color 0.1s,
+            background-color 0.1s,
+            /* border-radius 0.2s, */ font-variation-settings 0.5s;
+        font-style: italic;
+
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    button:hover,
+    button:focus:not([selected]) {
+        color: white;
+        background-color: black;
+    }
+
+    button:focus {
+        outline: 2px solid blue;
+    }
+
+    button[selected]:focus {
+        outline: 2px solid black;
+    }
+
+    button::before {
+        content: "#" attr(name);
+        font-variation-settings:
+            "wght" 500,
+            "wdth" 100,
+            "ENLA" 20;
+        height: 0;
+        visibility: hidden;
+        overflow: hidden;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    button::after {
+        content: "#" attr(name);
+        height: 0;
+        visibility: hidden;
+        overflow: hidden;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    button:hover,
+    button::after,
+    button:focus,
+    button[selected],
+    ul:not(:has(button[selected])) button[name="all"] {
+        font-variation-settings:
+            "wght" 400,
+            "wdth" 90,
+            "ENLA" 60;
+    }
+</style>
+<script>
+    function initFilterButtons() {
+        document.querySelectorAll("button[data-filter]").forEach((_e) => {
+            const button = _e as HTMLButtonElement;
+            button.addEventListener("click", () => {
+                const val = _e.getAttribute("selected");
+                if (val === null) {
+                    _e.setAttribute("selected", "true");
+                } else {
+                    _e.removeAttribute("selected");
+                }
+                button.blur();
+            });
+        });
+
+        document.querySelectorAll("button[data-clear-filters").forEach((_e) => {
+            const button = _e as HTMLButtonElement;
+            button.addEventListener("click", () => {
+                document.querySelectorAll("button[data-filter][selected]").forEach(_e => {
+                    _e.removeAttribute("selected");
+                })
+            });
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initFilterButtons);
+</script>

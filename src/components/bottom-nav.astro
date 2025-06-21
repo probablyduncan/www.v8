@@ -1,0 +1,25 @@
+---
+import SuperscriptHover from "./superscript-hover.astro";
+---
+
+<nav>
+    <SuperscriptHover icon="*" supClass="aalt" bigSup={true} href="/">INDEX</SuperscriptHover>
+    <SuperscriptHover icon="∆" href="/photography">GALLERY</SuperscriptHover>
+    <SuperscriptHover icon="" target="_blank" href="https://shop.duncanpetrie.com">GIFT SHOP</SuperscriptHover>
+    <SuperscriptHover icon="⸙" target="_blank" href="https://duncans.cafe">CAFE</SuperscriptHover>
+    <SuperscriptHover icon="" href="/guestbook">GUESTBOOK</SuperscriptHover>
+    <SuperscriptHover icon="Ϡ" target="_blank" href="https://duncans.world">WORLD</SuperscriptHover>
+    <SuperscriptHover icon="ↂ" href="/weblinks">WEBLINKS</SuperscriptHover>
+    <SuperscriptHover icon="†" target="_blank" href="https://instagram.com/probablyduncan">SOCIAL</SuperscriptHover>
+</nav>
+<style>
+    nav {
+        position: fixed;
+        z-index: 0;
+        bottom: 0;
+        background-color: white;
+        padding: 2rem 1rem 1rem;
+        display: flex;
+        gap: 1rem;
+    }
+</style>

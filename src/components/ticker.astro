@@ -1,0 +1,138 @@
+---
+import { shuffle, shuffleRef } from "@probablyduncan/common/shuffle";
+import { getCollection } from "astro:content";
+
+// const items = shuffle([
+//     "dissertation",
+//     "horses",
+//     "youtube",
+//     "email",
+//     "photography",
+//     "trans rights are human rights",
+//     "screenprinting",
+//     "fluffy cloud",
+//     "duncans.world",
+//     "cafe halcyon",
+//     "palimpsest",
+//     "grubby paws",
+//     "pizza, fast",
+//     "a triumph of the commons",
+//     "github",
+//     "bsky",
+//     "sancho sim",
+//     "rotating food",
+//     "wrap map",
+//     "instagram",
+//     "weblinks",
+// ]);
+
+const links = await getCollection("ticker");
+shuffleRef(links);
+
+const animateSeconds = links.length * 30;
+---
+
+<nav
+    style={`
+--animation-duration: ${animateSeconds}s;
+--animation-delay: -${animateSeconds / 2}s;`}
+>
+    {
+        Array.from({ length: 2 }).map(() => (
+            <span class="half">
+                {links.map(({ data: link }) => (
+                    <a
+                        tabindex="-1"
+                        href={link.href}
+                        class="item"
+                        style={`margin-right: ${Math.floor(Math.random() * 40 + 120)}px;`}
+                        data-content={link.text}
+                    >
+                        {link.text}
+                    </a>
+                ))}
+            </span>
+        ))
+    }
+</nav>
+<style>
+    .item {
+        display: inline-block;
+        font-size: 1rem;
+        font-style: italic;
+        cursor: pointer;
+        user-select: none;
+
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        text-decoration: unset;
+        color: unset;
+    }
+
+    .item, .item::before {
+        font-variation-settings:
+            "wght" 300,
+            "wdth" 100,
+            "ENLA" 0;
+    }
+
+    .item::before, .item::after {
+        content: attr(data-content);
+        height: 0;
+        visibility: hidden;
+        overflow: hidden;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .item:hover, .item::after {
+        font-variation-settings:
+            "wght" 300,
+            "wdth" 85,
+            "ENLA" 20;
+    }
+
+    .item:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    .half {
+        position: absolute;
+        left: 0;
+        top: 0;
+        animation: tick var(--animation-duration) linear infinite;
+    }
+
+    .half:last-of-type {
+        animation-delay: var(--animation-delay);
+    }
+
+    nav:has(.item:hover) .half {
+        animation-play-state: paused;
+    }
+
+    nav {
+        z-index: 100;
+        position: fixed;
+        display: inline;
+        white-space: nowrap;
+        top: -30px;
+        left: 0px;
+        transform: rotate(2deg);
+        transform-origin: 0 0;
+    }
+
+    @keyframes tick {
+        from {
+            transform: translateX(-100%);
+        }
+
+        to {
+            transform: translateX(100%);
+        }
+    }
+</style>

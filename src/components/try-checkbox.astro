@@ -1,0 +1,142 @@
+---
+import { getCollection } from "astro:content";
+
+const links = await getCollection("weblinks");
+const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
+---
+
+<form name="filters">
+    <ul>
+        <li>
+            <label data-all>
+                all
+                <input type="reset" name="all" />
+            </label>
+        </li>
+        {
+            tags.map((t) => (
+                <li>
+                    <label>
+                        #{t}
+                        <input type="checkbox" name={t} />
+                    </label>
+                </li>
+            ))
+        }
+    </ul>
+</form>
+<style>
+    ul {
+        list-style: none;
+        padding: unset;
+        display: flex;
+        flex-flow: row wrap;
+        gap: 0.25rem;
+    }
+
+    input[type="checkbox"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: unset;
+        margin: 0;
+    }
+
+    input[type="reset"] {
+        height: 0;
+        overflow: hidden;
+    }
+
+    /* label styles when selected */
+    label:has(input:checked),
+    form:not(:has(input:checked)) label[data-all] {
+        color: white;
+        background-color: blue;
+    }
+
+    input, label {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    label {
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        padding: 4px 6px 0px 4px;
+        position: relative;
+        border: 1px solid black;
+        border-radius: 4px;
+        font-size: 0.9em;
+        transition:
+            color 0.1s,
+            background-color 0.1s,
+            font-variation-settings 0.5s;
+        font-style: italic;
+    }
+
+    label, input::before {
+        font-variation-settings:
+            "wght" 500,
+            "wdth" 100,
+            "ENLA" 20;
+    }
+
+    /* focus/hover colors */
+    label:hover {
+        color: white;
+        background-color: black;
+    }
+
+    /* unset default focus style */
+    input:focus {
+        outline: unset;
+    }
+
+    label:focus-within {
+        outline: 2px solid blue;
+    }
+
+    label:focus-within:has(input:checked),
+    form:not(:has(input:checked)) label[data-all]:focus-within {
+        outline: 2px solid black;
+    }
+
+    input::before, input::after {
+        content: "#" attr(name);
+        height: 0;
+        visibility: hidden;
+        overflow: hidden;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    /* when hovering or selected, font should be  */
+    label:hover,
+    input::after,
+    label:has(input:checked),
+    form:not(:has(input:checked)) label[data-all] {
+        font-variation-settings:
+            "wght" 400,
+            "wdth" 90,
+            "ENLA" 60;
+    }
+</style>
+<script>
+    function initCheckboxFilters() {
+
+        document
+            .querySelectorAll("form[name=filters] label")
+            .forEach((_e) => {
+                const label = _e as HTMLLabelElement;
+                label.addEventListener("click", (e) => {
+                    if ((e as PointerEvent)["pointerType"]) {
+                        label.querySelector("input")?.blur();
+                    }
+                });
+            });
+    }
+
+    document.addEventListener("DOMContentLoaded", initCheckboxFilters);
+</script>
