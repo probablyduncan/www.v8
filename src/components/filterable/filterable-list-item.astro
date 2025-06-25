@@ -1,0 +1,12 @@
+---
+import { getFilterableTagClass } from '../../lib/filterableHelper';
+
+interface Props {
+    listName: string;
+    tags: string[];
+}
+
+const { listName, tags } = Astro.props;
+---
+
+<li class:list={[getFilterableTagClass(listName), tags.map((t) => getFilterableTagClass(listName, t))]}><slot /></li>

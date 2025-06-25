@@ -6,6 +6,10 @@ import Ticker from "../components/ticker.astro";
 import BaseMetadata from "../components/head/base-metadata.astro";
 import JunicodeLoader from "../components/head/junicode-loader.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
+import TryRadio from "../components/try-radio.astro";
+import RadioFilters from "../components/filterable/radio-filters.astro";
+import FilterableListItem from "../components/filterable/filterable-list-item.astro";
+import CheckboxFilters from "../components/filterable/checkbox-filters.astro";
 
 const links = (await getCollection("weblinks")).sort((a, b) =>
     b.data.date.obj > a.data.date.obj
@@ -15,17 +19,6 @@ const links = (await getCollection("weblinks")).sort((a, b) =>
           : 0,
 );
 const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
-
-// create css for toggling items based on filters
-// need to hide elements whose tags are
-const css =
-    "form[name=filters]:has(input[type=checkbox]:checked) ~ ul .tagged { display: none; } " +
-    tags
-        .map(
-            (t) =>
-                `form[name=filters]:has(input[type=checkbox][name=${t}]:checked) ~ ul .tagged.tag-${t} { display: inherit; }`,
-        )
-        .join(" ");
 ---
 
 <!doctype html>
@@ -96,17 +89,12 @@ const css =
             <p>and you are glad you went surfing. Anyway,</p>
         </header>
         <main>
-            <TryCheckbox />
+            <RadioFilters tags={tags} listName="weblinks" showAll="first" />
             <ul>
                 {
                     links.map(({ data: l }) => {
                         return (
-                            <li
-                                class:list={[
-                                    "tagged",
-                                    l.tags.map((t) => "tag-" + t),
-                                ]}
-                            >
+                            <FilterableListItem listName="weblinks" tags={l.tags}>
                                 <div class="link-wrapper">
                                     <div class="link-top">
                                         <span class="link-date">
@@ -124,13 +112,13 @@ const css =
                                         <span class="link-title">[{l.title}](<a class="link-link" title={`${l.title}: ${l.href}`} href={l.href} target="_blank">{l.href}</a>)</span><span class="link-desc"> <span class="desc-dash">&mdash;</span>&mdash; {formatQuotes(l.desc)}</span>
                                     </div>
                                 </div>
-                            </li>
+                            </FilterableListItem>
                         );
                     })
                 }
             </ul>
         </main>
-    </body><style is:global set:html={css}></style>
+    </body>
     <style>
         body {
             padding: 2rem;
@@ -150,7 +138,7 @@ const css =
 
         header,
         main {
-            width: min(50ch, 100%);
+            width: min(55ch, 100%);
         }
 
         h1 {
@@ -193,16 +181,14 @@ const css =
 
         ul {
             list-style: none;
-            padding: 0;
-            margin-top: 40px;
-        }
-
-        li {
-            margin-bottom: 1rem;
+            padding: 1em 1em 0 0;
+            margin: 2em 0 0;
+            border-top: 2px solid #0001;
         }
 
         .link-wrapper {
             font-family: Junicode;
+            margin-bottom: 1em;
         }
 
         .link-top {

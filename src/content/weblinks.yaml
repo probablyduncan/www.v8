@@ -54,7 +54,7 @@ sfpc:
     sortDate: 2024/09/01
     tags:
         - poetic-web
-        - events
+        - irl
         - art
 oldbookillustrations:
     title: Old Book Illustrations
@@ -94,7 +94,7 @@ minimalgallery:
     desc: Curated collection of web design inspiration.
     date: Maybe 2023?
     tags:
-        - archive
+        - archives
         - design
 com:
     title: Chronically Online Magazine
@@ -110,5 +110,5 @@ uniformfreak:
     desc: Incredibly thorough archive of historical flight attendant uniforms. Still being updated!
     date: 2025/06/19
     tags:
-        - archive
+        - archives
         - personal-web

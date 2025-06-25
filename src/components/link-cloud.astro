@@ -5,17 +5,17 @@ import SuperscriptHover from "./superscript-hover.astro";
 ---
 <nav>
     <SuperscriptHover icon="*" supClass="aalt" bigSup={true} href="/">INDEX</SuperscriptHover>
-    <!-- <SuperscriptHover icon="∆" href="/photography">GALLERY</SuperscriptHover> -->
-    <!-- <SuperscriptHover icon="" target="_blank" href="https://shop.duncanpetrie.com">GIFT SHOP</SuperscriptHover> -->
-    <SuperscriptHover icon="⸙" target="_blank" href="https://duncans.cafe">CAFE</SuperscriptHover>
-    <!-- <SuperscriptHover icon="" href="/guestbook">GUESTBOOK</SuperscriptHover> -->
+    <SuperscriptHover icon="⸙" target="_blank" href="https://duncans.cafe">INTERNET CAFE</SuperscriptHover>
+    <SuperscriptHover icon="∆" href="/photography">GALLERY</SuperscriptHover>
+    <SuperscriptHover icon="" target="_blank" href="https://shop.duncanpetrie.com">GIFT SHOP</SuperscriptHover>
+    <SuperscriptHover icon="" href="/guestbook">GUESTBOOK</SuperscriptHover>
     <SuperscriptHover icon="Ϡ" target="_blank" href="https://duncans.world">WORLD</SuperscriptHover>
     <SuperscriptHover icon="ↂ" href="/weblinks">WEBLINKS</SuperscriptHover>
     <SuperscriptHover icon="†" target="_blank" href="https://instagram.com/probablyduncan">SOCIAL</SuperscriptHover>
 </nav>
 <style>
     nav {
-        container: link-cloud / size;
+        container: link-cloud / inline-size;
         width: 100%;
         height: 100%;
         display: flex;
@@ -25,7 +25,7 @@ import SuperscriptHover from "./superscript-hover.astro";
 
     @container link-cloud (max-width: 800px) {
         nav {
-            font-size: 0.5em;
+            background-color: green;
         }
     }
 </style>

@@ -8,6 +8,8 @@ import TryRadio from "../components/try-radio.astro";
 import SuperscriptHover from "../components/superscript-hover.astro";
 import BottomNav from "../components/bottom-nav.astro";
 import LinkCloud from "../components/link-cloud.astro";
+import RadioFilters from "../components/filterable/radio-filters.astro";
+import FilterableListItem from "../components/filterable/filterable-list-item.astro";
 ---
 
 <!doctype html>
@@ -42,7 +44,7 @@ import LinkCloud from "../components/link-cloud.astro";
 					New here? Take a look at my <a href="/palimpsest"
 						>photography</a
 					>
-					<br />or read a recent <a href="/wind">story.</a>
+					<br />or read a recent <a href="/wind">story</a>.
 				</p>
 				<p>
 					Or, if you're already sick of this place, you can find links
@@ -55,14 +57,56 @@ import LinkCloud from "../components/link-cloud.astro";
 				</p>
 				<p>---</p>
 			</header>
-			<TryRadio />
+			<RadioFilters tags={["best", "photobooks", "stories", "pictures", "thoughts"]} listName="work" />
+			<ul>
+				<FilterableListItem tags={["best", "photobooks"]} listName="work">
+					<p>I made a photobook.</p>
+				</FilterableListItem>
+				<FilterableListItem tags={["best", "stories"]} listName="work">
+					<p>And I wrote a story.</p>
+				</FilterableListItem>
+			</ul>
 			<ul>
 				<li>
 					<p>
 						Lorem ipsum dolor sit amet consectetur adipisicing elit.
 						Aut rerum enim natus in magnam minus delectus, ipsam
 						fugit et. Corporis doloribus ut quibusdam maiores
+						quaerat eos ea ipsa dolorem sequi! Aut rerum enim natus
+						in magnam minus delectus, ipsam fugit et.
+					</p>
+				</li>
+				<li>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+					</p>
+				</li>
+				<li>
+					<p>
+						Aut rerum enim natus in magnam minus delectus, ipsam
+						fugit et. Lorem ipsum dolor sit amet consectetur
+						adipisicing elit. Aut rerum enim natus in magnam minus
+						delectus, ipsam fugit et. Corporis doloribus ut
+						quibusdam maiores quaerat eos ea ipsa dolorem sequi!
+					</p>
+				</li>
+				<li>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Aut rerum enim natus in magnam minus delectus, ipsam
+						fugit et. Corporis doloribus ut quibusdam maiores
 						quaerat eos ea ipsa dolorem sequi!
+					</p>
+				</li>
+				<li>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+					</p>
+				</li>
+				<li>
+					<p>
+						Aut rerum enim natus in magnam minus delectus, ipsam
+						fugit et.
 					</p>
 				</li>
 				<li>
@@ -84,17 +128,6 @@ import LinkCloud from "../components/link-cloud.astro";
 				<li>
 					<p>
 						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Aut rerum enim natus in magnam minus delectus, ipsam
-						fugit et. Corporis doloribus ut quibusdam maiores
-						quaerat eos ea ipsa dolorem sequi!
-					</p>
-				</li>
-				<li>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Aut rerum enim natus in magnam minus delectus, ipsam
-						fugit et. Corporis doloribus ut quibusdam maiores
-						quaerat eos ea ipsa dolorem sequi!
 					</p>
 				</li>
 			</ul>
@@ -102,7 +135,7 @@ import LinkCloud from "../components/link-cloud.astro";
 		<aside>
 			<LinkCloud />
 		</aside>
-		<BottomNav />
+		<!-- <BottomNav /> -->
 	</body>
 </html>
 

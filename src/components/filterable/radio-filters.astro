@@ -1,36 +1,77 @@
 ---
-import { getCollection } from "astro:content";
+import {
+    getFilterableTagClass,
+    type FilterButtonProps,
+} from "../../lib/filterableHelper";
 
-const links = await getCollection("weblinks");
-const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
+interface Props extends FilterButtonProps {}
+const { listName, tags, showAll = "off" } = Astro.props;
+
+let css = [];
+if (showAll === "off") {
+    css.push(
+        `form.filters[name=${listName}] ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+    );
+} else {
+    css.push(
+        `form.filters[name=${listName}]:has(input[type=radio]:not([value=all]):checked) ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+    );
+}
+
+tags.forEach((t) =>
+    css.push(
+        `form.filters[name=${listName}]:has(input[type=radio][value=${t}]:checked) ~ * .${getFilterableTagClass(listName, t)} { display: inherit; }`,
+    ),
+);
 ---
 
-<form name="filters">
+<form name={listName} class="filters">
     <ul>
-        <li>
-            <label title="the cream of the crop!">
-                best
-                <input type="radio" name="filter" value="best" checked />
-            </label>
-        </li>
+        {
+            showAll === "first" && (
+                <li>
+                    <label title="open the floodgates!">
+                        all
+                        <input
+                            type="radio"
+                            name={listName + "-filter"}
+                            value="all"
+                        />
+                    </label>
+                </li>
+            )
+        }
         {
             tags.map((t) => (
                 <li>
                     <label title={t + " only!"}>
                         #{t}
-                        <input type="radio" name="filter" value={t} />
+                        <input
+                            type="radio"
+                            name={listName + "-filter"}
+                            value={t}
+                        />
                     </label>
                 </li>
             ))
         }
-        <li>
-            <label title="open the floodgates!">
-                all
-                <input type="radio" name="filter" value="all" />
-            </label>
-        </li>
+        {
+            showAll === "last" && (
+                <li>
+                    <label title="open the floodgates!">
+                        all
+                        <input
+                            type="radio"
+                            name={listName + "-filter"}
+                            value="all"
+                        />
+                    </label>
+                </li>
+            )
+        }
     </ul>
 </form>
+<style set:html={css.join(" ")}></style>
 <style>
     ul {
         list-style: none;
@@ -74,6 +115,8 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             background-color 0.1s,
             font-variation-settings 0.5s;
         font-style: italic;
+
+        box-sizing: border-box;
     }
 
     label,
@@ -91,15 +134,12 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
     }
 
     /* unset default focus style */
-    input:focus {
+    input:focus,
+    label:focus-within {
         outline: unset;
     }
 
     label:focus-within {
-        outline: 2px solid blue;
-    }
-
-    label:focus-within:has(input:checked) {
         outline: 2px solid black;
     }
 
@@ -125,7 +165,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 </style>
 <script>
     function initCheckboxFilters() {
-        document.querySelectorAll("form[name=filters] label").forEach((_e) => {
+        document.querySelectorAll("form.filters label").forEach((_e) => {
             const label = _e as HTMLLabelElement;
             label.addEventListener("click", (e) => {
                 if ((e as PointerEvent)["pointerType"]) {

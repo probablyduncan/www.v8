@@ -1,18 +1,42 @@
 ---
-import { getCollection } from "astro:content";
+import {
+    getFilterableTagClass,
+    type FilterButtonProps,
+} from "../../lib/filterableHelper";
 
-const links = await getCollection("weblinks");
-const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
+interface Props extends FilterButtonProps {}
+const { listName, tags, showAll = "off" } = Astro.props;
+
+let css = [];
+if (showAll === "off") {
+    css.push(
+        `form.filters[name=${listName}] ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+    );
+} else {
+    css.push(
+        `form.filters[name=${listName}]:has(input[type=checkbox]:checked) ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+    );
+}
+
+tags.forEach((t) =>
+    css.push(
+        `form.filters[name=${listName}]:has(input[type=checkbox][name=${t}]:checked) ~ * .${getFilterableTagClass(listName, t)} { display: inherit; }`,
+    ),
+);
 ---
 
-<form name="filters">
+<form name={listName} class="filters">
     <ul>
-        <li>
-            <label data-all>
-                all
-                <input type="reset" name="all" />
-            </label>
-        </li>
+        {
+            showAll === "first" && (
+                <li>
+                    <label data-all>
+                        all
+                        <input type="reset" name="all" />
+                    </label>
+                </li>
+            )
+        }
         {
             tags.map((t) => (
                 <li>
@@ -23,8 +47,19 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                 </li>
             ))
         }
+        {
+            showAll === "last" && (
+                <li>
+                    <label data-all>
+                        all
+                        <input type="reset" name="all" />
+                    </label>
+                </li>
+            )
+        }
     </ul>
 </form>
+<style set:html={css.join(" ")}></style>
 <style>
     ul {
         list-style: none;
@@ -53,7 +88,8 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         background-color: blue;
     }
 
-    input, label {
+    input,
+    label {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
@@ -76,7 +112,8 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         font-style: italic;
     }
 
-    label, input::before {
+    label,
+    input::before {
         font-variation-settings:
             "wght" 500,
             "wdth" 100,
@@ -103,7 +140,8 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         outline: 2px solid black;
     }
 
-    input::before, input::after {
+    input::before,
+    input::after {
         content: "#" attr(name);
         height: 0;
         visibility: hidden;
@@ -125,17 +163,14 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 </style>
 <script>
     function initCheckboxFilters() {
-
-        document
-            .querySelectorAll("form[name=filters] label")
-            .forEach((_e) => {
-                const label = _e as HTMLLabelElement;
-                label.addEventListener("click", (e) => {
-                    if ((e as PointerEvent)["pointerType"]) {
-                        label.querySelector("input")?.blur();
-                    }
-                });
+        document.querySelectorAll("form.filters label").forEach((_e) => {
+            const label = _e as HTMLLabelElement;
+            label.addEventListener("click", (e) => {
+                if ((e as PointerEvent)["pointerType"]) {
+                    label.querySelector("input")?.blur();
+                }
             });
+        });
     }
 
     document.addEventListener("DOMContentLoaded", initCheckboxFilters);
