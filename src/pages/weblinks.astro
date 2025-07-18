@@ -1,15 +1,12 @@
 ---
-import TryCheckbox from "../components/try-checkbox.astro";
 import { formatQuotes } from "@probablyduncan/common/quotes";
 import { getCollection } from "astro:content";
 import Ticker from "../components/ticker.astro";
 import BaseMetadata from "../components/head/base-metadata.astro";
 import JunicodeLoader from "../components/head/junicode-loader.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
-import TryRadio from "../components/try-radio.astro";
 import RadioFilters from "../components/filterable/radio-filters.astro";
 import FilterableListItem from "../components/filterable/filterable-list-item.astro";
-import CheckboxFilters from "../components/filterable/checkbox-filters.astro";
 
 const links = (await getCollection("weblinks")).sort((a, b) =>
     b.data.date.obj > a.data.date.obj
@@ -35,9 +32,6 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
     <body>
         <Ticker />
         <header>
-            <a href="/" title="back! to the home page"
-                ><span data-flipbook></span></a
-            >
             <h1>A few of the websites I have loved</h1>
             <p>Sometimes you’re surfing the web and you lose your balance.</p>
             <p>
@@ -118,6 +112,11 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                 }
             </ul>
         </main>
+        <aside>
+            <a href="/" title="back! to the home page">
+                <span data-flipbook />
+            </a>
+        </aside>
     </body>
     <style>
         body {
@@ -266,6 +265,12 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 
         /* FLIPBOOK STUFF */
 
+        aside {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 2rem;
+        }
+
         [data-flipbook] {
             color: black;
             font-size: 1.5em;
@@ -276,19 +281,14 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         [data-flipbook]::after {
             content: "";
             display: inline-block;
-            cursor: pointer;
             animation: flipbook-grow 5s step-end both;
             transition: transform 0.2s ease-out;
             transform-origin: center 42%;
         }
 
-        [data-flipbook]:hover::after {
-            transform: scale(1.1);
-        }
-
-        /* [data-flipbook]:active::after {
+        a:hover [data-flipbook]::after {
             transform: scale(1.1) rotate(180deg);
-        } */
+        }
 
         @keyframes jitter {
             0% {

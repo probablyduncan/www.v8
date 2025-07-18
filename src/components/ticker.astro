@@ -2,30 +2,6 @@
 import { shuffleRef } from "@probablyduncan/common/shuffle";
 import { getCollection } from "astro:content";
 
-// const items = shuffle([
-//     "dissertation",
-//     "horses",
-//     "youtube",
-//     "email",
-//     "photography",
-//     "trans rights are human rights",
-//     "screenprinting",
-//     "fluffy cloud",
-//     "duncans.world",
-//     "cafe halcyon",
-//     "palimpsest",
-//     "grubby paws",
-//     "pizza, fast",
-//     "a triumph of the commons",
-//     "github",
-//     "bsky",
-//     "sancho sim",
-//     "rotating food",
-//     "wrap map",
-//     "instagram",
-//     "weblinks",
-// ]);
-
 const links = await getCollection("ticker");
 shuffleRef(links);
 
