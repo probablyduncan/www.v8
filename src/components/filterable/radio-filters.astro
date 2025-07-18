@@ -5,7 +5,7 @@ import {
 } from "../../lib/filterableHelper";
 
 interface Props extends FilterButtonProps {}
-const { listName, tags, showAll = "off" } = Astro.props;
+const { listName, tags, showAll = "off", defaultTag } = Astro.props;
 
 let css = [];
 if (showAll === "off") {
@@ -36,13 +36,14 @@ tags.forEach((t) =>
                             type="radio"
                             name={listName + "-filter"}
                             value="all"
+                            checked={defaultTag === undefined}
                         />
                     </label>
                 </li>
             )
         }
         {
-            tags.map((t) => (
+            tags.map((t, i) => (
                 <li>
                     <label title={t + " only!"}>
                         #{t}
@@ -50,6 +51,12 @@ tags.forEach((t) =>
                             type="radio"
                             name={listName + "-filter"}
                             value={t}
+                            checked={
+                                defaultTag === t ||
+                                (defaultTag === undefined &&
+                                    showAll !== "first" &&
+                                    i === 0)
+                            }
                         />
                     </label>
                 </li>

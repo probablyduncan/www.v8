@@ -4,9 +4,6 @@ import Ticker from "../components/ticker.astro";
 import JunicodeLoader from "../components/head/junicode-loader.astro";
 import BaseMetadata from "../components/head/base-metadata.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
-import TryRadio from "../components/try-radio.astro";
-import SuperscriptHover from "../components/superscript-hover.astro";
-import BottomNav from "../components/bottom-nav.astro";
 import LinkCloud from "../components/link-cloud.astro";
 import RadioFilters from "../components/filterable/radio-filters.astro";
 import FilterableListItem from "../components/filterable/filterable-list-item.astro";
@@ -47,6 +44,14 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 					<br />or read a recent <a href="/wind">story</a>.
 				</p>
 				<p>
+					You can sign my <a href="https://guestbook.duncanpetrie.com"
+						>guestbook</a
+					>, explore my <a href="https://duncans.world">world</a>, or
+					have a cheese sandwich in my <a href="https://duncans.cafe"
+						>cafe</a
+					>.
+				</p>
+				<p>
 					Or, if you're already sick of this place, you can find links
 					to some other websites <a href="/weblinks">right here</a>.
 				</p>
@@ -57,7 +62,19 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 				</p>
 				<p>---</p>
 			</header>
-			<RadioFilters tags={["best", "photobooks", "stories", "pictures", "thoughts"]} listName="work" />
+			<RadioFilters
+				tags={[
+					"best",
+					"photobooks",
+					"stories",
+					"photography",
+					"thoughts",
+					"lyric-and-verse",
+				]}
+				listName="work"
+				showAll="first"
+				defaultTag="best"
+			/>
 			<ul>
 				<FilterableListItem tags={["best", "photobooks"]} listName="work">
 					<p>I made a photobook.</p>
