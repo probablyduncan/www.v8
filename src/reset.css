@@ -1,3 +1,7 @@
+:root {
+    overscroll-behavior: none;
+}
+
 body {
     margin: unset;
 }
