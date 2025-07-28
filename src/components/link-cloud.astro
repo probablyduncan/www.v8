@@ -1,31 +1,126 @@
 ---
 import SuperscriptHover from "./superscript-hover.astro";
 
-
+const links: {
+    icon: string;
+    href: string;
+    text: string;
+    pos: [number, number];
+    supClass?: string;
+    bigSup?: boolean;
+}[] = [
+    {
+        text: "index",
+        href: "/",
+        icon: "*",
+        supClass: "aalt",
+        bigSup: true,
+        pos: [5, 0],
+    },
+    {
+        text: "internet cafe",
+        href: "https://duncans.cafe",
+        icon: "⸙",
+        pos: [70, 10],
+    },
+    {
+        text: "gallery",
+        href: "/photography",
+        icon: "∆",
+        pos: [0, 20],
+    },
+    {
+        text: "gift shop",
+        href: "https://shop.duncanpetrie.com",
+        icon: "",
+        pos: [2.2, 30],
+    },
+    {
+        href: "https://guestbook.duncanpetrie.com",
+        text: "guestbook",
+        icon: "",
+        pos: [7, 38],
+    },
+    {
+        href: "https://duncans.world",
+        text: "world",
+        icon: "Ϡ",
+        pos: [96, 100],
+    },
+    {
+        href: "/weblinks",
+        text: "weblinks",
+        icon: "ↂ",
+        pos: [92, 91],
+    },
+    {
+        href: "https://instagram.com/probablyduncan",
+        text: "social",
+        icon: "†",
+        pos: [100, 76],
+    },
+];
 ---
+
 <nav>
-    <SuperscriptHover icon="*" supClass="aalt" bigSup={true} href="/">INDEX</SuperscriptHover>
-    <SuperscriptHover icon="⸙" target="_blank" href="https://duncans.cafe">INTERNET CAFE</SuperscriptHover>
-    <SuperscriptHover icon="∆" href="/photography">GALLERY</SuperscriptHover>
-    <SuperscriptHover icon="" target="_blank" href="https://shop.duncanpetrie.com">GIFT SHOP</SuperscriptHover>
-    <SuperscriptHover icon="" href="/guestbook">GUESTBOOK</SuperscriptHover>
-    <SuperscriptHover icon="Ϡ" target="_blank" href="https://duncans.world">WORLD</SuperscriptHover>
-    <SuperscriptHover icon="ↂ" href="/weblinks">WEBLINKS</SuperscriptHover>
-    <SuperscriptHover icon="†" target="_blank" href="https://instagram.com/probablyduncan">SOCIAL</SuperscriptHover>
+    {
+        links.map((l) => {
+
+            let style = "";
+            style += l.pos[0] > 50 ? `right: ${100 - l.pos[0]}%;` : `left: ${l.pos[0]}%;`;
+            style += l.pos[1] > 50 ? `bottom: ${100 - l.pos[1]}%;` : `top: ${l.pos[1]}%;`;
+
+            return (
+                <div class="link-container" style={style}>
+                    <SuperscriptHover
+                        {...l}
+                        target={l.href.startsWith("http") ? "_blank" : null}]
+                    >
+                        {l.text.toUpperCase()}
+                    </SuperscriptHover>
+                </div>
+            );
+        })
+    }
 </nav>
+<div class="content">
+    <slot />
+</div>
 <style>
     nav {
+        position: relative;
         container: link-cloud / inline-size;
+
+        display: grid;
+        width: min(800px, 100%);
+        aspect-ratio: 3 / 2;
+        grid-template-columns: 24;
+        grid-template-rows: 24;
+    }
+
+    .link-container {
+        position: absolute;
+        text-align: center;
+    }
+
+    .content {
+        position: absolute;
         width: 100%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        pointer-events: none;
+        user-select: none;
+
+        & > * {
+            cursor: none;
+        }
     }
 
-    @container link-cloud (max-width: 800px) {
+    /* @container link-cloud (max-width: 800px) {
         nav {
             background-color: green;
         }
-    }
+    } */
 </style>

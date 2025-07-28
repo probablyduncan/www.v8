@@ -21,6 +21,19 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 	</head>
 	<body>
 		<Ticker />
+		<aside>
+			<LinkCloud>
+				<!-- 90aacc47 -->
+				<!-- e2e8f0 -->
+				<!-- e5ebf2cc -->
+				<div
+					data-hover-container="cover"
+					style={`width: 65%; border: 4px solid #e5ebf2cc;`}
+				>
+					<img src="/cover.webp" />
+				</div>
+			</LinkCloud>
+		</aside>
 		<main>
 			<header>
 				<h1>
@@ -188,10 +201,10 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 				</FilterableListItem>
 			</ul>
 		</main>
-		<aside>
-			<LinkCloud />
-		</aside>
 		<!-- <BottomNav /> -->
+		<footer>
+			<a href="/sitemap">sitemap</a>
+		</footer>
 	</body>
 </html>
 
@@ -200,6 +213,7 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 		margin: 0;
 		font-family: Junicode, "Times New Roman", serif;
 		display: flex;
+		flex-direction: row-reverse;
 		justify-content: center;
 	}
 
@@ -213,6 +227,22 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 
 	header {
 		width: min(40ch, 100%);
+	}
+
+	footer {
+		position: fixed;
+		bottom: 0.5rem;
+		right: 1rem;
+		
+		color: #808080;
+		font-weight: 400;
+		font-size: 0.875rem;
+
+		a {
+			color: inherit;
+			font-weight: inherit;
+			font-size: inherit;
+		}
 	}
 
 	ul {
