@@ -85,7 +85,9 @@ tags.forEach((t) =>
         padding: unset;
         display: flex;
         flex-flow: row wrap;
-        gap: 0.25em;
+        
+        row-gap: 0.5em;
+        column-gap: 0.25em;
     }
 
     input[type="radio"] {
@@ -115,16 +117,17 @@ tags.forEach((t) =>
         -webkit-user-select: none;
         padding: 4px 6px 0px 4px;
         position: relative;
+
         border: 1px solid black;
         border-radius: 4px;
+        box-shadow: 1px 1px black;
+        
         font-size: 0.9em;
         transition:
             color 0.1s,
             background-color 0.1s,
             font-variation-settings 0.5s;
         font-style: italic;
-
-        box-sizing: border-box;
     }
 
     label,
