@@ -3,7 +3,7 @@ import { formatQuotes } from "@probablyduncan/common/quotes";
 import { getCollection } from "astro:content";
 import Ticker from "../components/ticker.astro";
 import BaseMetadata from "../components/head/base-metadata.astro";
-import JunicodeLoader from "../components/head/junicode-loader.astro";
+import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
 import RadioFilters from "../components/filterable/radio-filters.astro";
 import FilterableListItem from "../components/filterable/filterable-list-item.astro";
@@ -22,7 +22,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 <html lang="en">
     <head>
         <BaseMetadata />
-        <JunicodeLoader />
+        <GlobalStylesLoader />
         <PageMetadata
             title="Duncan’s Weblinks"
             desc="These are some websites that Duncan likes to visit. Personal sites, archives, hypertext poetry, dev tools, and more. Happy exploring."
@@ -66,7 +66,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                     like billboards at the geo-city limits and pixel-perfect
                     mockups best viewed at 800𐍇600 and crafted so lovingly in
                     photoshop and frankensteined so carefully into schools of
-                    TR’s and TH’s and TD’s darting past in the whirling
+                    <span class="small-caps">tr</span>’s and <span class="small-caps">th</span>’s and <span class="small-caps">td</span>’s darting past in the whirling
                     maelstrom and the frames of your vision and—
                 </p>
                 <p>
@@ -80,7 +80,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                 </p>
                 <p aria-hidden="true"><span class="invisible">[</span>...</p>
             </details>
-            <p>and you are glad you went surfing. Anyway,</p>
+            <p>and you are glad you went surfing. &nbsp;&nbsp; Anyway,</p>
         </header>
         <main>
             <RadioFilters tags={tags} listName="weblinks" showAll="first" />
@@ -119,12 +119,16 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         </aside>
     </body>
     <style>
+
+        :root {
+            overscroll-behavior: unset;
+        }
+
         body {
-            padding: 2rem;
-            font-family: Junicode, "Times New Roman", serif;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            padding: var(--padding);
+            gap: var(--padding);
         }
 
         .invisible {
@@ -173,7 +177,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         }
 
         main {
-            margin-bottom: 50vh;
+            margin-bottom: 50dvh;
         }
 
         /* WEBLINK ITEMS */
@@ -267,8 +271,8 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 
         aside {
             position: fixed;
-            bottom: 1.5rem;
-            right: 2rem;
+            bottom: calc(var(--padding) * 0.75);
+            right: var(--padding);
         }
 
         [data-flipbook] {
@@ -285,6 +289,10 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             transition: transform 0.3s ease-out;
             transform-origin: center 42%;
             width: 2ch;
+        }
+
+        a:hover [data-flipbook] {
+            animation: none;
         }
 
         a:hover [data-flipbook]::after {

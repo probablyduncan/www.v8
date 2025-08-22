@@ -14,12 +14,13 @@
     src: url("/JunicodeVF-Italic.ttf");
 }
 
-:root {
-    font-family: Junicode;
-}
+body {
+    font-family: Junicode, "Times New Roman", serif;
 
-html {
-    font-size: 1rem;
+    --font-size-base: clamp(1rem, 0.913rem + 0.4348vw, 1.25rem);
+    font-size: var(--font-size-base);
+
+    --padding: clamp(1rem, 4vw, 2rem);
 }
 
 h1,
@@ -38,6 +39,12 @@ h3 {
 
 .aalt {
     font-feature-settings: "aalt";
+}
+
+.small-caps {
+    font-variant-caps: petite-caps;
+    font-size: 1.1em;
+    line-height: 1;
 }
 
 /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1240,20,1.25,5,0,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */

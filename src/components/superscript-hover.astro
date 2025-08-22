@@ -11,7 +11,7 @@ const { icon, supClass, bigSup = false, ...a } = Astro.props;
 ---
 
 <a data-icon-float data-big-sup={bigSup} {...a}>
-    <slot /><span class:list={[supClass]}>{icon}</span>
+    <slot /><span class:list={[supClass, "super-floater"]}>{icon}</span>
 </a>
 <style>
     a {
@@ -41,7 +41,7 @@ const { icon, supClass, bigSup = false, ...a } = Astro.props;
         text-underline-offset: calc(var(--underline-thickness) * 2);
     }
 
-    span {
+    .super-floater {
         display: inline-block;
         pointer-events: none;
         mix-blend-mode: difference;
@@ -50,6 +50,9 @@ const { icon, supClass, bigSup = false, ...a } = Astro.props;
 
         font-size: var(--sup-size);
         vertical-align: top;
+
+        user-select: none;
+        -webkit-user-select: none;
     }
 </style>
 <script>

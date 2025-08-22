@@ -68,7 +68,7 @@ oldbookillustrations:
 awwwards:
     title: Awwwards
     href: https://www.awwwards.com/
-    desc: Well-known archive of laggy websites. Probably buttery smooth on a gaming computer.
+    desc: Well-known archive of laggy websites. Buttery smooth on a supercomputer, I'm sure.
     date: Long time ago
     tags:
         - archives
@@ -76,18 +76,12 @@ awwwards:
 vimcolor:
     title: Vim Color Schemes
     href: https://vimcolorschemes.com/
-    desc: Even if you haven't sold your soul to vim, these palettes are still helpful for design.
+    desc: Even if you haven't yet sold your soul to vim, these palettes are still helpful for design.
     date: Last year
     tags:
         - archives
         - design
         - tools
-# stacksorted:
-#     title: Stack Sorted
-#     href: https://stacksorted.com/
-# darkmodedesign:
-#     title: Dark Mode Design
-#     href: https://www.darkmodedesign.com/
 minimalgallery:
     title: Minimal Gallery
     href: https://minimal.gallery/
@@ -96,14 +90,14 @@ minimalgallery:
     tags:
         - archives
         - design
-com:
-    title: Chronically Online Magazine
-    href: https://com.manychat.com/
-    desc: Articles about influencer culture, on a sexy smooth website. Seems full of AI art, though. Boo.
-    date: 2025/06/19
-    tags:
-        - periodicals
-        - design
+# com:
+#     title: Chronically Online Magazine
+#     href: https://com.manychat.com/
+#     desc: Articles about influencer culture, on a sexy smooth website. Don't love the scroll jacking.
+#     date: 2025/06/19
+#     tags:
+#         - periodicals
+#         - design
 uniformfreak:
     title: Uniform Freak
     href: http://www.uniformfreak.com/

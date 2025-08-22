@@ -6,15 +6,49 @@ body {
     margin: unset;
 }
 
-input, button {
-    font-size: unset;
-    font-family: unset;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
     padding: unset;
     border: unset;
     background-color: unset;
 }
 
-img {
+img,
+picture,
+video,
+canvas,
+svg {
     display: block;
     width: 100%;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+p {
+    text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
 }

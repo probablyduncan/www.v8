@@ -1,7 +1,7 @@
 ---
 import Email from "../components/junicode-snippets/email.astro";
 import Ticker from "../components/ticker.astro";
-import JunicodeLoader from "../components/head/junicode-loader.astro";
+import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
 import BaseMetadata from "../components/head/base-metadata.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
 import LinkCloud from "../components/link-cloud.astro";
@@ -13,7 +13,7 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 <html lang="en">
 	<head>
 		<BaseMetadata />
-		<JunicodeLoader />
+		<GlobalStylesLoader />
 		<PageMetadata
 			title="Duncan’s Website"
 			desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
@@ -38,7 +38,7 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 			<header>
 				<h1>
 					<span class="ligatures">Duncan Petrie</span><sup
-						class="aalt" title="You're a star!" style="cursor: default; user-select: none;">*</sup
+						class="aalt" title="you're a star!" style="cursor: default; user-select: none; -webkit-user-select: none;">*</sup
 					>
 				</h1>
 				<p>
@@ -210,8 +210,6 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 
 <style>
 	body {
-		margin: 0;
-		font-family: Junicode, "Times New Roman", serif;
 		display: flex;
 		flex-direction: row-reverse;
 		justify-content: center;
@@ -219,14 +217,16 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 
 	main {
 		position: relative;
-		margin: 2rem 0 2rem 2rem;
+		margin: var(--padding);
+		margin-right: unset;
 		width: min(55ch, 100%);
 		z-index: 10;
-		margin-bottom: 50svh;
+		margin-bottom: 100svh;
 	}
 
 	header {
 		width: min(40ch, 100%);
+		/* text-wrap: balance; */
 	}
 
 	footer {
@@ -236,7 +236,7 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 		
 		color: #808080;
 		font-weight: 400;
-		font-size: 0.875rem;
+		font-size: 0.875em;
 
 		a {
 			color: inherit;
@@ -269,12 +269,12 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 	.link-top {
 		display: flex;
 		align-items: center;
-		margin-bottom: 0.125rem;
+		margin-bottom: 0.125em;
 	}
 
 	.link-date {
 		color: #222;
-		font-piant-numeric: lining-nums;
+		font-variant-numeric: lining-nums;
 		font-variation-settings:
 			"wght" 500,
 			"wdth" 80,

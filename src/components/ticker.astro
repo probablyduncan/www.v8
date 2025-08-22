@@ -35,10 +35,10 @@ const animateSeconds = links.length * 30;
 <style>
     .item {
         display: inline-block;
-        font-size: 1rem;
+        font-size: 1em;
         font-style: italic;
         cursor: pointer;
-        user-select: none;
+        pointer-events: auto;
 
         display: inline-flex;
         flex-direction: column;
@@ -49,32 +49,41 @@ const animateSeconds = links.length * 30;
         color: unset;
     }
 
-    .item, .item::before {
+    .item,
+    .item::before {
         font-variation-settings:
             "wght" 300,
             "wdth" 100,
             "ENLA" 0;
     }
 
-    .item::before, .item::after {
+    .item::before,
+    .item::after {
         content: attr(data-content);
         height: 0;
         visibility: hidden;
         overflow: hidden;
-        user-select: none;
         pointer-events: none;
     }
 
-    .item:hover, .item::after {
+    .item:hover,
+    .item::after {
         font-variation-settings:
             "wght" 300,
-            "wdth" 85,
-            "ENLA" 20;
+            "wdth" 80,
+            "ENLA" 30;
     }
 
     .item:hover {
         text-decoration: underline;
         text-underline-offset: 2px;
+    }
+
+    .item,
+    .item::before,
+    .item::after {
+        user-select: none;
+        -webkit-user-select: none;
     }
 
     .half {
@@ -94,6 +103,7 @@ const animateSeconds = links.length * 30;
 
     nav {
         z-index: 100;
+        pointer-events: none;
         position: fixed;
         display: inline;
         white-space: nowrap;
