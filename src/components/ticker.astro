@@ -113,6 +113,12 @@ const animateSeconds = links.length * 30;
         transform-origin: 0 0;
     }
 
+    @media screen and (width < 512px) {
+        nav {
+            display: none;
+        }
+    }
+
     @keyframes tick {
         from {
             transform: translateX(-100%);
