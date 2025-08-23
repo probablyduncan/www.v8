@@ -139,24 +139,31 @@ const projectContentRenderer = (() => {
     }
 
     p.indent {
+        position: relative;
+        text-indent: 1em;
 
-		abbr {
-			transition: font-variation-settings 0.2s;
-			font-variation-settings:
+        abbr {
+            transition: font-variation-settings 0.2s;
+            font-variation-settings:
                 "wght" 400,
                 "wdth" 100,
                 "ENLA" 0;
-		}
+        }
 
         &::before {
+            position: absolute;
+            left: -0.9em;
+			
             content: "*";
             font-feature-settings: "aalt";
-            opacity: 0.4;
+			font-size: 1.25em;
+            
+			opacity: 0.4;
             transform-origin: 80% 30%;
-            transition:
+            
+			transition:
                 opacity 0.5s,
                 transform 0.5s;
-            font-size: 1.25em;
         }
     }
 
