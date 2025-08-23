@@ -32,6 +32,10 @@ h3 {
     font-weight: 500;
 }
 
+p, br {
+    margin-block: 0.8em;
+}
+
 .a {
     text-decoration-style: dotted;
     text-decoration-thickness: 0.0875rem;
