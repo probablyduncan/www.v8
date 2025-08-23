@@ -1,0 +1,11 @@
+blue:
+    color-primary: "#0000EE"
+    color-secondary: "#551A8B"
+red:
+    color-primary: indianred
+    color-secondary: maroon
+green:
+    color-primary: green
+    color-secondary: darkolivegreen
+    # olivedrab
+    # olive

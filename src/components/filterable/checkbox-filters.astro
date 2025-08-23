@@ -98,7 +98,7 @@ tags.forEach((t) =>
     label:has(input:checked),
     form:not(:has(input:checked)) label[data-all] {
         color: white;
-        background-color: blue;
+        background-color: var(--color-primary);
     }
 
     input,
@@ -146,7 +146,7 @@ tags.forEach((t) =>
     }
 
     label:focus-within {
-        outline: 2px solid blue;
+        outline: 2px solid var(--color-primary);
     }
 
     label:focus-within:has(input:checked),

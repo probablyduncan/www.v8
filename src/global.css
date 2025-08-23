@@ -21,6 +21,9 @@ body {
     font-size: var(--font-size-base);
 
     --padding: clamp(1rem, 4vw, 2rem);
+
+    --color-primary: #0000EE;
+    --color-secondary: #551A8B;
 }
 
 h1,
