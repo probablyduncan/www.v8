@@ -27,7 +27,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             title="Duncan’s Weblinks"
             desc="These are some websites that Duncan likes to visit. Personal sites, archives, hypertext poetry, dev tools, and more. Happy exploring."
         />
-        <title>Duncan's Weblinks</title>
+        <title>Duncan’s Weblinks</title>
     </head>
     <body>
         <Ticker />
@@ -80,7 +80,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                 </p>
                 <p aria-hidden="true"><span class="invisible">[</span>...</p>
             </details>
-            <p>and you are glad you went surfing. &nbsp;&nbsp; Anyway,</p>
+            <p>and you are glad you went surfing. &nbsp;Anyway,</p>
         </header>
         <main>
             <RadioFilters tags={tags} listName="weblinks" showAll="first" />
@@ -139,6 +139,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 
         header {
             text-align: justify;
+            padding-right: var(--padding);
         }
 
         header,

@@ -5,7 +5,7 @@ pigeon-web:
 spider-cursor:
     date: July, 2025
     tags: [best, code]
-    content: 'There''s a [spider in my website](https://spider.duncanpetrie.com "A Spider''s Website"), and it''s interested in you!'
+    content: 'There’s a [spider in my website](https://spider.duncanpetrie.com "A Spider’s Website"), and it’s interested in you!'
 apocalypse-raise:
     date: May, 2025
     tags: [lyric-and-verse]
@@ -29,7 +29,7 @@ wind:
 man-upstairs:
     date: July, 2023
     tags: [best, lyric-and-verse]
-    content: 'I''ve learned to hate the [man upstairs](/man-upstairs "He scrapes and drags and thumps around..."), who stamps his feet and slides his chairs...'
+    content: 'I’ve learned to hate the [man upstairs](/man-upstairs "He scrapes and drags and thumps around..."), who stamps his feet and slides his chairs...'
 # grad:
 #     date: July, 2022
 #     tags: [cv]
