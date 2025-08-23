@@ -22,8 +22,8 @@ body {
 
     --padding: clamp(1rem, 4vw, 2rem);
 
-    --color-primary: #0000EE;
-    --color-secondary: #551A8B;
+    --color-primary: #0000ee;
+    --color-secondary: #551a8b;
 }
 
 h1,
@@ -32,7 +32,7 @@ h3 {
     font-weight: 500;
 }
 
-p, br {
+p {
     margin-block: 0.8em;
 }
 
@@ -55,7 +55,9 @@ p, br {
     text-decoration-style: solid;
 }
 
-.a:focus-visible, .a:focus, .a:focus-within {
+.a:focus-visible,
+.a:focus,
+.a:focus-within {
     outline-width: 2px;
     outline-color: black;
     outline-offset: 2px;
@@ -79,6 +81,25 @@ p, br {
     font-variant-caps: petite-caps;
     font-size: 1.1em;
     line-height: 1;
+}
+
+.indent {
+    position: relative;
+    text-indent: 1em;
+}
+
+.indent::before {
+    position: absolute;
+    left: -1em;
+
+    content: "*";
+    content: "~";
+    content: "☞";
+    content: "";
+    content: "☛";
+    content: "-";
+    content: "※";
+    content: "→";
 }
 
 /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1240,20,1.25,5,0,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */

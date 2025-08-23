@@ -13,36 +13,31 @@ import Link from "../components/link.astro";
 import { resolveLink } from "../lib/linkHelper";
 
 const items = await getCollection("index");
-const tags = [...new Set(["best", ...items.flatMap((item) => item.data.tags)])];
+const tags = [...new Set(["best", ...items.flatMap(item => item.data.tags)])];
 
 const projectContentRenderer = (() => {
-	const renderer = new marked.Renderer();
-	renderer.link = ({ href, title, text }) => {
-		const {
-			href: hrefResolved,
-			title: titleResolved,
-			rel,
-			target,
-		} = resolveLink({ href, title, innerHtml: text });
-		return `<a href="${hrefResolved}" title="${titleResolved}" target="${target}" rel="${rel}" class="a">${marked.parseInline(text)}</a>`;
-	};
-	return renderer;
+    const renderer = new marked.Renderer();
+    renderer.link = ({ href, title, text }) => {
+        const { href: hrefResolved, title: titleResolved, rel, target } = resolveLink({ href, title, innerHtml: text });
+        return `<a href="${hrefResolved}" title="${titleResolved}" target="${target}" rel="${rel}" class="a">${marked.parseInline(text)}</a>`;
+    };
+    return renderer;
 })();
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseMetadata />
-		<GlobalStylesLoader />
-		<PageMetadata
-			title="Duncan’s Website"
-			desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
-		/>
-	</head>
-	<body>
-		<Ticker />
-		<!-- <aside>
+    <head>
+        <BaseMetadata />
+        <GlobalStylesLoader />
+        <PageMetadata
+            title="Duncan’s Website"
+            desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
+        />
+    </head>
+    <body>
+        <Ticker />
+        <!-- <aside>
 			<LinkCloud>
 				<div
 					data-hover-container="cover"
@@ -52,33 +47,27 @@ const projectContentRenderer = (() => {
 				</div>
 			</LinkCloud>
 		</aside> -->
-		<main>
-			<header>
-				<img src="/cover.webp" style="border: 4px solid #e2e8f0; margin: 16px -4px; width: calc(100% + 8px);" />
-				<h1>
-					<span class="ligatures">Duncan Petrie</span><sup
-						class="aalt"
-						title="you’re a star!"
-						style="cursor: default; user-select: none; -webkit-user-select: none;"
-						>*</sup
-					>
-				</h1>
-				<p>
-					(<abbr
-						title="hey! put your grubby little cursor somewhere else"
-						>that’s me</abbr
-					>!) is a London-based photographer, writer, and web
-					developer from Milwaukee, Wisconsin.
-				</p>
-				<p>This is my website.</p>
-				<p>~ - ~ -</p>
-				<p>
-					New here? Take a look at my <Link href="/palimpsest"
-						>photography</Link
-					>
-					<br />or read a recent <Link href="/wind">story</Link>.
-				</p>
-				<!-- <p>
+        <main>
+            <header>
+                <img src="/cover.webp" style="border: 4px solid #e2e8f0; margin: 16px -4px; width: calc(100% + 8px);" />
+                <h1>
+                    <span class="ligatures">Duncan Petrie</span><sup
+                        class="aalt"
+                        title="you’re a star!"
+                        style="cursor: default; user-select: none; -webkit-user-select: none;">*</sup
+                    >
+                </h1>
+                <p class="indent">
+                    (<abbr title="hey! put your grubby little cursor somewhere else">that’s me</abbr>!) is a
+                    London-based photographer, writer, and web developer from Milwaukee, Wisconsin.
+                </p>
+                <p>This is my website.</p>
+                <hr />
+                <p>
+                    New here? Take a look at my <Link href="/palimpsest">photography</Link>
+                    <br />or read a recent <Link href="/wind">story</Link>.
+                </p>
+                <!-- <p>
 					You can sign my <a href="https://guestbook.duncanpetrie.com"
 						>guestbook</a
 					>, explore my <a href="https://duncans.world">world</a>, or
@@ -86,145 +75,171 @@ const projectContentRenderer = (() => {
 						>cafe</a
 					>.
 				</p> -->
-				<p>
-					Or, if you’re already sick of this place, you can find links
-					to some other websites <Link href="/weblinks"
-						>right here</Link
-					>.
-				</p>
-				<p>
-					Email me at <Link href="mailto:duncanpetrie1@gmail.com"
-						><Email at="@" /></Link
-					>.
-				</p>
-				<p>~ - ~ -</p>
-				<br/>
-			</header>
-			<RadioFilters
-				tags={tags}
-				listName="work"
-				showAll="first"
-				defaultTag="best"
-			/>
-			<ul>
-				{
-					items.map(({ data: item }) => {
-						return (
-							<FilterableListItem
-								tags={item.tags}
-								listName="work"
-							>
-								<div class="link-wrapper">
-									<div class="link-top">
-										<span class="link-date">
-											{item.date}{" "}
-											&nbsp;&nbsp;|&nbsp;&nbsp;
-										</span>
-										<span class="link-tags">
-											{item.tags
-												.map((t) => "#" + t)
-												.join(", ")}
-										</span>
-									</div>
-									<div
-										class="link-bottom"
-										set:html={marked.parseInline(
-											item.content,
-											{
-												renderer:
-													projectContentRenderer,
-											},
-										)}
-									/>
-								</div>
-							</FilterableListItem>
-						);
-					})
-				}
-			</ul>
-		</main>
-		<!-- <BottomNav /> -->
-		<footer>
-			<a href="/sitemap">sitemap</a>
-		</footer>
-	</body>
-</html>
+                <p>
+                    Or, if you’re already sick of this place, you can find links to some other websites <Link
+                        href="/weblinks">right here</Link
+                    >.
+                </p>
+                <p>
+                    Email me at <Link href="mailto:duncanpetrie1@gmail.com"><Email at="@" /></Link>.
+                </p>
+                <hr />
+                <br />
+            </header>
+            <RadioFilters tags={tags} listName="work" showAll="first" defaultTag="best" />
+            <ul>
+                {
+                    items.map(({ data: item }) => {
+                        return (
+                            <FilterableListItem tags={item.tags} listName="work">
+                                <div class="link-wrapper">
+                                    <div class="link-top">
+                                        <span class="link-date">{item.date} &nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                        <span class="link-tags">{item.tags.map(t => "#" + t).join(", ")}</span>
+                                    </div>
+                                    <div
+                                        class="link-bottom"
+                                        set:html={marked.parseInline(item.content, {
+                                            renderer: projectContentRenderer,
+                                        })}
+                                    />
+                                </div>
+                            </FilterableListItem>
+                        );
+                    })
+                }
+            </ul>
+        </main>
+        <!-- <BottomNav /> -->
+        <footer>
+            <a href="/sitemap">sitemap</a>
+        </footer>
+    </body></html
+>
 
 <style>
-	main {
-		position: relative;
-		padding: var(--padding);
-		/* padding-right: unset; */
-		width: min(55ch, 100%);
-		z-index: 10;
-		margin-bottom: 50svh;
-	}
+    main {
+        position: relative;
+        padding: var(--padding);
+        /* padding-right: unset; */
+        width: min(55ch, 100%);
+        z-index: 10;
+        margin-bottom: 50svh;
+    }
 
-	header {
-		width: min(40ch, 100%);
-		/* text-wrap: balance; */
-	}
+    header {
+        width: min(42ch, 100%);
+        /* text-wrap: balance; */
+    }
 
-	footer {
-		position: fixed;
-		bottom: 0.5rem;
-		right: 1rem;
+    h1 {
+        font-size: calc(var(--font-size-base) * 3);
+        font-size: 3rem;
+        margin-bottom: 0;
+    }
 
-		color: #808080;
-		font-weight: 400;
-		font-size: 0.875em;
+    p.indent {
 
-		a {
-			color: inherit;
-			font-weight: inherit;
-			font-size: inherit;
+		abbr {
+			transition: font-variation-settings 0.2s;
+			font-variation-settings:
+                "wght" 400,
+                "wdth" 100,
+                "ENLA" 0;
 		}
-	}
 
-	ul {
-		list-style: none;
-		padding: 1em 1em 0 0;
-		margin: 2em 0 0;
-		border-top: 2px solid #0001;
-	}
+        &::before {
+            content: "*";
+            font-feature-settings: "aalt";
+            opacity: 0.4;
+            transform-origin: 80% 30%;
+            transition:
+                opacity 0.5s,
+                transform 0.5s;
+            font-size: 1.25em;
+        }
+    }
 
-	.link-wrapper {
-		margin-bottom: 1em;
-	}
+    h1:has(sup:hover) ~ p.indent {
+        abbr {
+            font-variation-settings:
+                "wght" 400,
+                "wdth" 90,
+                "ENLA" 40;
+        }
 
-	.link-top {
-		display: flex;
-		align-items: center;
-		margin-bottom: 0.125em;
-	}
+        &::before {
+            opacity: 1;
+            transform: rotate(1turn);
+        }
+    }
 
-	.link-date {
-		color: #222;
-		font-variant-numeric: lining-nums;
-		font-variation-settings:
-			"wght" 500,
-			"wdth" 80,
-			"ENLA" 0;
-		font-size: 0.8em;
-	}
+    hr {
+        color: #0001;
+        margin-bottom: 2em;
+        margin-top: 2em;
+    }
 
-	.link-tags {
-		color: #444;
-		font-weight: 300;
-		font-size: 0.8em;
-	}
+    footer {
+        position: fixed;
+        bottom: 0.5rem;
+        right: 1rem;
 
-	.link-bottom {
-		font-size: 1em;
-		line-height: 1.4;
-		color: #444;
-	}
+        color: #808080;
+        font-weight: 400;
+        font-size: 0.875em;
 
-	.link-bottom :global(br) {
-		margin-bottom: 0.2em;
-	}
+        a {
+            color: inherit;
+            font-weight: inherit;
+            font-size: inherit;
+        }
+    }
 
-	/* aside {
+    ul {
+        list-style: none;
+        padding: 1em 1em 0 0;
+        /* margin: 2em 0 0; */
+        /* border-top: 2px solid #0001; */
+    }
+
+    .link-wrapper {
+        margin-bottom: 1em;
+    }
+
+    .link-top {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.125em;
+    }
+
+    .link-date {
+        color: #222;
+        font-variant-numeric: lining-nums;
+        font-variation-settings:
+            "wght" 500,
+            "wdth" 80,
+            "ENLA" 0;
+        font-size: 0.8em;
+    }
+
+    .link-tags {
+        color: #444;
+        font-weight: 300;
+        font-size: 0.8em;
+    }
+
+    .link-bottom {
+        font-size: 1em;
+        line-height: 1.4;
+        color: #444;
+    }
+
+    .link-bottom :global(br) {
+        margin-bottom: 0.2em;
+    }
+
+    /* aside {
 		flex: 1;
 		position: sticky;
 		top: 0;
