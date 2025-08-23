@@ -122,6 +122,8 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 
         :root {
             overscroll-behavior: unset;
+            --color-primary: #0000EE;
+            --color-secondary: #551A8B;
         }
 
         body {
@@ -233,7 +235,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         }
 
         .link-link {
-            color: blue;
+            color: var(--color-primary);
             text-decoration: underline;
             font-variation-settings:
                 "wght" 400,
