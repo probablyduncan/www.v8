@@ -1,0 +1,42 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { resolveLink } from "../lib/linkHelper";
+
+interface Props extends HTMLAttributes<"a"> {
+    newTab?: boolean;
+    noTab?: boolean;
+}
+
+const { newTab, noTab = false, ...props } = Astro.props;
+
+const resolved = resolveLink({
+    href: props.href,
+    title: props.title,
+    innerHtml: await Astro.slots.render("default"),
+    forceNewTab: newTab,
+});
+
+if (noTab) {
+    props.tabindex = "-1";
+}
+
+const allProps = Object.assign(props, resolved);
+
+const classes = allProps.class?.split(" ") ?? [];
+if (!classes.includes("a")) {
+    classes.push("a");
+}
+allProps.class = classes.join(" ");
+---
+
+{
+    resolved.href ? (
+        <a {...allProps}>
+            <slot />
+        </a>
+    ) : (
+        <span {...allProps}>
+            <slot />
+        </span>
+    )
+}

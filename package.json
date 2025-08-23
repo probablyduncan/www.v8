@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@probablyduncan/common": "^1.1.5",
-    "astro": "^5.4.3"
+    "astro": "^5.4.3",
+    "marked": "^16.2.0"
   },
   "packageManager": "pnpm@10.15.0"
 }

@@ -48,4 +48,14 @@ const ticker = defineCollection({
     }),
 })
 
-export const collections = { weblinks, ticker };
+const index = defineCollection({
+    loader: file("src/content/index.yaml"),
+    schema: z.object({
+        date: z.string(),
+        tags: z.array(z.string())
+            .or(z.string().transform((tag: string) => [tag])),
+        content: z.string(),
+    })
+})
+
+export const collections = { weblinks, ticker, index };

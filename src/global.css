@@ -32,6 +32,33 @@ h3 {
     font-weight: 500;
 }
 
+.a {
+    text-decoration-style: dotted;
+    text-decoration-thickness: 0.0875rem;
+    text-underline-offset: 0.125rem;
+    color: var(--color-primary);
+
+    outline-width: 0;
+    outline-offset: 0.5px;
+    transition: outline-width 0.2s, outline-offset 0.5s;
+}
+
+.a:visited {
+    color: var(--color-secondary);
+}
+
+.a:hover {
+    text-decoration-style: solid;
+}
+
+.a:focus-visible, .a:focus, .a:focus-within {
+    outline-width: 2px;
+    outline-color: black;
+    outline-offset: 2px;
+    outline-style: dashed;
+    text-decoration-style: solid;
+}
+
 .ligatures {
     font-variant-ligatures: discretionary-ligatures;
 }

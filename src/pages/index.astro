@@ -7,6 +7,27 @@ import PageMetadata from "../components/head/page-metadata.astro";
 import LinkCloud from "../components/link-cloud.astro";
 import RadioFilters from "../components/filterable/radio-filters.astro";
 import FilterableListItem from "../components/filterable/filterable-list-item.astro";
+import { getCollection } from "astro:content";
+import { marked } from "marked";
+import Link from "../components/link.astro";
+import { resolveLink } from "../lib/linkHelper";
+
+const items = await getCollection("index");
+const tags = [...new Set(["best", ...items.flatMap((item) => item.data.tags)])];
+
+const projectContentRenderer = (() => {
+	const renderer = new marked.Renderer();
+	renderer.link = ({ href, title, text }) => {
+		const {
+			href: hrefResolved,
+			title: titleResolved,
+			rel,
+			target,
+		} = resolveLink({ href, title, innerHtml: text });
+		return `<a href="${hrefResolved}" title="${titleResolved}" target="${target}" rel="${rel}" class="a">${marked.parseInline(text)}</a>`;
+	};
+	return renderer;
+})();
 ---
 
 <!doctype html>
@@ -21,11 +42,8 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 	</head>
 	<body>
 		<Ticker />
-		<aside>
+		<!-- <aside>
 			<LinkCloud>
-				<!-- 90aacc47 -->
-				<!-- e2e8f0 -->
-				<!-- e5ebf2cc -->
 				<div
 					data-hover-container="cover"
 					style={`width: 70%; border: 4px solid #e5ebf2cc;`}
@@ -33,12 +51,15 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 					<img src="/cover.webp" />
 				</div>
 			</LinkCloud>
-		</aside>
+		</aside> -->
 		<main>
 			<header>
 				<h1>
 					<span class="ligatures">Duncan Petrie</span><sup
-						class="aalt" title="you're a star!" style="cursor: default; user-select: none; -webkit-user-select: none;">*</sup
+						class="aalt"
+						title="you're a star!"
+						style="cursor: default; user-select: none; -webkit-user-select: none;"
+						>*</sup
 					>
 				</h1>
 				<p>
@@ -51,154 +72,73 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 				<p>This is my website.</p>
 				<p>~ - ~ -</p>
 				<p>
-					New here? Take a look at my <a href="/palimpsest"
-						>photography</a
+					New here? Take a look at my <Link href="/palimpsest"
+						>photography</Link
 					>
-					<br />or read a recent <a href="/wind">story</a>.
+					<br />or read a recent <Link href="/wind">story</Link>.
 				</p>
-				<p>
+				<!-- <p>
 					You can sign my <a href="https://guestbook.duncanpetrie.com"
 						>guestbook</a
 					>, explore my <a href="https://duncans.world">world</a>, or
 					have a cheese sandwich in my <a href="https://duncans.cafe"
 						>cafe</a
 					>.
-				</p>
+				</p> -->
 				<p>
 					Or, if you're already sick of this place, you can find links
-					to some other websites <a href="/weblinks">right here</a>.
+					to some other websites <Link href="/weblinks"
+						>right here</Link
+					>.
 				</p>
 				<p>
-					Email me at <a href="mailto:duncanpetrie1@gmail.com"
-						><Email at="@" /></a
+					Email me at <Link href="mailto:duncanpetrie1@gmail.com"
+						><Email at="@" /></Link
 					>.
 				</p>
 				<p>~ - ~ -</p>
 			</header>
 			<RadioFilters
-				tags={[
-					"best",
-					"photobooks",
-					"stories",
-					"photography",
-					"thoughts",
-					"lyric-and-verse",
-				]}
+				tags={tags}
 				listName="work"
 				showAll="first"
 				defaultTag="best"
 			/>
 			<ul>
-				<FilterableListItem
-					tags={["best", "photobooks"]}
-					listName="work"
-				>
-					<div class="link-wrapper">
-						<div class="link-top">
-							<span class="link-date">
-								August, 2024 &nbsp;&nbsp;|&nbsp;&nbsp;
-							</span>
-							<span class="link-tags">#photobooks, #best</span>
-						</div>
-						<div class="link-bottom">
-							<a href="/pigeons">To Pigeon-Fill the Sky</a> is a book
-							about AI, the creative process, and, of course, pigeons.
-						</div>
-					</div>
-				</FilterableListItem>
-				<FilterableListItem tags={["best", "stories"]} listName="work">
-					<div class="link-wrapper">
-						<div class="link-top">
-							<span class="link-date">
-								September, 2024 &nbsp;&nbsp;|&nbsp;&nbsp;
-							</span>
-							<span class="link-tags">#best, #stories</span>
-						</div>
-						<div class="link-bottom">
-							In September, I wrote <a href="/wind"
-								>A List of the Wind</a
-							>, a story about getting up and doing, finally, what
-							needs to be done.
-						</div>
-					</div>
-				</FilterableListItem>
-				<FilterableListItem tags={["lyric-and-verse"]} listName="work">
-					<div class="link-wrapper">
-						<div class="link-top">
-							<span class="link-date">
-								April, 2025 &nbsp;&nbsp;|&nbsp;&nbsp;
-							</span>
-							<span class="link-tags">#lyric-and-verse</span>
-						</div>
-						<div class="link-bottom">
-							I started writing this <a href="/scrumptious"
-								>song about dinner</a
-							> in the shower, and finished it when I should have been
-							falling asleep.
-						</div>
-					</div>
-				</FilterableListItem>
-				<FilterableListItem tags={["lyric-and-verse"]} listName="work">
-					<div class="link-wrapper">
-						<div class="link-top">
-							<span class="link-date">
-								April, 2025 &nbsp;&nbsp;|&nbsp;&nbsp;
-							</span>
-							<span class="link-tags">#lyric-and-verse</span>
-						</div>
-						<div class="link-bottom">
-							I saw a <a href="/scrumptious">rat today</a>, oh
-							boy! I wrote this parody of "A Day in the Life" in a
-							cafe in Falmouth, after seeing, yes indeed, a rat.
-						</div>
-					</div>
-				</FilterableListItem>
-				<FilterableListItem tags={["photography"]} listName="work">
-					<div class="link-wrapper">
-						<div class="link-top">
-							<span class="link-date">
-								January, 2025 &nbsp;&nbsp;|&nbsp;&nbsp;
-							</span>
-							<span class="link-tags">#photography</span>
-						</div>
-						<div class="link-bottom">
-							In January, I learned to <a
-								href="https://bsky.social/...">screenprint</a
-							> my photography. Here are some photos of that.
-						</div>
-					</div>
-				</FilterableListItem>
-				<FilterableListItem tags={["code", "design"]} listName="work">
-					<div class="link-wrapper">
-						<div class="link-top">
-							<span class="link-date">
-								January, 2025 &nbsp;&nbsp;|&nbsp;&nbsp;
-							</span>
-							<span class="link-tags">#code, #design</span>
-						</div>
-						<div class="link-bottom">
-							After reading Don Quixote, I created a <a
-								href="/sancho">Sancho Simulator</a
-							>: all the squire's proverbs, randomized,
-							tantalized, run-round and riled up.
-						</div>
-					</div>
-				</FilterableListItem>
-				<FilterableListItem tags={["lyric-and-verse"]} listName="work">
-					<div class="link-wrapper">
-						<div class="link-top">
-							<span class="link-date">
-								May, 2025 &nbsp;&nbsp;|&nbsp;&nbsp;
-							</span>
-							<span class="link-tags">#lyric-and-verse</span>
-						</div>
-						<div class="link-bottom">
-							I got a <a href="apocalypse-raise"
-								>raise in the apocalypse</a
-							>, and I am feeling fine!
-						</div>
-					</div>
-				</FilterableListItem>
+				{
+					items.map(({ data: item }) => {
+						return (
+							<FilterableListItem
+								tags={item.tags}
+								listName="work"
+							>
+								<div class="link-wrapper">
+									<div class="link-top">
+										<span class="link-date">
+											{item.date}{" "}
+											&nbsp;&nbsp;|&nbsp;&nbsp;
+										</span>
+										<span class="link-tags">
+											{item.tags
+												.map((t) => "#" + t)
+												.join(", ")}
+										</span>
+									</div>
+									<div
+										class="link-bottom"
+										set:html={marked.parseInline(
+											item.content,
+											{
+												renderer:
+													projectContentRenderer,
+											},
+										)}
+									/>
+								</div>
+							</FilterableListItem>
+						);
+					})
+				}
 			</ul>
 		</main>
 		<!-- <BottomNav /> -->
@@ -209,19 +149,13 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 </html>
 
 <style>
-	body {
-		display: flex;
-		flex-direction: row-reverse;
-		justify-content: center;
-	}
-
 	main {
 		position: relative;
-		margin: var(--padding);
-		margin-right: unset;
+		padding: var(--padding);
+		/* padding-right: unset; */
 		width: min(55ch, 100%);
 		z-index: 10;
-		margin-bottom: 100svh;
+		margin-bottom: 50svh;
 	}
 
 	header {
@@ -233,7 +167,7 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 		position: fixed;
 		bottom: 0.5rem;
 		right: 1rem;
-		
+
 		color: #808080;
 		font-weight: 400;
 		font-size: 0.875em;
@@ -250,21 +184,6 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 		padding: 1em 1em 0 0;
 		margin: 2em 0 0;
 		border-top: 2px solid #0001;
-	}
-
-	a {
-		text-decoration-style: dotted;
-		text-decoration-thickness: 0.0875rem;
-		text-underline-offset: 0.125rem;
-		color: var(--color-primary);
-	}
-
-	a:visited {
-		color: var(--color-secondary);
-	}
-
-	a:hover {
-		text-decoration-style: solid;
 	}
 
 	.link-wrapper {
@@ -299,7 +218,11 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 		color: #444;
 	}
 
-	aside {
+	.link-bottom :global(br) {
+		margin-bottom: 0.2em;
+	}
+
+	/* aside {
 		flex: 1;
 		position: sticky;
 		top: 0;
@@ -311,5 +234,5 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 		justify-content: center;
 
 		background-color: white;
-	}
+	} */
 </style>
