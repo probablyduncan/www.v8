@@ -95,12 +95,9 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                                             {l.date.text}
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                         </span>
-                                        <span class="link-tags">
-                                            {l.tags
-                                                .sort()
-                                                .map((tag) => "#" + tag)
-                                                .join(", ")}
-                                        </span>
+                                        <span class="link-tags">{l.tags.sort().map((t, i) => (<>
+                                        <label for={`weblinks-filter-${t}`}>#{t}</label>{i !== l.tags.length - 1 && ","}
+                                        </>))}</span>
                                     </div>
                                     <div class="link-bottom">
                                         <span class="link-title">[{l.title}](<a class="link-link" title={`${l.title}: ${l.href}`} href={l.href} target="_blank">{l.href}</a>)</span><span class="link-desc"> <span class="desc-dash">&mdash;</span>&mdash; {formatQuotes(l.desc)}</span>
@@ -180,7 +177,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         }
 
         main {
-            margin-bottom: 50dvh;
+            margin-bottom: 80svh;
         }
 
         /* WEBLINK ITEMS */
@@ -219,6 +216,17 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             font-weight: 300;
             /* font-size: 0.875em; */
             font-size: 0.8em;
+
+            label {
+                cursor: pointer;
+                transition: opacity 0.2s;
+                &:hover {
+                    opacity: 0.6;
+                }
+                &:active {
+                    opacity: 1;
+                }
+            }
         }
 
         .link-bottom {

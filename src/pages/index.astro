@@ -95,7 +95,9 @@ const projectContentRenderer = (() => {
                                 <div class="link-wrapper">
                                     <div class="link-top">
                                         <span class="link-date">{item.date} &nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                                        <span class="link-tags">{item.tags.map(t => "#" + t).join(", ")}</span>
+                                        <span class="link-tags">{item.tags.map((t, i) => (<>
+                                        <label for={`work-filter-${t}`}>#{t}</label>{i !== item.tags.length - 1 && ","}
+                                        </>))}</span>
                                     </div>
                                     <div
                                         class="link-bottom"
@@ -124,7 +126,7 @@ const projectContentRenderer = (() => {
         /* padding-right: unset; */
         width: min(55ch, 100%);
         z-index: 10;
-        margin-bottom: 50svh;
+        margin-bottom: 80svh;
     }
 
     header {
@@ -234,6 +236,17 @@ const projectContentRenderer = (() => {
         color: #444;
         font-weight: 300;
         font-size: 0.8em;
+
+        label {
+            cursor: pointer;
+            transition: opacity 0.2s;
+            &:hover {
+                opacity: 0.6;
+            }
+            &:active {
+                opacity: 1;
+            }
+        }
     }
 
     .link-bottom {

@@ -10,74 +10,75 @@ const { listName, tags, showAll = "off", defaultTag } = Astro.props;
 let css = [];
 if (showAll === "off") {
     css.push(
-        `form.filters[name=${listName}] ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+        `ul#${listName}-filters ~ * .${getFilterableTagClass(listName)} { display: none; }`,
     );
 } else {
     css.push(
-        `form.filters[name=${listName}]:has(input[type=radio]:not([value=all]):checked) ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+        `ul#${listName}-filters:has(input[type=radio]:not([value=all]):checked) ~ * .${getFilterableTagClass(listName)} { display: none; }`,
     );
 }
 
 tags.forEach((t) =>
     css.push(
-        `form.filters[name=${listName}]:has(input[type=radio][value=${t}]:checked) ~ * .${getFilterableTagClass(listName, t)} { display: inherit; }`,
+        `ul#${listName}-filters:has(input[type=radio][value=${t}]:checked) ~ * .${getFilterableTagClass(listName, t)} { display: inherit; }`,
     ),
 );
 ---
 
-<form name={listName} class="filters">
-    <ul>
-        {
-            showAll === "first" && (
-                <li>
-                    <label title="open the floodgates!">
-                        all
-                        <input
-                            type="radio"
-                            name={listName + "-filter"}
-                            value="all"
-                            checked={defaultTag === undefined}
-                        />
-                    </label>
-                </li>
-            )
-        }
-        {
-            tags.map((t, i) => (
-                <li>
-                    <label title={`filter by tag: ${t}`}>
-                        #{t}
-                        <input
-                            type="radio"
-                            name={listName + "-filter"}
-                            value={t}
-                            checked={
-                                defaultTag === t ||
-                                (defaultTag === undefined &&
-                                    showAll !== "first" &&
-                                    i === 0)
-                            }
-                        />
-                    </label>
-                </li>
-            ))
-        }
-        {
-            showAll === "last" && (
-                <li>
-                    <label title="open the floodgates!">
-                        all
-                        <input
-                            type="radio"
-                            name={listName + "-filter"}
-                            value="all"
-                        />
-                    </label>
-                </li>
-            )
-        }
-    </ul>
-</form>
+<ul class="filters" id={listName + "-filters"}>
+    {
+        showAll === "first" && (
+            <li>
+                <label title="open the floodgates!">
+                    all
+                    <input
+                        type="radio"
+                        name={listName + "-filter"}
+                        id={listName + "-filter-all"}
+                        value="all"
+                        checked={defaultTag === undefined}
+                    />
+                </label>
+            </li>
+        )
+    }
+    {
+        tags.map((t, i) => (
+            <li>
+                <label title={`filter by tag: ${t}`}>
+                    #{t}
+                    <input
+                        type="radio"
+                        name={listName + "-filter"}
+                        id={listName + "-filter-" + t}
+                        value={t}
+                        checked={
+                            defaultTag === t ||
+                            (defaultTag === undefined &&
+                                showAll !== "first" &&
+                                i === 0)
+                        }
+                    />
+                </label>
+            </li>
+        ))
+    }
+    {
+        showAll === "last" && (
+            <li>
+                <label title="open the floodgates!">
+                    all
+                    <input
+                        type="radio"
+                        name={listName + "-filter"}
+                        id={listName + "-filter-all"}
+                        value="all"
+                    />
+                </label>
+            </li>
+        )
+    }
+</ul>
 <style set:html={css.join(" ")}></style>
 <style>
     ul {
@@ -85,7 +86,7 @@ tags.forEach((t) =>
         padding: unset;
         display: flex;
         flex-flow: row wrap;
-        
+
         row-gap: 0.5em;
         column-gap: 0.25em;
     }
@@ -121,7 +122,7 @@ tags.forEach((t) =>
         border: 1px solid black;
         border-radius: 4px;
         box-shadow: 1px 1px black;
-        
+
         font-size: 0.9em;
         transition:
             color 0.1s,
@@ -177,7 +178,9 @@ tags.forEach((t) =>
 </style>
 <script>
     function initCheckboxFilters() {
-        document.querySelectorAll("form.filters label").forEach((_e) => {
+
+        // blur input on click to avoid input focus styling when not using keyboard
+        document.querySelectorAll("ul.filters label").forEach((_e) => {
             const label = _e as HTMLLabelElement;
             label.addEventListener("click", (e) => {
                 if ((e as PointerEvent)["pointerType"]) {
@@ -185,6 +188,31 @@ tags.forEach((t) =>
                 }
             });
         });
+
+        // jump to top of list when a tag label is clicked
+        document
+            .querySelectorAll("ul.filters label, label[name*=-filter-]")
+            .forEach((_e) => {
+                const label = _e as HTMLLabelElement;
+
+                const input = (
+                    label.htmlFor
+                        ? document.getElementById(label.htmlFor)
+                        : label.querySelector("input")
+                ) as HTMLInputElement;
+
+                const ul = document.querySelector(
+                    `ul.filters#${input?.name}s`,
+                ) as HTMLUListElement;
+
+                if (!input || !ul) {
+                    return;
+                }
+
+                label.addEventListener("click", (e) => {
+                    window.scrollTo({ top: ul.offsetTop - 40 });
+                });
+            });
     }
 
     document.addEventListener("DOMContentLoaded", initCheckboxFilters);
