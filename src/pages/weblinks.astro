@@ -126,7 +126,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         body {
             display: flex;
             flex-direction: column;
-            padding: var(--padding);
+            padding-inline: var(--padding);
             gap: var(--padding);
         }
 
@@ -137,6 +137,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         header {
             text-align: justify;
             padding-right: var(--padding);
+            padding-top: calc(var(--padding) * 3);
         }
 
         header,

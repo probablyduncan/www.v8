@@ -1,6 +1,7 @@
 ---
 import { shuffleRef } from "@probablyduncan/common/shuffle";
 import { getCollection } from "astro:content";
+import { resolveLink } from "../lib/linkHelper";
 
 const links = await getCollection("ticker");
 shuffleRef(links);
@@ -16,18 +17,20 @@ const animateSeconds = links.length * 30;
     {
         Array.from({ length: 2 }).map(() => (
             <span class="half">
-                {links.map(({ data: link }) => (
-                    <a
-                        tabindex="-1"
-                        href={link.href}
-                        title={link.href}
-                        class="item"
-                        style={`margin-right: ${Math.floor(Math.random() * 80 + 80)}px;`}
-                        data-content={link.text}
-                    >
-                        {link.text}
-                    </a>
-                ))}
+                {links.map(({ data: link }) => {
+                    const props = resolveLink({ href: link.href, innerHtml: link.text })
+                    return (
+                        <a
+                            tabindex="-1"
+                            {...props}
+                            class="item"
+                            style={`margin-right: ${Math.floor(Math.random() * 80 + 80)}px;`}
+                            data-content={link.text}
+                        >
+                            {link.text}
+                        </a>
+                    );
+                })}
             </span>
         ))
     }
