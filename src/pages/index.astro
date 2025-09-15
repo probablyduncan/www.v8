@@ -11,6 +11,7 @@ import { getCollection } from "astro:content";
 import { marked } from "marked";
 import Link from "../components/link.astro";
 import { resolveLink } from "../lib/linkHelper";
+import FilterButton from "../components/filterable/filter-button.astro";
 
 const items = await getCollection("index");
 const tags = [...new Set(["best", ...items.flatMap(item => item.data.tags)])];
@@ -96,7 +97,7 @@ const projectContentRenderer = (() => {
                                     <div class="link-top">
                                         <span class="link-date">{item.date} &nbsp;&nbsp;|&nbsp;&nbsp;</span>
                                         <span class="link-tags">{item.tags.map((t, i) => (<>
-                                        <label for={`work-filter-${t}`}>#{t}</label>{i !== item.tags.length - 1 && ","}
+                                        <FilterButton listName="work" tagName={t} >#{t}</FilterButton>{i !== item.tags.length - 1 && ","}
                                         </>))}</span>
                                     </div>
                                     <div

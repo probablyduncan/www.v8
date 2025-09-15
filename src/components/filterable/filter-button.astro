@@ -1,0 +1,10 @@
+---
+interface Props {
+    listName: string;
+    tagName: string;
+}
+
+const { listName, tagName } = Astro.props;
+---
+
+<label for={`${listName}-filter-${tagName}`}><slot /></label>
