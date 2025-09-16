@@ -38,8 +38,8 @@ p {
 
 .a {
     text-decoration-style: dotted;
-    text-decoration-thickness: 0.0875rem;
-    text-underline-offset: 0.125rem;
+    text-decoration-thickness: 0.0875em;
+    text-underline-offset: 0.125em;
     color: var(--color-primary);
 
     outline-width: 0;

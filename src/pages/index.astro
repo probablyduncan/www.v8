@@ -146,7 +146,7 @@ const projectContentRenderer = (() => {
         text-indent: 1em;
 
         abbr {
-            transition: font-variation-settings 0.2s;
+            transition: font-variation-settings 0.333333333s steps(4);
             font-variation-settings:
                 "wght" 400,
                 "wdth" 100,
@@ -165,8 +165,8 @@ const projectContentRenderer = (() => {
             transform-origin: 80% 30%;
             
 			transition:
-                opacity 0.5s,
-                transform 0.5s;
+                opacity 0.333333333s steps(4),
+                transform 0.333333333s steps(4);
         }
     }
 
