@@ -91,10 +91,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                             <FilterableListItem listName="weblinks" tags={l.tags}>
                                 <div class="link-wrapper">
                                     <div class="link-top">
-                                        <span class="link-date">
-                                            {l.date.text}
-                                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                                        </span>
+                                        <span class="link-date">{l.date.text} &nbsp;|</span>
                                         <span class="link-tags">{l.tags.sort().map((t, i) => (<>
                                         <label for={`weblinks-filter-${t}`}>#{t}</label>{i !== l.tags.length - 1 && ","}
                                         </>))}</span>
@@ -196,8 +193,6 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
         }
 
         .link-top {
-            display: flex;
-            align-items: center;
             margin-bottom: 0.125rem;
         }
 

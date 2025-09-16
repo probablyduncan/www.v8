@@ -31,7 +31,7 @@ html-review:
         - poetic-web
 eileenie:
     title: Eileen Ahn
-    href: https://www.eileenie.net
+    href: https://eileenie.net
     desc: Personal site, playful, simple, full of joy. I like her Me page.
     date: 2025/05/03
     tags:
@@ -67,7 +67,7 @@ oldbookillustrations:
         - art
 awwwards:
     title: Awwwards
-    href: https://www.awwwards.com/
+    href: https://awwwards.com/
     desc: Well-known archive of laggy websites. Buttery smooth on a supercomputer, I'm sure.
     date: Long time ago
     tags:
@@ -100,7 +100,7 @@ minimalgallery:
 #         - design
 uniformfreak:
     title: Uniform Freak
-    href: http://www.uniformfreak.com/
+    href: http://uniformfreak.com/
     desc: Incredibly thorough archive of historical flight attendant uniforms. Still being updated!
     date: 2025/06/19
     tags:

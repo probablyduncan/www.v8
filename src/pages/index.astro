@@ -83,7 +83,7 @@ const projectContentRenderer = (() => {
                             <FilterableListItem tags={item.tags} listName="work">
                                 <div class="link-wrapper">
                                     <div class="link-top">
-                                        <span class="link-date">{item.date} &nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                        <span class="link-date">{item.date} &nbsp;|</span>
                                         <span class="link-tags">{item.tags.map((t, i) => (<>
                                         <FilterButton listName="work" tagName={t} >#{t}</FilterButton>{i !== item.tags.length - 1 && ","}
                                         </>))}</span>
@@ -202,8 +202,6 @@ const projectContentRenderer = (() => {
     }
 
     .link-top {
-        display: flex;
-        align-items: center;
         margin-bottom: 0.125em;
     }
 
