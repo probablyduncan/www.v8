@@ -4,7 +4,6 @@ import Ticker from "../components/ticker.astro";
 import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
 import BaseMetadata from "../components/head/base-metadata.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
-import LinkCloud from "../components/link-cloud.astro";
 import RadioFilters from "../components/filterable/radio-filters.astro";
 import FilterableListItem from "../components/filterable/filterable-list-item.astro";
 import { getCollection } from "astro:content";
@@ -38,19 +37,8 @@ const projectContentRenderer = (() => {
     </head>
     <body>
         <Ticker />
-        <!-- <aside>
-			<LinkCloud>
-				<div
-					data-hover-container="cover"
-					style={`width: 70%; border: 4px solid #e5ebf2cc;`}
-				>
-					<img src="/cover.webp" />
-				</div>
-			</LinkCloud>
-		</aside> -->
         <main>
             <header>
-                <!-- <img src="/cover.webp" style="border: 4px solid #e2e8f0; margin: 16px -4px; width: calc(100% + 8px);" /> -->
                 <h1>
                     <span class="ligatures">Duncan Petrie</span><sup
                         class="aalt"
@@ -124,7 +112,6 @@ const projectContentRenderer = (() => {
     main {
         position: relative;
         padding: var(--padding);
-        /* padding-right: unset; */
         width: min(55ch, 100%);
         z-index: 10;
         margin-bottom: 80svh;
@@ -132,7 +119,6 @@ const projectContentRenderer = (() => {
 
     header {
         width: min(42ch, 100%);
-        /* text-wrap: balance; */
     }
 
     h1 {
@@ -209,8 +195,6 @@ const projectContentRenderer = (() => {
     ul {
         list-style: none;
         padding: 1em 1em 0 0;
-        /* margin: 2em 0 0; */
-        /* border-top: 2px solid #0001; */
     }
 
     .link-wrapper {

@@ -1,4 +1,4 @@
-import { file } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 
 const minDate = new Date(0);
@@ -58,4 +58,13 @@ const index = defineCollection({
     })
 })
 
-export const collections = { weblinks, ticker, index };
+const text = defineCollection({
+    loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/text' }),
+    schema: z.object({
+        title: z.string(),
+        date: z.date(),
+        modDate: z.date().optional(),
+    }),
+})
+
+export const collections = { weblinks, ticker, index, text };
