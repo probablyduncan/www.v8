@@ -25,10 +25,10 @@ const toDateString = (d: Date) =>
     });
 
 const toWikipediaDateURL = (d: Date) => {
-    const month = d.toLocaleString('en-UK', { month: 'long' });
+    const month = d.toLocaleString("en-UK", { month: "long" });
     const day = d.getDate();
     return `https://wikipedia.org/wiki/${month}_${day}`;
-}
+};
 ---
 
 <!doctype html>
@@ -46,12 +46,18 @@ const toWikipediaDateURL = (d: Date) => {
             <header>
                 <div>
                     <h1>
-                        <a href="/" title="back! to the home page">Home</a> / <a href={"/" + entry.id} title={entry.data.title + " (you're already here!)"}>{
-                            entry.data.title
-                        }</a>
+                        <a href="/" title="back! to the home page">Home</a> / <a
+                            href={"/" + entry.id}
+                            title={entry.data.title + " (you're already here!)"}
+                            >{entry.data.title}</a
+                        >
                     </h1>
                     <span>
-                        <a {...resolveLink({ href: toWikipediaDateURL(entry.data.date) })}>{toDateString(entry.data.date)}</a>
+                        <a
+                            {...resolveLink({
+                                href: toWikipediaDateURL(entry.data.date),
+                            })}>{toDateString(entry.data.date)}</a
+                        >
                     </span>
                 </div>
             </header>
@@ -69,7 +75,7 @@ const toWikipediaDateURL = (d: Date) => {
         overflow-x: hidden;
         padding: 0 var(--padding);
     }
-    
+
     main {
         grid-column: 2;
         width: 100%;
@@ -85,10 +91,16 @@ const toWikipediaDateURL = (d: Date) => {
             text-decoration: none;
         }
 
-        a:hover {
-            text-decoration: underline dotted;
-            text-decoration-thickness: 0.0875rem;
-            text-underline-offset: 0.125rem;
+        a:hover, a:focus-visible {
+            text-decoration: underline;
+            text-decoration-thickness: 0.0875em;
+            text-underline-offset: 0.125em;
+        }
+
+        a:focus-visible, a:active {
+            outline: none;
+            background-color: var(--color-primary);
+            color: white;
         }
     }
 
