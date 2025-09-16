@@ -1,0 +1,24 @@
+<span data-clock>00:00</span>
+<script>
+    function initClock() {
+        document.querySelectorAll("[data-clock]").forEach(_e => {
+            const e = _e as HTMLElement;
+
+            function updateTime() {
+                const date = new Date();
+                e.innerHTML = `${date.getHours()}:${date.getMinutes()}`;
+            }
+
+            updateTime();
+
+            const secondsUntilNextMinute = 60 - (new Date()).getSeconds();
+
+            setTimeout(() => {
+                updateTime();
+                setInterval(updateTime, 60000);
+            }, secondsUntilNextMinute * 1000);
+        })
+    }
+
+    document.addEventListener("DOMContentLoaded", initClock);
+</script>
