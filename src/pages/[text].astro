@@ -67,16 +67,18 @@ const toWikipediaDateURL = (d: Date) => {
         grid-template-columns: 1fr auto 1.618033988749894fr;
         align-items: stretch;
         overflow-x: hidden;
+        padding: 0 var(--padding);
     }
-
+    
     main {
         grid-column: 2;
+        width: 100%;
         max-width: 55ch;
-        padding: 0 var(--padding);
     }
 
     header {
         min-height: 50svh;
+        padding-bottom: 2em;
 
         a {
             color: unset;
@@ -106,6 +108,10 @@ const toWikipediaDateURL = (d: Date) => {
         justify-content: space-between;
         flex-wrap: wrap;
 
+        @media screen and (max-width: 55ch) {
+            flex-direction: column;
+        }
+
         h1 {
             font-size: unset;
             margin: 0;
@@ -113,7 +119,9 @@ const toWikipediaDateURL = (d: Date) => {
     }
 
     article {
-        text-align: justify;
         margin-bottom: 50svh;
+        @media (min-width: 55ch) {
+            text-align: justify;
+        }
     }
 </style>
