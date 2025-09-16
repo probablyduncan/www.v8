@@ -29,6 +29,19 @@ const toWikipediaDateURL = (d: Date) => {
     const day = d.getDate();
     return `https://wikipedia.org/wiki/${month}_${day}`;
 };
+
+const stanceMap: Record<typeof entry.data.stance, [number, number]> = {
+    "center": [1, 1],
+    "side": [0, 1],
+    "golden": [1, 1.618033988749894],
+    "wide": [1, 2.41],
+}
+
+const stance = stanceMap[entry.data.stance];
+if (entry.data.align === "right") {
+    stance.reverse();
+}
+
 ---
 
 <!doctype html>
@@ -41,7 +54,7 @@ const toWikipediaDateURL = (d: Date) => {
             desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
         />
     </head>
-    <body>
+    <body style={`--col-size-left: ${stance[0]}fr; --col-size-right: ${stance[1]}fr;`}>
         <main>
             <header>
                 <div>
@@ -70,7 +83,7 @@ const toWikipediaDateURL = (d: Date) => {
 <style>
     body {
         display: grid;
-        grid-template-columns: 1fr auto 1.618033988749894fr;
+        grid-template-columns: var(--col-size-left) auto var(--col-size-right);
         align-items: stretch;
         overflow-x: hidden;
         padding: 0 var(--padding);

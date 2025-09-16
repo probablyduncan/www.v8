@@ -62,8 +62,12 @@ const text = defineCollection({
     loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/text' }),
     schema: z.object({
         title: z.string(),
+        
         date: z.date(),
         modDate: z.date().optional(),
+
+        align: z.enum(["left", "right"]).default("left"),
+        stance: z.enum(["center", "side", "golden", "wide"]).default("golden"),
     }),
 })
 
