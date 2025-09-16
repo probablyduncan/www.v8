@@ -1,0 +1,102 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<"span"> {};
+const props = Astro.props;
+---
+
+<a href="/" title="back! to the home page" data-dpc {...props}>dṗ.ɔ</a>
+<script>
+    function initDPC() {
+        interface AnimationInstance {
+            e: HTMLElement;
+            on: boolean;
+            index: number;
+            lastUpdateTimestamp: number;
+        }
+
+        const defaultAnimationInstance: Omit<AnimationInstance, "e"> = {
+            on: false,
+            index: 0,
+            lastUpdateTimestamp: 0,
+        };
+
+        // const frames = [
+        //     "dṗ.ɔ",
+        //     "duṗ.ɔ",
+        //     "dunṗ.ɔ",
+        //     "duncp.ɔ",
+        //     "duncap.ɔ",
+        //     "duncanṗ.ɔ",
+        //     "duncanp.ɔ",
+        //     "duncanpe.ɔ",
+        //     "duncanpet.ɔ",
+        //     "duncanpetr.c",
+        //     "duncanpetri.c",
+        //     "duncanpetrie.c",
+        //     "duncanpetrie.co",
+        //     "duncanpetrie.com",
+        // ];
+        // const fps = 33.3333333333;
+
+        const frames = [
+            "dṗ.ɔ",
+            "duṗe.c",
+            "dunpet.ɔo",
+            "duncpetr.coi",
+            "duncapetri.con",
+            "duncanpetrie.com",
+        ];
+        const fps = 83.3333333333//41.6666666667;
+
+        const toAnimate: AnimationInstance[] = [];
+
+        document.querySelectorAll("[data-dpc]").forEach((_e) => {
+            const e = _e as HTMLElement;
+            const state: AnimationInstance = { ...defaultAnimationInstance, e };
+
+            toAnimate.push(state);
+
+            const on = () => state.on = true;
+            const off = () => state.on = false;
+
+            e.addEventListener("mouseenter", on);
+            e.addEventListener("mouseleave", off);
+            e.addEventListener("focus", () => {on(); console.log("focus")});
+            e.addEventListener("blur", off);
+        });
+
+        function animate(timestamp: number) {
+            requestAnimationFrame(animate);
+            toAnimate.forEach((state) => {
+
+                // if not enough time elapsed, get out
+                if (timestamp - state.lastUpdateTimestamp < fps) {
+                    return;
+                }
+
+                if (state.on) {
+                    // at end, get out
+                    if (state.index >= frames.length - 1) { return; }
+
+                    // go forwards
+                    state.index++;
+                }
+                else {
+                    // at start, get out
+                    if (state.index <= 0) { return; }
+
+                    // go backwards
+                    state.index--;
+                }
+
+                state.e.innerText = frames[state.index];
+                state.lastUpdateTimestamp = timestamp;
+            });
+        }
+
+        animate(0);
+    }
+
+    document.addEventListener("DOMContentLoaded", initDPC);
+</script>
