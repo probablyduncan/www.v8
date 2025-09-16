@@ -128,7 +128,10 @@ const projectContentRenderer = (() => {
         text-indent: 1em;
 
         abbr {
-            transition: font-variation-settings 0.333333333s steps(4);
+            transition:
+                font-variation-settings 0.333333333s steps(4), 
+                color 0.333333333s steps(4);
+            
             font-variation-settings:
                 "wght" 400,
                 "wdth" 100,
@@ -154,6 +157,7 @@ const projectContentRenderer = (() => {
 
     h1:has(sup:hover) ~ p.indent {
         abbr {
+            color: var(--color-primary);
             font-variation-settings:
                 "wght" 400,
                 "wdth" 79,
