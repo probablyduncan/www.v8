@@ -1,5 +1,7 @@
 ---
-import "../fonts.css";
+import BaseMetadata from "../components/head/base-metadata.astro";
+import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
+import PageMetadata from "../components/head/page-metadata.astro";
 
 const symbols = "ↀↁↂↇↈDↃ";
 ---
@@ -7,10 +9,12 @@ const symbols = "ↀↁↂↇↈDↃ";
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>Duncan Petrie</title>
+        <BaseMetadata />
+        <GlobalStylesLoader />
+        <PageMetadata
+            title="Flipbook demo - Duncan’s Website"
+            desc="Flipbook demo?"
+        />
     </head>
     <body>
         <div data-flipbook></div>

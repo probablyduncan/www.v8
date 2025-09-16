@@ -10,8 +10,6 @@ export default function remarkLineBreaks() {
         findAndReplace(tree, [
             /\n/g,
             function ($0) {
-                console.log("aah")
-                console.log($0);
                 return u("break");
             }
         ])
