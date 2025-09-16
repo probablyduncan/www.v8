@@ -1,3 +1,15 @@
+lamp:
+    date: September, 2025
+    tags: [best, stories]
+    content: 'There are [ten thousand lamps](/ten-thousand-lamps "There are ten thousand lamps inside of your room...") inside of your room.'
+pantsless-again:
+    date: September, 2025
+    tags: [lyric-and-verse]
+    content: 'Now the whole party sees / Your dinosaur undees / You’re pantsless! / [Pantsless again]("You’re pantsless again!")!'
+picture-takin-blues:
+    date: August, 2025
+    tags: [lyric-and-verse, photography]
+    content: 'What do you get when you cross a film camera with a night of listening to someone play the steel guitar? Why, the [picture takin’ blues](/picture-takin-blues "I don’t know how I could ever choose..."), of course.'
 pigeon-web:
     date: August, 2025 & 2024
     tags: [best, photobooks, code, photography]
@@ -17,7 +29,7 @@ scruptious:
 rat:
     date: April, 2025
     tags: [lyric-and-verse]
-    content: 'I saw a [rat today](/rats "I Saw a Rat Today, Oh Boy"), oh boy! I wrote this parody of "A Day in the Life" in a cafe in Falmouth, after seeing, yes indeed, a rat.'
+    content: 'I saw a [rat today](/day-in-the-rat "I Saw a Rat Today, Oh Boy"), oh boy! I wrote this parody of "A Day in the Life" in a cafe in Falmouth, after seeing, yes indeed, a rat.'
 sancho:
     date: February, 2025
     tags: [code]
@@ -25,7 +37,7 @@ sancho:
 wind:
     date: September, 2024
     tags: [best, stories]
-    content: "[A List of the Wind](/wind \"There was a list on the fridge in the Cabin of the Wind...\") is a story about getting up and doing, finally, what needs to be done."
+    content: '[A List of the Wind](/wind "There was a list on the fridge in the Cabin of the Wind...") is a story about getting up and doing, finally, what needs to be done.'
 man-upstairs:
     date: July, 2023
     tags: [best, lyric-and-verse]
@@ -41,7 +53,7 @@ man-upstairs:
 lingermyth:
     date: April, 2022
     tags: [best, photobooks, photography]
-    content: "[_Lingermyth_](/lingermyth \"Gradually, we grew out of our past...\") is an artist book of 50 images created as a final degree project at Falmouth University."
+    content: '[_Lingermyth_](/lingermyth "Gradually, we grew out of our past...") is an artist book of 50 images created as a final degree project at Falmouth University.'
 wiki:
     date: April, 2021
     tags: [best, films]
