@@ -1,5 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
+import remarkLineBreaks from './src/lib/remarkLineBreaks';
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  integrations: [mdx({
+    remarkPlugins: [remarkLineBreaks]
+  })],
+});
