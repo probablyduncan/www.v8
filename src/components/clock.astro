@@ -1,7 +1,9 @@
 <span data-clock>00:00</span>
 <script>
+    import runOnLoad from "../lib/runOnLoad";
+    
     function initClock() {
-        document.querySelectorAll("[data-clock]").forEach(_e => {
+        document.querySelectorAll("[data-clock]").forEach((_e) => {
             const e = _e as HTMLElement;
 
             function updateTime() {
@@ -11,14 +13,14 @@
 
             updateTime();
 
-            const secondsUntilNextMinute = 60 - (new Date()).getSeconds();
+            const secondsUntilNextMinute = 60 - new Date().getSeconds();
 
             setTimeout(() => {
                 updateTime();
                 setInterval(updateTime, 60000);
             }, secondsUntilNextMinute * 1000);
-        })
+        });
     }
 
-    document.addEventListener("DOMContentLoaded", initClock);
+    runOnLoad(initClock);
 </script>

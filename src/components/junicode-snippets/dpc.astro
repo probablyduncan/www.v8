@@ -7,6 +7,8 @@ const props = Astro.props;
 
 <a href="/" title="back! to the home page" data-dpc {...props}>dṗ.ɔ</a>
 <script>
+    import runOnLoad from "../../lib/runOnLoad";
+
     function initDPC() {
         interface AnimationInstance {
             e: HTMLElement;
@@ -98,5 +100,5 @@ const props = Astro.props;
         animate(0);
     }
 
-    document.addEventListener("DOMContentLoaded", initDPC);
+    runOnLoad(initDPC);
 </script>

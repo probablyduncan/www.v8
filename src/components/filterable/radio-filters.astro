@@ -177,6 +177,8 @@ tags.forEach((t) =>
     }
 </style>
 <script>
+    import runOnLoad from "../../lib/runOnLoad";
+
     function initCheckboxFilters() {
 
         // blur input on click to avoid input focus styling when not using keyboard
@@ -215,5 +217,5 @@ tags.forEach((t) =>
             });
     }
 
-    document.addEventListener("DOMContentLoaded", initCheckboxFilters);
+    runOnLoad(initCheckboxFilters);
 </script>

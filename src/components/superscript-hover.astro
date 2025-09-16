@@ -58,6 +58,7 @@ const { icon, supClass, bigSup = false, ...a } = Astro.props;
 <script>
     import { lerp } from "@probablyduncan/common/math";
     import Vec2 from "@probablyduncan/common/vec2";
+    import runOnLoad from "../lib/runOnLoad";
 
     function initIconFloats() {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -139,5 +140,5 @@ const { icon, supClass, bigSup = false, ...a } = Astro.props;
         });
     }
 
-    document.addEventListener("DOMContentLoaded", initIconFloats);
+    runOnLoad(initIconFloats);
 </script>

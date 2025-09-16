@@ -177,6 +177,8 @@ tags.forEach((t) =>
     }
 </style>
 <script>
+    import runOnLoad from "../../lib/runOnLoad";
+
     function initCheckboxFilters() {
         document.querySelectorAll("form.filters label").forEach((_e) => {
             const label = _e as HTMLLabelElement;
@@ -188,5 +190,5 @@ tags.forEach((t) =>
         });
     }
 
-    document.addEventListener("DOMContentLoaded", initCheckboxFilters);
+    runOnLoad(initCheckboxFilters);
 </script>
