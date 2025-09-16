@@ -1,0 +1,119 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseMetadata from "../components/head/base-metadata.astro";
+import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
+import PageMetadata from "../components/head/page-metadata.astro";
+import { getEntry } from "astro:content";
+import { resolveLink } from "../lib/linkHelper";
+
+export async function getStaticPaths() {
+    const collection = await getCollection("text");
+    return collection.map((t) => ({
+        params: { text: t.id },
+    }));
+}
+
+const { text: id } = Astro.params;
+const entry = await getEntry("text", id)!;
+const { Content } = await render(entry);
+
+const toDateString = (d: Date) =>
+    d.toLocaleDateString("en-UK", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+    });
+
+const toWikipediaDateURL = (d: Date) => {
+    const month = d.toLocaleString('en-UK', { month: 'long' });
+    const day = d.getDate();
+    return `https://wikipedia.org/wiki/${month}_${day}`;
+}
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseMetadata />
+        <GlobalStylesLoader />
+        <PageMetadata
+            title={`${entry.data.title} (on Duncan’s Website)`}
+            desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
+        />
+    </head>
+    <body>
+        <main>
+            <header>
+                <div>
+                    <h1>
+                        <a href="/" title="back! to the home page">Home</a> / <a href={"/" + entry.id} title={entry.data.title + " (you're already here!)"}>{
+                            entry.data.title
+                        }</a>
+                    </h1>
+                    <span>
+                        <a {...resolveLink({ href: toWikipediaDateURL(entry.data.date) })}>{toDateString(entry.data.date)}</a>
+                    </span>
+                </div>
+            </header>
+            <article>
+                <Content />
+            </article>
+        </main>
+    </body>
+</html>
+<style>
+    body {
+        display: grid;
+        grid-template-columns: 1fr auto 1.618033988749894fr;
+        align-items: stretch;
+        overflow-x: hidden;
+    }
+
+    main {
+        grid-column: 2;
+        max-width: 55ch;
+        padding: 0 var(--padding);
+    }
+
+    header {
+        min-height: 50svh;
+
+        a {
+            color: unset;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline dotted;
+            text-decoration-thickness: 0.0875rem;
+            text-underline-offset: 0.125rem;
+        }
+    }
+
+    header > div {
+        position: sticky;
+        top: 0;
+
+        padding-top: 1em;
+
+        font-variant-numeric: lining-nums;
+        font-variation-settings:
+            "wght" 600,
+            "wdth" 100,
+            "ENLA" 20;
+
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        h1 {
+            font-size: unset;
+            margin: 0;
+        }
+    }
+
+    article {
+        text-align: justify;
+        margin-bottom: 50svh;
+    }
+</style>
