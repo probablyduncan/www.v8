@@ -7,4 +7,4 @@ interface Props {
 const { listName, tagName } = Astro.props;
 ---
 
-<label for={`${listName}-filter-${tagName}`}><slot /></label>
+<label for={`${listName}-filter-${tagName}`} title={`filter by tag: ${tagName}`}><slot /></label>
