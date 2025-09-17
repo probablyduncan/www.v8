@@ -166,7 +166,7 @@ tags.forEach(t =>
 <script>
     import runOnLoad from "../../lib/runOnLoad";
 
-    function initCheckboxFilters() {
+    function initRadioFilters() {
         // blur input on click to avoid input focus styling when not using keyboard
         document.querySelectorAll("ul.filters label").forEach(_e => {
             const label = _e as HTMLLabelElement;
@@ -191,11 +191,11 @@ tags.forEach(t =>
                 return;
             }
 
-            label.addEventListener("click", e => {
+            label.addEventListener("click", () => {
                 window.scrollTo({ top: ul.offsetTop - 40 });
             });
         });
     }
 
-    runOnLoad(initCheckboxFilters);
+    runOnLoad(initRadioFilters);
 </script>
