@@ -1,27 +1,22 @@
 ---
-import {
-    getFilterableTagClass,
-    type FilterButtonProps,
-} from "../../lib/filterableHelper";
+import { getFilterableTagClass, type FilterButtonProps } from "../../lib/filterableHelper";
 
 interface Props extends FilterButtonProps {}
 const { listName, tags, showAll = "off", defaultTag } = Astro.props;
 
 let css = [];
 if (showAll === "off") {
-    css.push(
-        `ul#${listName}-filters ~ * .${getFilterableTagClass(listName)} { display: none; }`,
-    );
+    css.push(`ul#${listName}-filters ~ * .${getFilterableTagClass(listName)} { display: none; }`);
 } else {
     css.push(
-        `ul#${listName}-filters:has(input[type=radio]:not([value=all]):checked) ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+        `ul#${listName}-filters:has(input[type=radio]:not([value=all]):checked) ~ * .${getFilterableTagClass(listName)} { display: none; }`
     );
 }
 
-tags.forEach((t) =>
+tags.forEach(t =>
     css.push(
-        `ul#${listName}-filters:has(input[type=radio][value=${t}]:checked) ~ * .${getFilterableTagClass(listName, t)} { display: inherit; }`,
-    ),
+        `ul#${listName}-filters:has(input[type=radio][value=${t}]:checked) ~ * .${getFilterableTagClass(listName, t)} { display: inherit; }`
+    )
 );
 ---
 
@@ -29,7 +24,7 @@ tags.forEach((t) =>
     {
         showAll === "first" && (
             <li>
-                <label title="open the floodgates!">
+                <label title="open the floodgates!" data-contents="all">
                     all
                     <input
                         type="radio"
@@ -45,19 +40,14 @@ tags.forEach((t) =>
     {
         tags.map((t, i) => (
             <li>
-                <label title={`filter by tag: ${t}`}>
+                <label title={`filter by tag: ${t}`} data-contents={`#${t}`}>
                     #{t}
                     <input
                         type="radio"
                         name={listName + "-filter"}
                         id={listName + "-filter-" + t}
                         value={t}
-                        checked={
-                            defaultTag === t ||
-                            (defaultTag === undefined &&
-                                showAll !== "first" &&
-                                i === 0)
-                        }
+                        checked={defaultTag === t || (defaultTag === undefined && showAll !== "first" && i === 0)}
                     />
                 </label>
             </li>
@@ -66,14 +56,9 @@ tags.forEach((t) =>
     {
         showAll === "last" && (
             <li>
-                <label title="open the floodgates!">
+                <label title="open the floodgates!" data-contents="all">
                     all
-                    <input
-                        type="radio"
-                        name={listName + "-filter"}
-                        id={listName + "-filter-all"}
-                        value="all"
-                    />
+                    <input type="radio" name={listName + "-filter"} id={listName + "-filter-all"} value="all" />
                 </label>
             </li>
         )
@@ -91,10 +76,13 @@ tags.forEach((t) =>
         column-gap: 0.25em;
     }
 
-    input[type="radio"] {
+    /* hide input, but need to preserve ability to focus w/ keyboard */
+    input {
+        position: absolute;
+        bottom: 0;
+        left: 0;
         -webkit-appearance: none;
         appearance: none;
-        margin: 0;
     }
 
     /* label styles when selected */
@@ -103,15 +91,12 @@ tags.forEach((t) =>
         background-color: var(--color-primary);
     }
 
-    input,
     label {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-    }
 
-    label {
         text-align: center;
         cursor: pointer;
         user-select: none;
@@ -124,67 +109,68 @@ tags.forEach((t) =>
         box-shadow: 1px 1px black;
 
         font-size: 0.9em;
+        font-style: italic;
+
         transition:
             color 0.1s,
             background-color 0.1s,
             font-variation-settings 0.5s;
-        font-style: italic;
     }
 
+    /* pseudo element spacer rules */
+    label::before,
+    label::after {
+        content: "#" attr(data-contents);
+        height: 0;
+        visibility: hidden;
+        user-select: none;
+        -webkit-user-select: none;
+        pointer-events: none;
+    }
+
+    /* default font settings */
     label,
-    input::before {
+    label::before {
         font-variation-settings:
             "wght" 500,
             "wdth" 100,
             "ENLA" 20;
     }
 
-    /* focus/hover colors */
-    label:hover {
-        color: white;
-        background-color: black;
-    }
-
-    /* unset default focus style */
-    input:focus,
-    label:focus-within {
-        outline: unset;
-    }
-
-    label:focus-within {
-        outline: 2px solid black;
-    }
-
-    input::before,
-    input::after {
-        content: "#" attr(value);
-        height: 0;
-        visibility: hidden;
-        overflow: hidden;
-        user-select: none;
-        -webkit-user-select: none;
-        pointer-events: none;
-    }
-
-    /* when hovering or selected, font should be  */
+    /* hover/active font settings */
     label:hover,
-    input::after,
+    label::after,
     label:has(input:checked) {
         font-variation-settings:
             "wght" 400,
             "wdth" 90,
             "ENLA" 60;
     }
+
+    /* hover/focus colors */
+    label:hover {
+        color: white;
+        background-color: black;
+    }
+
+    /* unset default focus style */
+    input:focus {
+        outline: unset;
+    }
+
+    /* keyboard nav outline */
+    label:focus-within {
+        outline: 2px solid black;
+    }
 </style>
 <script>
     import runOnLoad from "../../lib/runOnLoad";
 
     function initCheckboxFilters() {
-
         // blur input on click to avoid input focus styling when not using keyboard
-        document.querySelectorAll("ul.filters label").forEach((_e) => {
+        document.querySelectorAll("ul.filters label").forEach(_e => {
             const label = _e as HTMLLabelElement;
-            label.addEventListener("click", (e) => {
+            label.addEventListener("click", e => {
                 if ((e as PointerEvent)["pointerType"]) {
                     label.querySelector("input")?.blur();
                 }
@@ -192,29 +178,23 @@ tags.forEach((t) =>
         });
 
         // jump to top of list when a tag label is clicked
-        document
-            .querySelectorAll("ul.filters label, label[name*=-filter-]")
-            .forEach((_e) => {
-                const label = _e as HTMLLabelElement;
+        document.querySelectorAll("ul.filters label, label[name*=-filter-]").forEach(_e => {
+            const label = _e as HTMLLabelElement;
 
-                const input = (
-                    label.htmlFor
-                        ? document.getElementById(label.htmlFor)
-                        : label.querySelector("input")
-                ) as HTMLInputElement;
+            const input = (
+                label.htmlFor ? document.getElementById(label.htmlFor) : label.querySelector("input")
+            ) as HTMLInputElement;
 
-                const ul = document.querySelector(
-                    `ul.filters#${input?.name}s`,
-                ) as HTMLUListElement;
+            const ul = document.querySelector(`ul.filters#${input?.name}s`) as HTMLUListElement;
 
-                if (!input || !ul) {
-                    return;
-                }
+            if (!input || !ul) {
+                return;
+            }
 
-                label.addEventListener("click", (e) => {
-                    window.scrollTo({ top: ul.offsetTop - 40 });
-                });
+            label.addEventListener("click", e => {
+                window.scrollTo({ top: ul.offsetTop - 40 });
             });
+        });
     }
 
     runOnLoad(initCheckboxFilters);
