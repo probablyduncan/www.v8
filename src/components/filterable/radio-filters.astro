@@ -87,7 +87,7 @@ tags.forEach(t =>
 
     /* label styles when selected */
     label:has(input:checked) {
-        color: white;
+        color: var(--color-bg);
         background-color: var(--color-primary);
     }
 
@@ -104,9 +104,9 @@ tags.forEach(t =>
         padding: 4px 6px 0px 4px;
         position: relative;
 
-        border: 1px solid black;
+        border: 1px solid var(--color-text);
         border-radius: 4px;
-        box-shadow: 1px 1px black;
+        box-shadow: 1px 1px var(--color-text);
 
         font-size: 0.9em;
         font-style: italic;
@@ -149,8 +149,8 @@ tags.forEach(t =>
 
     /* hover/focus colors */
     label:hover {
-        color: white;
-        background-color: black;
+        color: var(--color-bg);
+        background-color: var(--color-text);
     }
 
     /* unset default focus style */
@@ -160,7 +160,7 @@ tags.forEach(t =>
 
     /* keyboard nav outline */
     label:focus-within {
-        outline: 2px solid black;
+        outline: 2px solid var(--color-text);
     }
 </style>
 <script>

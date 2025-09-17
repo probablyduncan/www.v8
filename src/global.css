@@ -14,6 +14,8 @@
     src: url("/JunicodeVF-Italic.ttf");
 }
 
+/* :root { color-scheme: light dark; } */s
+
 body {
     font-family: Junicode, "Times New Roman", serif;
 
@@ -22,8 +24,17 @@ body {
 
     --padding: clamp(1rem, 4vw, 2rem);
 
-    --color-primary: #0000ee;
-    --color-secondary: #551a8b;
+    --color-text: light-dark(black, white);
+    --color-bg: light-dark(white, black);
+
+    --color-primary: light-dark(#00e, #8ae9ff);
+    --color-secondary: light-dark(#551a8b, #e9c0ff);
+
+    --color-text-light: light-dark(#222, #eee);
+    --color-text-lighter: light-dark(#444, #ddd);
+
+    color: var(--color-text);
+    background: var(--color-bg);
 }
 
 h1,

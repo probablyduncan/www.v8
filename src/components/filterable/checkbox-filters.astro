@@ -97,7 +97,7 @@ tags.forEach((t) =>
     /* label styles when selected */
     label:has(input:checked),
     form:not(:has(input:checked)) label[data-all] {
-        color: white;
+        color: var(--color-bg);;
         background-color: var(--color-primary);
     }
 
@@ -136,8 +136,8 @@ tags.forEach((t) =>
 
     /* focus/hover colors */
     label:hover {
-        color: white;
-        background-color: black;
+        color: var(--color-bg);
+        background-color: var(--color-text);
     }
 
     /* unset default focus style */

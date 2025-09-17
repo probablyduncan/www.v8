@@ -171,7 +171,7 @@ const projectContentRenderer = (() => {
     }
 
     hr {
-        color: #0001;
+        opacity: 0.0833333333;
         margin-bottom: 2em;
         margin-top: 2em;
     }
@@ -187,10 +187,10 @@ const projectContentRenderer = (() => {
 
     .link-top {
         margin-bottom: 0.125em;
+        color: var(--color-text-lighter);
     }
 
     .link-date {
-        color: #222;
         font-variant-numeric: lining-nums;
         font-variation-settings:
             "wght" 500,
@@ -200,7 +200,6 @@ const projectContentRenderer = (() => {
     }
 
     .link-tags {
-        color: #444;
         font-weight: 300;
         font-size: 0.8em;
 
@@ -219,7 +218,7 @@ const projectContentRenderer = (() => {
     .link-bottom {
         font-size: 1em;
         line-height: 1.4;
-        color: #444;
+        color: var(--color-text-light);
     }
 
     .link-bottom :global(br) {
