@@ -5,6 +5,7 @@ import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
 import { getEntry } from "astro:content";
 import { resolveLink } from "../lib/linkHelper";
+import Hourglass from "../components/hourglass.astro";
 
 export async function getStaticPaths() {
     const collection = await getCollection("text");
@@ -78,6 +79,7 @@ if (entry.data.align === "right") {
             <article>
                 <Content />
             </article>
+            <Hourglass />
         </main>
     </body>
 </html>

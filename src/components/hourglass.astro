@@ -1,0 +1,144 @@
+<div class="hourglass pause reverse">
+    <div class="top"></div>
+    <div class="bottom"></div>
+</div>
+<style>
+    .hourglass {
+        position: fixed;
+        top: 61.8svh;
+        right: 16.18vw;
+
+        /* from 0 to 1? */
+        --progress: 0;
+
+        /* maximum amount of sand in top or bottom */
+        --max-fill: 0.7;
+
+        --rotate: 0deg;
+        rotate: var(--rotate);
+        transition: rotate 0.5s;
+
+        border-inline: 2px double black;
+        border-block: 4px solid black;
+        border-radius: 4px;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .hourglass.reverse {
+            --rotate: -180deg;
+        }
+
+        .hourglass.pause {
+            /* --rotate: -90deg; */
+        }
+    }
+
+    .top {
+        /* from 0.3 to 1, i.e. */
+        --progress-adjusted: calc(
+            var(--progress) * var(--max-fill) + 1 - var(--max-fill)
+        );
+    }
+
+    .bottom {
+        /* from 1 to 0.3, i.e. */
+        --progress-adjusted: calc(1 - (var(--progress) * var(--max-fill)));
+    }
+
+    .top,
+    .bottom {
+        width: 60px;
+        aspect-ratio: 1;
+
+        --first-edge: calc(var(--progress-adjusted) * 100%);
+        --second-edge: calc(var(--first-edge) + 5%);
+        --third-edge: calc(var(--second-edge) + 5%);
+
+        /* background: linear-gradient(
+            to bottom,
+            transparent 0 var(--first-edge),
+            #ddd var(--first-edge) var(--second-edge),
+            #ccc var(--second-edge) var(--third-edge),
+            #aaa var(--third-edge) 100%
+        ); */
+
+        background: linear-gradient(
+            to bottom,
+            transparent 0 var(--first-edge),
+            rgb(255, 250, 232) var(--first-edge) var(--second-edge),
+            cornsilk var(--second-edge) var(--third-edge),
+            blanchedalmond var(--third-edge) 100%
+        );
+
+        margin-block: -2px;
+
+        border: 2px double black;
+        border-radius: 50%;
+
+        rotate: calc(var(--rotate) * -1);
+        --delay: calc(0.3s * (1 - var(--progress-adjusted)) + 0.4s);
+        transition: rotate var(--delay);
+    }
+</style>
+<script>
+    import runOnLoad from "../lib/runOnLoad";
+
+    function initHourglass() {
+        interface Hourglass {
+            el: HTMLElement;
+            top: HTMLElement;
+            bottom: HTMLElement;
+        }
+
+        const hourglasses: Hourglass[] = [];
+
+        document.querySelectorAll(".hourglass").forEach((_e) => {
+            const el = _e as HTMLElement;
+            const top = el.querySelector(".top") as HTMLElement;
+            const bottom = el.querySelector(".bottom") as HTMLElement;
+            if (!el || !top || !bottom) return;
+
+            hourglasses.push({
+                el,
+                top,
+                bottom,
+            });
+        });
+
+        let timeoutId: number | undefined;
+        let prev = 0;
+        window.addEventListener("scroll", () => {
+            const scrollProgress =
+                window.scrollY /
+                (document.body.scrollHeight - window.innerHeight);
+            const isScrollingUp = prev > scrollProgress;
+            prev = scrollProgress;
+
+            hourglasses.forEach((h) => {
+                h.el.classList.remove("pause");
+                h.el.classList.toggle("reverse", isScrollingUp);
+                h.el.style.setProperty("--progress", scrollProgress.toFixed(5));
+            });
+
+            if (timeoutId) clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                hourglasses.forEach((h) => h.el.classList.add("pause"));
+                // hourglasses.forEach((h) => h.el.classList.remove("reverse"));
+                timeoutId = undefined;
+            }, 400);
+        });
+
+        // things to do:
+        // flip hourglass when scroll changes direction
+        // maybe it shakes when scroll is really fast?
+    }
+
+    runOnLoad(initHourglass);
+</script>
+<noscript>
+    <style>
+        .hourglass {
+            display: none;
+        }
+    </style>
+</noscript>
