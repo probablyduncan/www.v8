@@ -33,6 +33,9 @@ body {
     --color-text-light: light-dark(#222, #eee);
     --color-text-lighter: light-dark(#444, #ddd);
 
+    --color-bg-dark: light-dark(#eee, #222);
+    --color-bg-darker: light-dark(#ddd, #444);
+
     color: var(--color-text);
     background: var(--color-bg);
 }
@@ -91,9 +94,11 @@ p {
 code {
     font-family: monospace;
     font-size: 0.75em;
-    background-color: lightgray;
-    border-radius: 0.25em;
+    
     display: inline-block;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+    border-radius: 0.25em;
     padding: 0 0.25em;
 }
 

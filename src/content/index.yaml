@@ -41,7 +41,7 @@ sancho:
 finger:
     date: November, 2024
     tags: [code]
-    content: "I made a [good point](https://finger.duncanpetrie.com). This was my first experiment with cursor animation using `requestAnimationFrame`."
+    content: "I made a [good point](https://finger.duncanpetrie.com). This was the start of my love affair with `requestAnimationFrame` and cursor-driven effects."
 wind:
     date: September, 2024
     tags: [best, stories]
