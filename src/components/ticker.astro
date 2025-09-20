@@ -18,13 +18,16 @@ const animateSeconds = links.length * 30;
         Array.from({ length: 2 }).map(() => (
             <span class="half">
                 {links.map(({ data: link }) => {
-                    const props = resolveLink({ href: link.href, innerHtml: link.text })
+                    const props = resolveLink({
+                        href: link.href,
+                        innerHtml: link.text,
+                    });
                     return (
                         <a
                             tabindex="-1"
                             {...props}
                             class="item"
-                            style={`margin-right: ${Math.floor(Math.random() * 80 + 80)}px;`}
+                            style={`--rand: ${Math.floor(Math.random() * 10)};`}
                             data-content={link.text}
                         >
                             {link.text}
@@ -50,6 +53,10 @@ const animateSeconds = links.length * 30;
 
         text-decoration: unset;
         color: unset;
+
+        /* between 0 and 9 */
+        --rand: 0;
+        margin-right: calc(var(--rand) * 0.2em + 5em);
     }
 
     .item,
@@ -118,7 +125,20 @@ const animateSeconds = links.length * 30;
 
     @media screen and (width < 512px) {
         nav {
-            display: none;
+            top: 0;
+            transform: rotate(0deg);
+        }
+
+        .half {
+            background-color: var(--color-bg);
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            padding-block: 0.2em;
+            border-block: 0.125em double var(--color-text-lighter);
+        }
+
+        .item {
+            margin-right: 1.2em;
         }
     }
 
