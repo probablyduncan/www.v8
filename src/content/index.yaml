@@ -1,11 +1,11 @@
 wikipi:
     date: September, 2025
     tags: [code]
-    content: 'How do you fit one infinity into another? [Wikiπdia](https://wikipi.duncanpetrie.com) uses Pi as an index for Wikipedia articles with numbers in their titles.'
+    content: 'How do you fit one infinity into another? [Wikiπdia](https://wikipi.duncanpetrie.com) uses π as an index for Wikipedia articles with numbers in their titles.'
 lamp:
     date: September, 2025
     tags: [best, stories]
-    content: 'There are [ten thousand lamps](/ten-thousand-lamps "There are ten thousand lamps inside of your room...") inside of your room.'
+    content: 'There are [ten thousand lamps](/ten-thousand-lamps "There are ten thousand lamps inside of your room...") in your room.'
 pantsless-again:
     date: September, 2025
     tags: [lyric-and-verse]
@@ -17,7 +17,7 @@ picture-takin-blues:
 pigeon-web:
     date: August, 2025 & 2024
     tags: [best, photobooks, code, photography]
-    content: '[_To Pigeon-Fill the Sky_](https://pigeons.duncanpetrie.com "To Pigeon-Fill the Sky (the Website)") is a book about AI, the creative process, and, of course, pigeons.'
+    content: '[To Pigeon-Fill the Sky](https://pigeons.duncanpetrie.com "To Pigeon-Fill the Sky (the Website)") is a book about AI, the creative process, and, of course, pigeons.'
 spider-cursor:
     date: July, 2025
     tags: [best, code]
@@ -38,6 +38,10 @@ sancho:
     date: February, 2025
     tags: [code]
     content: "After reading Don Quixote, I created a [Sancho Simulator](https://sancho.duncanpetrie.com): all the squire's proverbs, randomized, tantalized, run-round and riled up."
+finger:
+    date: November, 2024
+    tags: [code]
+    content: "I made a [good point](https://finger.duncanpetrie.com). This was my first experiment with cursor animation using `requestAnimationFrame`."
 wind:
     date: September, 2024
     tags: [best, stories]
@@ -57,7 +61,7 @@ man-upstairs:
 lingermyth:
     date: April, 2022
     tags: [best, photobooks, photography]
-    content: '[_Lingermyth_](/lingermyth "Gradually, we grew out of our past...") is an artist book of 50 images created as a final degree project at Falmouth University.'
+    content: '[Lingermyth](/lingermyth "Gradually, we grew out of our past...") is an artist book of 50 images created as a final degree project at Falmouth University.'
 wiki:
     date: April, 2021
     tags: [best, films]
