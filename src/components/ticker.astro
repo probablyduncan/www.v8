@@ -10,28 +10,27 @@ const animateSeconds = links.length * 30;
 ---
 
 <nav
-    style={`
---animation-duration: ${animateSeconds}s;
---animation-delay: -${animateSeconds / 2}s;`}
+    style={`--animation-duration: ${animateSeconds}s; --animation-delay: -${animateSeconds / 2}s;`}
 >
     {
         Array.from({ length: 2 }).map(() => (
             <span class="half">
                 {links.map(({ data: link }) => {
-                    const props = resolveLink({
+                    const linkProps = resolveLink({
                         href: link.href,
                         innerHtml: link.text,
                     });
                     return (
-                        <a
-                            tabindex="-1"
-                            {...props}
+                        <span
                             class="item"
                             style={`--rand: ${Math.floor(Math.random() * 10)};`}
-                            data-content={link.text}
                         >
-                            {link.text}
-                        </a>
+                            <a {...linkProps} tabindex="-1">
+                                {link.text}
+                            </a>
+                            <span>{link.text}</span>
+                            <span>{link.text}</span>
+                        </span>
                     );
                 })}
             </span>
@@ -39,61 +38,59 @@ const animateSeconds = links.length * 30;
     }
 </nav>
 <style>
+
+    /* container for link text and spacers */
     .item {
         display: inline-block;
         font-size: 1em;
         font-style: italic;
-        cursor: pointer;
-        pointer-events: auto;
 
         display: inline-flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
 
-        text-decoration: unset;
-        color: unset;
-
         /* between 0 and 9 */
         --rand: 0;
         margin-right: calc(var(--rand) * 0.2em + 5em);
     }
 
-    .item,
-    .item::before {
+    /* ensure can interact with links, reset link styles */
+    .item a {
+        cursor: pointer;
+        pointer-events: auto;
+        text-decoration: unset;
+        color: unset;
+    }
+
+    /* default link text settings */
+    .item a,
+    .item span:first-of-type {
         font-variation-settings:
             "wght" 300,
             "wdth" 100,
             "ENLA" 0;
     }
 
-    .item::before,
-    .item::after {
+    /* enlarge link text on hover */
+    @media (hover: hover) {
+        .item a:hover,
+        .item span:last-of-type {
+            font-variation-settings:
+                "wght" 300,
+                "wdth" 80,
+                "ENLA" 30;
+        }
+    }
+
+    /* hide spacers */
+    .item span:first-of-type,
+    .item span:last-of-type {
         content: attr(data-content);
         height: 0;
         visibility: hidden;
         overflow: hidden;
         pointer-events: none;
-    }
-
-    .item:hover,
-    .item::after {
-        font-variation-settings:
-            "wght" 300,
-            "wdth" 80,
-            "ENLA" 30;
-    }
-
-    .item:hover {
-        text-decoration: underline;
-        text-underline-offset: 2px;
-    }
-
-    .item,
-    .item::before,
-    .item::after {
-        user-select: none;
-        -webkit-user-select: none;
     }
 
     .half {
@@ -103,12 +100,9 @@ const animateSeconds = links.length * 30;
         animation: tick var(--animation-duration) linear infinite;
     }
 
+    /* delay second one half of duration */
     .half:last-of-type {
         animation-delay: var(--animation-delay);
-    }
-
-    nav:has(.item:hover) .half {
-        animation-play-state: paused;
     }
 
     nav {
@@ -121,12 +115,23 @@ const animateSeconds = links.length * 30;
         left: 0px;
         transform: rotate(2deg);
         transform-origin: 0 0;
+
+        user-select: none;
+        -webkit-user-select: none;
     }
 
+    /* pause ticker on hover */
+    @media (hover: hover) {
+        nav:has(.item:hover) .half {
+            animation-play-state: paused;
+        }
+    }
+
+    /* render ticker with borders/background on small screens */
     @media screen and (width < 512px) {
         nav {
             top: 0;
-            transform: rotate(0deg);
+            transform: none;
         }
 
         .half {
@@ -139,6 +144,14 @@ const animateSeconds = links.length * 30;
 
         .item {
             margin-right: 1.2em;
+        }
+    }
+
+    /* underline links on hover when desktop */
+    @media screen and (hover: hover) and (width >= 512px) {
+        .item a:hover {
+            text-decoration: underline;
+            text-underline-offset: 2px;
         }
     }
 
