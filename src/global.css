@@ -40,6 +40,10 @@ body {
     background: var(--color-bg);
 }
 
+::selection {
+    background-color: #fff8ac;
+}
+
 h1,
 h2,
 h3 {
