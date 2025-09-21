@@ -60,6 +60,15 @@ const links: {
         pos: [100, 76],
     },
 ];
+
+// in here or somewhere
+// we store the pos of the thing as --x and --y, which are used to translate the contents
+// so then the script that tracks mouse movement on projects just needs to
+// send the animation pos to these css vars and the content will handle the rest
+// transform: translate(var(--x), var(--y));
+
+// so the content should move when you go over the trigger (project, etc)
+// but it should also move aside when your mouse goes near the edge of it?
 ---
 
 <nav>

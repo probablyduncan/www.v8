@@ -1,0 +1,61 @@
+---
+import Clock from "./clock.astro";
+import Dpc from "./junicode-snippets/dpc.astro";
+---
+
+<nav>
+    <ul>
+        <li><Dpc /></li>
+        <li><Clock /></li>
+        <li><select><option>system</option><option>light</option><option>dark</option></select></li>
+    </ul>
+</nav>
+<style>
+    nav {
+        z-index: 100;
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        font-size: 0.8em;
+        font-variant-numeric: tabular-nums;
+        font-variant-caps: small-caps;
+        background-color: rgb(32, 32, 32);
+        background-color: rgb(242, 242, 242);
+        border-top: 1px solid gray;
+
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+    }
+
+    ul {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-content: space-between;
+        align-items: center;
+        padding: unset;
+        margin: 0.1em var(--padding);
+    }
+
+    ul li {
+        text-align: center;
+    }
+
+    ul li:first-child {
+        text-align: left;
+    }
+
+    ul li:last-child {
+        text-align: right;
+    }
+
+    a {
+        color: unset;
+        text-decoration: none;
+        transition: opacity 0.2s;
+    }
+
+    a:hover {
+        opacity: 0.8;
+    }
+</style>

@@ -16,6 +16,12 @@ const links = (await getCollection("weblinks")).sort((a, b) =>
           : 0,
 );
 const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
+
+
+
+// clicking anywhere on this weblinks page should spawn an 88x31 banner??
+// or they should flick in when you move your mouse around or something??
+
 ---
 
 <!doctype html>
