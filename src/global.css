@@ -14,7 +14,10 @@
     src: url("/JunicodeVF-Italic.ttf");
 }
 
-/* :root { color-scheme: light dark; } */
+:root {
+    scroll-behavior: smooth;
+    /* color-scheme: light dark; */
+}
 
 body {
     font-family: Junicode, "Times New Roman", serif;

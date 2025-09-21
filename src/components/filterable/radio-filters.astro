@@ -220,7 +220,7 @@ tags.forEach((t) =>
                 }
 
                 label.addEventListener("click", () => {
-                    window.scrollTo({ top: ul.offsetTop - 60 });
+                    window.scrollTo({ top: ul.offsetTop - 60, behavior: "instant" });
                 });
             });
     }
