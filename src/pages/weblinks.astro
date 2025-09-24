@@ -7,6 +7,7 @@ import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
 import RadioFilters from "../components/filterable/radio-filters.astro";
 import FilterableListItem from "../components/filterable/filterable-list-item.astro";
+import FilterButton from "../components/filterable/filter-button.astro";
 
 const links = (await getCollection("weblinks")).sort((a, b) =>
     b.data.date.obj > a.data.date.obj
@@ -38,22 +39,26 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
     <body>
         <Ticker />
         <header>
-            <h1>A few of the websites I have loved</h1>
+            <div class="title">
+                <a href="/" title="back! to the home page">Home</a>
+                /
+                <h1><a href="" title="duncan’s weblinks (you're already here!)">Weblinks</a></h1>
+            </div>
             <p>Sometimes you’re surfing the web and you lose your balance.</p>
             <p>
                 Your board shoots out from under you, and suddenly you’re
                 tumbling, flailing, breaking against the breaking waves. Water
                 shoots up your nose, and there’s nothing but froth and spray as
-                you are flung, enveloped, imbibed by the water and you are
+                you are flung, enveloped, imbibed by the water and you
             </p>
             <details>
-                <summary aria-hidden="true"
+                <summary aria-hidden="true" title="dive! dive into the abyss!"
                     >[...]&nbsp;&nbsp;&nbsp;&nbsp;<i>expand</i></summary
                 >
                 <p aria-hidden="true"><span class="invisible">[</span>...</p>
                 <p>
                     and you are a hyper text transfer protozoa in the primordial
-                    soup of the world wide web, the ebb and the rush of the open
+                    soup of the world wide web, and the ebb and the rush of the open
                     ocean’s tide is turning you ‘round, float: left and luring,
                     cradling, coaxing you down the water column-gap, whispering
                     promises in a language of salt and semantics, pulling at
@@ -100,7 +105,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                                         <span class="link-date">{l.date.text}</span>
                                         <span>|</span>
                                         <span class="link-tags">{l.tags.sort().map((t, i) => (<>
-                                        <label for={`weblinks-filter-${t}`}>#{t}</label>{i !== l.tags.length - 1 && ","}
+                                        <FilterButton listName="weblinks" tagName={t} >#{t}</FilterButton>{i !== l.tags.length - 1 && ","}
                                         </>))}</span>
                                     </div>
                                     <div class="link-bottom">
@@ -149,12 +154,37 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             width: min(55ch, 100%);
         }
 
-        h1 {
+        .title {
             font-size: unset;
             font-variation-settings:
                 "wght" 600,
                 "wdth" 100,
                 "ENLA" 20;
+            
+            h1 {
+                font-size: unset;
+                display: inline;
+                margin: 0;
+            }
+
+            a {
+                color: unset;
+                text-decoration: none;
+            }
+
+            a:hover,
+            a:focus-visible {
+                text-decoration: underline;
+                text-decoration-thickness: 0.0875em;
+                text-underline-offset: 0.125em;
+            }
+
+            a:focus-visible,
+            a:active {
+                outline: none;
+                background-color: var(--color-primary);
+                color: var(--color-bg);
+            }
         }
 
         details summary {
@@ -291,6 +321,9 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             position: fixed;
             bottom: calc(var(--padding) * 0.75);
             right: var(--padding);
+            @media (width < 512px) {
+                display: none;
+            }
         }
 
         [data-flipbook] {

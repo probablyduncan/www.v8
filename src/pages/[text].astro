@@ -32,17 +32,16 @@ const toWikipediaDateURL = (d: Date) => {
 };
 
 const stanceMap: Record<typeof entry.data.stance, [number, number]> = {
-    "center": [1, 1],
-    "side": [0, 1],
-    "golden": [1, 1.618033988749894],
-    "wide": [1, 2.41],
-}
+    center: [1, 1],
+    side: [0, 1],
+    golden: [1, 1.618033988749894],
+    wide: [1, 2.41],
+};
 
 const stance = stanceMap[entry.data.stance];
 if (entry.data.align === "right") {
     stance.reverse();
 }
-
 ---
 
 <!doctype html>
@@ -55,22 +54,29 @@ if (entry.data.align === "right") {
             desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
         />
     </head>
-    <body style={`--col-size-left: ${stance[0]}fr; --col-size-right: ${stance[1]}fr;`}>
+    <body
+        style={`--col-size-left: ${stance[0]}fr; --col-size-right: ${stance[1]}fr;`}
+    >
         <main>
             <header>
                 <div>
-                    <h1>
-                        <a href="/" title="back! to the home page">Home</a> / <a
-                            href={"/" + entry.id}
-                            title={entry.data.title + " (you're already here!)"}
-                            >{entry.data.title}</a
-                        >
-                    </h1>
+                    <span>
+                        <a href="/" title="back! to the home page">Home</a>
+                        /
+                        <h1>
+                            <a
+                                href={"/" + entry.id}
+                                title={entry.data.title.toLowerCase() +
+                                    " (you're already here!)"}
+                                >{entry.data.title}</a
+                            >
+                        </h1>
+                    </span>
                     <span>
                         <a
                             {...resolveLink({
                                 href: toWikipediaDateURL(entry.data.date),
-                                title: "and what else?"
+                                title: "and what else?",
                             })}>{toDateString(entry.data.date)}</a
                         >
                     </span>
@@ -108,13 +114,15 @@ if (entry.data.align === "right") {
             text-decoration: none;
         }
 
-        a:hover, a:focus-visible {
+        a:hover,
+        a:focus-visible {
             text-decoration: underline;
             text-decoration-thickness: 0.0875em;
             text-underline-offset: 0.125em;
         }
 
-        a:focus-visible, a:active {
+        a:focus-visible,
+        a:active {
             outline: none;
             background-color: var(--color-primary);
             color: var(--color-bg);
@@ -143,6 +151,7 @@ if (entry.data.align === "right") {
 
         h1 {
             font-size: unset;
+            display: inline;
             margin: 0;
         }
     }

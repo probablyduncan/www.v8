@@ -43,6 +43,7 @@ tags.forEach((t) =>
                         id={listName + "-filter-all"}
                         value="all"
                         checked={defaultTag === undefined}
+                        autocomplete="off"
                     />
                 </label>
             </li>
@@ -61,9 +62,10 @@ tags.forEach((t) =>
                         checked={
                             defaultTag === t ||
                             (defaultTag === undefined &&
-                                showAll !== "first" &&
-                                i === 0)
+                            showAll !== "first" &&
+                            i === 0)
                         }
+                        autocomplete="off"
                     />
                 </label>
             </li>
@@ -80,6 +82,7 @@ tags.forEach((t) =>
                         id={listName + "-filter-all"}
                         value="all"
                         checked={defaultTag === undefined}
+                        autocomplete="off"
                     />
                 </label>
             </li>
