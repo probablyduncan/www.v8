@@ -19,5 +19,11 @@
         "weblinks",
         "webrings",
         "wght"
-    ]
+    ],
+    "gutterpreview.sourceFolders": [
+        "public/images",
+        "static",
+        "public"
+    ],
+    "gutterpreview.showImagePreviewOnGutter": false,
 }
