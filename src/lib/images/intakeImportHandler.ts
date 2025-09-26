@@ -54,7 +54,7 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
 
             const dateString = getDateString(exifData.DateTimeOriginal);
             key = dateString + "-" + path.parse(exifData.RawFileName).name + GENERATED_IMAGE_EXTENSION;
-            const alt = exifData.ImageDescription ?? exifData.ObjectName;
+            const newAlt = exifData.ImageDescription ?? exifData.ObjectName;
 
             metadata = metadataCollection[key] ?? {
                 // name is key by default, but we don't want to overwrite custom names
@@ -62,21 +62,26 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
             }
 
             // set name to caption if we were previously using the key
-            if (alt && key == metadata.friendlyName) {
-                metadata.friendlyName = sanitizeForFilename(alt) + "-" + dateString;
+            if (newAlt && key == metadata.friendlyName) {
+                metadata.friendlyName = sanitizeForFilename(newAlt) + "-" + dateString;
             }
 
-            metadata.alt = alt;
+            // only overwrite old caption if new caption exists
+            if (newAlt) {
+                metadata.alt = newAlt;
+            }
+
             metadata.source = "lightroom-intake";
             metadata.date = dateString;
 
-            // set tags from lightroom, include location
-            metadata.tags = toSeveral(exifData.Keywords ?? []).map(t => t.toLowerCase());
-            const addIfExists = (val: string | undefined) => { val ? metadata.tags!.push(val.toLowerCase()) : null; }
-            addIfExists(exifData.Location);
-            addIfExists(exifData.City);
-            addIfExists(exifData.State);
-            addIfExists(exifData.Country);
+            // set tags from lightroom
+            metadata.tags = [
+                exifData.Keywords,
+                exifData.Location,
+                exifData.City,
+                exifData.State,
+                exifData.Country,
+            ].flat(2).filter(t => t && t !== "").map(t => t!.toLowerCase());
         }
 
         // non-lightroom

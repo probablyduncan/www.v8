@@ -89,15 +89,24 @@ interface ExifData {
      * Same as `["SubLocation"]`, for some reason.
      */
     Location?: string;
+    /**
+     * From Lightroom, refers to the City field.
+     */
     City?: string;
+    /**
+     * From Lightroom, refers to the State field.
+     */
     State?: string;
+    /**
+     * From Lightroom, refers to the Country field.
+     */
     Country?: string;
     /**
      * From Lightroom, list of tags.
      * 
      * Same as `["subject"]`.
      */
-    Keywords?: string[];
+    Keywords?: string | string[];
     /**
      * From Lightroom, stars from 0 to 5.
      */
