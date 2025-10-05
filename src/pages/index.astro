@@ -49,7 +49,7 @@ const projectContentRenderer = (() => {
                     >
                 </h1>
                 <p class="indent">
-                    (<abbr title="hey! put your grubby little cursor somewhere else">that’s me</abbr>!) is a
+                        (<abbr title="hey! put your grubby little cursor somewhere else">that’s me!</abbr>) is a
                     London-based photographer, writer, and web developer from Milwaukee, Wisconsin.
                 </p>
                 <p>This is my website.</p>
@@ -59,11 +59,11 @@ const projectContentRenderer = (() => {
                     <br />or read a recent <Link href="/wind">story</Link>.
                 </p>
                 <!-- <p>
-					You can sign my <a href="https://guestbook.duncanpetrie.com"
-						>guestbook</a
-					>, explore my <a href="https://duncans.world">world</a>, or
-					have a cheese sandwich in my <a href="https://duncans.cafe"
-						>cafe</a
+                        You can sign my <Link href="https://guestbook.duncanpetrie.com"
+                            >guestbook</Link
+                        >, explore my <Link href="https://duncans.world">world</Link>, or
+                        have a cheese sandwich in my <Link href="https://duncans.cafe"
+                            >cafe</Link
 					>.
 				</p> -->
                 <p>
@@ -135,7 +135,7 @@ const projectContentRenderer = (() => {
         margin-bottom: 0;
     }
 
-    p {
+    p, hr {
         width: min(42ch, 100%);
     }
 
@@ -190,12 +190,13 @@ const projectContentRenderer = (() => {
         opacity: 0.0833333333;
         margin-bottom: 2em;
         margin-top: 2em;
+        margin-inline: 0;
     }
 
     header .mobile-figure {
         margin-top: calc(1em + var(--padding));
     }
-
+    
     ul .mobile-figure {
         margin-block: 1em;
     }
@@ -208,7 +209,7 @@ const projectContentRenderer = (() => {
 
     ul {
         list-style: none;
-        padding: 1em 1em 0 0;
+        padding: 1em 0 0;
     }
 
     .link-wrapper {
@@ -218,7 +219,7 @@ const projectContentRenderer = (() => {
     .link-top {
         margin-bottom: 0.125em;
         color: var(--color-text-lighter);
-        
+
         user-select: none;
         -webkit-user-select: none;
     }
@@ -289,7 +290,6 @@ const projectContentRenderer = (() => {
             }
 
             a:hover, a:focus-visible {
-                /* transform: translateY(0.1em); */
                 padding: 0.1em 0 0;
                 color: var(--color-primary);
                 font-variation-settings:
