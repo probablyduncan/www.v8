@@ -1,0 +1,51 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getImageByName } from "../lib/images/imageDataHelper";
+import { uriToBackgroundCSS } from "../lib/images/placeholderHelper";
+
+interface Props extends HTMLAttributes<"img"> {
+    name?: ImageName;
+}
+
+const { name, ...props } = Astro.props;
+
+if (name) {
+    const image = getImageByName(name);
+    props.src ??= image.path;
+    props.alt ??= image.alt;
+    props.draggable ??= "false";
+
+    const style = props.style
+        ? (props.style as string).split(";").reduce(
+              (prev, curr) => {
+                  const [key, value] = curr.split(":").map((str) => str.trim());
+                  prev[key] = value;
+                  return prev;
+              },
+              {} as Record<string, string>,
+          )
+        : {};
+
+    style["background"] ??= uriToBackgroundCSS(image.placeholderUri);
+    style["aspect-ratio"] ??= image.ratio.toFixed(5);
+
+    props.style = Object.keys(style)
+        .reduce(
+            (styleString, prop) =>
+                styleString + prop + ": " + style[prop] + "; ",
+            "",
+        )
+        .trimEnd();
+
+    const classList = [props["class:list"], props.class?.split(" ")];
+
+    if (image.source == "static") {
+        classList.unshift("px");
+    }
+
+    props["class:list"] = classList;
+    props.class = undefined;
+}
+---
+
+<img {...props} />

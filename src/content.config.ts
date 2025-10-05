@@ -1,5 +1,6 @@
 import { file, glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
+import { IMAGE_NAMES } from "./content/imageKeys.g";
 
 const minDate = new Date(0);
 const resolveDate = (d: string | undefined) => {
@@ -55,6 +56,7 @@ const index = defineCollection({
         tags: z.array(z.string())
             .or(z.string().transform((tag: string) => [tag])),
         content: z.string(),
+        img: z.enum(IMAGE_NAMES).optional(),
     })
 })
 
@@ -62,7 +64,7 @@ const text = defineCollection({
     loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/text' }),
     schema: z.object({
         title: z.string(),
-        
+
         date: z.date(),
         modDate: z.date().optional(),
 

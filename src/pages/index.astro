@@ -11,6 +11,7 @@ import { marked } from "marked";
 import Link from "../components/link.astro";
 import { resolveLink } from "../lib/linkHelper";
 import FilterButton from "../components/filterable/filter-button.astro";
+import Image from "../components/image.astro";
 
 const items = await getCollection("index");
 const tags = [...new Set(["best", ...items.flatMap(item => item.data.tags)])];
@@ -39,6 +40,7 @@ const projectContentRenderer = (() => {
         <Ticker />
         <main>
             <header>
+                <figure class="mobile-figure"><Image name="film_blur_falmouth" /></figure>
                 <h1>
                     <span class="ligatures">Duncan Petrie</span><sup
                         class="aalt"
@@ -87,6 +89,9 @@ const projectContentRenderer = (() => {
                     items.map(({ data: item }) => {
                         return (
                             <FilterableListItem tags={item.tags} listName="work">
+                                {item.img && <figure class="mobile-figure">
+                                    <Image name={item.img} />
+                                </figure>}
                                 <div class="link-wrapper">
                                     <div class="link-top">
                                         <span class="link-date">{item.date}</span>
@@ -117,17 +122,21 @@ const projectContentRenderer = (() => {
         padding: var(--padding);
         width: min(55ch, 100%);
         z-index: 10;
-        margin-bottom: 80svh;
-    }
+        margin-bottom: 20svh;
 
-    header {
-        width: min(42ch, 100%);
+        @media (width <= 720px) {
+            margin-inline: auto;
+        }
     }
 
     h1 {
         font-size: calc(var(--font-size-base) * 3);
         font-size: 3rem;
         margin-bottom: 0;
+    }
+
+    p {
+        width: min(42ch, 100%);
     }
 
     p.indent {
@@ -181,6 +190,20 @@ const projectContentRenderer = (() => {
         opacity: 0.0833333333;
         margin-bottom: 2em;
         margin-top: 2em;
+    }
+
+    header .mobile-figure {
+        margin-top: calc(1em + var(--padding));
+    }
+
+    ul .mobile-figure {
+        margin-block: 1em;
+    }
+
+    @media screen and (width > 720px) {
+        .mobile-figure {
+            display: none;
+        }
     }
 
     ul {
