@@ -5,15 +5,19 @@ import { uriToBackgroundCSS } from "../lib/images/placeholderHelper";
 
 interface Props extends HTMLAttributes<"img"> {
     name?: ImageName;
+    data?: ImageMetadataRuntimeSchema;
 }
 
-const { name, ...props } = Astro.props;
+const { name, data, ...props } = Astro.props;
 
-if (name) {
-    const image = getImageByName(name);
+let image = data;
+if (!image && name) {
+    image = getImageByName(name);
+}
+
+if (image) {
     props.src ??= image.path;
     props.alt ??= image.alt;
-    props.draggable ??= "false";
 
     const style = props.style
         ? (props.style as string).split(";").reduce(
@@ -46,6 +50,8 @@ if (name) {
     props["class:list"] = classList;
     props.class = undefined;
 }
+
+props.draggable ??= "false";
 ---
 
 <img {...props} />
