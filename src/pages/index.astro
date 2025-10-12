@@ -13,6 +13,7 @@ import { resolveLink } from "../lib/linkHelper";
 import FilterButton from "../components/filterable/filter-button.astro";
 import Image from "../components/image.astro";
 import Footer from "../components/footer.astro";
+import FooterScrollTo from "../components/footer-scroll-to.astro";
 
 const items = await getCollection("index");
 const tags = [...new Set(["best", ...items.flatMap(item => item.data.tags)])];
@@ -73,7 +74,7 @@ const projectContentRenderer = (() => {
                 <hr />
                 <br />
             </header>
-            <nav class="to-footer"><a href="#footer" title="more information">more info</a> ⇣</nav>
+                <FooterScrollTo />
             <RadioFilters
                 tags={tags}
                 listName="work"
@@ -258,4 +259,5 @@ const projectContentRenderer = (() => {
     .link-bottom :global(br) {
         margin-bottom: 0.2em;
     }
+
 </style>

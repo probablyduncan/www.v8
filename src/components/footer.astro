@@ -1,10 +1,15 @@
 ---
+import FooterScrollTo from "./footer-scroll-to.astro";
 import SuperscriptHover from "./superscript-hover.astro";
+
+interface Props {
+    addScrollTo?: boolean;
+}
+
+const { addScrollTo = false } = Astro.props;
 ---
 
-<nav class="to-footer">
-    <a href="#footer" title="more information">more info</a> ⇣
-</nav>
+{addScrollTo && <FooterScrollTo />}
 <footer id="footer">
     <span class="dpw-banner ligatures">Duncan Petrie’s Website</span>
     <span class="dpw-banner ligatures">Duncan Petrie’s Website</span>
@@ -27,6 +32,9 @@ import SuperscriptHover from "./superscript-hover.astro";
             >WORLD</SuperscriptHover
         >
         <SuperscriptHover icon="ↂ" href="/weblinks">WEBLINKS</SuperscriptHover>
+        <SuperscriptHover icon="⃝" href="https://instagram.com/probablyduncan"
+            >SITEMAP</SuperscriptHover
+        >
         <SuperscriptHover icon="†" href="https://instagram.com/probablyduncan"
             >SOCIAL</SuperscriptHover
         >
@@ -80,54 +88,5 @@ import SuperscriptHover from "./superscript-hover.astro";
         color: white;
         font-size: 1.25em;
         filter: grayscale();
-    }
-
-    .to-footer {
-        position: fixed;
-        font-size: 0.8em;
-        bottom: 0.6em;
-        right: 1em;
-        z-index: 10;
-
-        @media (width < 512px) {
-            display: none;
-        }
-
-        a {
-            text-decoration: unset;
-            color: var(--color-text-lighter);
-            display: inline-block;
-
-            font-variation-settings:
-                "wdth" 100,
-                "ENLA" 0;
-
-            padding: 0 0 0.1em;
-            transition:
-                font-variation-settings 0.333333333s steps(4),
-                color 0.333333333s steps(4),
-                padding 0.333333333s steps(4);
-        }
-
-        a:hover,
-        a:focus-visible {
-            padding: 0.1em 0 0;
-            color: var(--color-primary);
-            font-variation-settings:
-                "wdth" 75,
-                "ENLA" 45;
-
-            outline: none;
-        }
-
-        a:focus-visible {
-            transition: none;
-        }
-
-        &:has(a:focus-visible) {
-            outline: 2px solid var(--color-primary);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
     }
 </style>

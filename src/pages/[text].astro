@@ -6,6 +6,8 @@ import PageMetadata from "../components/head/page-metadata.astro";
 import { getEntry } from "astro:content";
 import { resolveLink } from "../lib/linkHelper";
 import Hourglass from "../components/hourglass.astro";
+import Footer from "../components/footer.astro";
+import FooterScrollTo from "../components/footer-scroll-to.astro";
 
 export async function getStaticPaths() {
     const collection = await getCollection("text");
@@ -58,39 +60,43 @@ if (entry.data.align === "right") {
         style={`--col-size-left: ${stance[0]}fr; --col-size-right: ${stance[1]}fr;`}
     >
         <main>
-            <header>
-                <div>
-                    <span>
-                        <a href="/" title="back! to the home page">Home</a>
-                        /
-                        <h1>
+            <div class="wrapper">
+                <header>
+                    <div>
+                        <span>
+                            <a href="/" title="back! to the home page">Home</a>
+                            /
+                            <h1>
+                                <a
+                                    href={"/" + entry.id}
+                                    title={entry.data.title.toLowerCase() +
+                                        " (you're already here!)"}
+                                    >{entry.data.title}</a
+                                >
+                            </h1>
+                        </span>
+                        <span>
                             <a
-                                href={"/" + entry.id}
-                                title={entry.data.title.toLowerCase() +
-                                    " (you're already here!)"}
-                                >{entry.data.title}</a
+                                {...resolveLink({
+                                    href: toWikipediaDateURL(entry.data.date),
+                                    title: "and what else?",
+                                })}>{toDateString(entry.data.date)}</a
                             >
-                        </h1>
-                    </span>
-                    <span>
-                        <a
-                            {...resolveLink({
-                                href: toWikipediaDateURL(entry.data.date),
-                                title: "and what else?",
-                            })}>{toDateString(entry.data.date)}</a
-                        >
-                    </span>
-                </div>
-            </header>
-            <article>
-                <Content />
-            </article>
-            <!-- <Hourglass /> -->
+                        </span>
+                    </div>
+                </header>
+                <FooterScrollTo />
+                <article>
+                    <Content />
+                </article>
+                <!-- <Hourglass /> -->
+            </div>
         </main>
+        <Footer />
     </body>
 </html>
 <style>
-    body {
+    main {
         display: grid;
         grid-template-columns: var(--col-size-left) auto var(--col-size-right);
         align-items: stretch;
@@ -98,7 +104,7 @@ if (entry.data.align === "right") {
         padding: 0 var(--padding);
     }
 
-    main {
+    div.wrapper {
         grid-column: 2;
         width: 58ch;
         max-width: calc(100vw - var(--padding) * 2);
