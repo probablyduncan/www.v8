@@ -12,6 +12,7 @@ import Link from "../components/link.astro";
 import { resolveLink } from "../lib/linkHelper";
 import FilterButton from "../components/filterable/filter-button.astro";
 import Image from "../components/image.astro";
+import Footer from "../components/footer.astro";
 
 const items = await getCollection("index");
 const tags = [...new Set(["best", ...items.flatMap(item => item.data.tags)])];
@@ -58,14 +59,9 @@ const projectContentRenderer = (() => {
                     New here? Take a look at my <Link href="/palimpsest">photography</Link>
                     <br />or read a recent <Link href="/wind">story</Link>.
                 </p>
-                <!-- <p>
-                        You can sign my <Link href="https://guestbook.duncanpetrie.com"
-                            >guestbook</Link
-                        >, explore my <Link href="https://duncans.world">world</Link>, or
-                        have a cheese sandwich in my <Link href="https://duncans.cafe"
-                            >cafe</Link
-					>.
-				</p> -->
+                    <p>
+                        You can sign my <Link href="https://guestbook.duncanpetrie.com">guestbook</Link>, find a new <Link href="https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA">falafel</Link>, or have a cheese sandwich in my <Link href="https://duncans.cafe">cafe</Link>.
+                    </p>
                 <p>
                     Or, if you’re already sick of this place, you can find links to some other websites <Link
                         href="/weblinks">right here</Link
@@ -113,8 +109,9 @@ const projectContentRenderer = (() => {
                 }
             </ul>
         </main>
-    </body></html
->
+        <Footer />
+    </body>
+</html>
 
 <style>
     main {
@@ -260,53 +257,5 @@ const projectContentRenderer = (() => {
 
     .link-bottom :global(br) {
         margin-bottom: 0.2em;
-    }
-
-        .to-footer {
-            position: fixed;
-            font-size: 0.8em;
-            bottom: 0.6em;
-            right: 1em;
-            z-index: 10;
-
-        @media (width < 512px) {
-            display: none;
-        }
-
-            a {
-                text-decoration: unset;
-                color: var(--color-text-lighter);
-                display: inline-block;
-
-                font-variation-settings:
-                    "wdth" 100,
-                    "ENLA" 0;
-
-                padding: 0 0 0.1em;
-                transition:
-                    font-variation-settings 0.333333333s steps(4),
-                    color 0.333333333s steps(4),
-                    padding 0.333333333s steps(4);
-            }
-
-            a:hover, a:focus-visible {
-                padding: 0.1em 0 0;
-                color: var(--color-primary);
-                font-variation-settings:
-                    "wdth" 75,
-                    "ENLA" 45;
-
-                outline: none;
-            }
-
-            a:focus-visible {
-                transition: none;
-            }
-
-            &:has(a:focus-visible) {
-                outline: 2px solid var(--color-primary);
-                outline-offset: 2px;
-                border-radius: 4px;
-        }
     }
 </style>

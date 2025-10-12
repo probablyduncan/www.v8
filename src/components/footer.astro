@@ -1,0 +1,133 @@
+---
+import SuperscriptHover from "./superscript-hover.astro";
+---
+
+<nav class="to-footer">
+    <a href="#footer" title="more information">more info</a> ⇣
+</nav>
+<footer id="footer">
+    <span class="dpw-banner ligatures">Duncan Petrie’s Website</span>
+    <span class="dpw-banner ligatures">Duncan Petrie’s Website</span>
+    <div>
+        <SuperscriptHover icon="*" supClass="aalt" href="/"
+            >INDEX</SuperscriptHover
+        >
+        <SuperscriptHover icon="ᛥ" href="/colophon">COLOPHON</SuperscriptHover>
+        <SuperscriptHover icon="⸙" href="https://duncans.cafe"
+            >CAFE</SuperscriptHover
+        >
+        <SuperscriptHover icon="∆" href="/photography">GALLERY</SuperscriptHover
+        >
+        <SuperscriptHover icon="" href="/photography"
+            >GIFT SHOP</SuperscriptHover
+        >
+        <SuperscriptHover icon="" href="/guestbook">GUESTBOOK</SuperscriptHover
+        >
+        <SuperscriptHover icon="Ϡ" href="https://duncans.world"
+            >WORLD</SuperscriptHover
+        >
+        <SuperscriptHover icon="ↂ" href="/weblinks">WEBLINKS</SuperscriptHover>
+        <SuperscriptHover icon="†" href="https://instagram.com/probablyduncan"
+            >SOCIAL</SuperscriptHover
+        >
+    </div>
+</footer>
+<style>
+    footer {
+        width: 100%;
+        height: 100dvh;
+        background-color: var(--color-primary);
+        position: relative;
+        z-index: 100;
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        border-top: 12px double var(--color-bg);
+    }
+
+    div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    span.dpw-banner {
+        position: absolute;
+        left: -0.42em;
+        line-height: 0.5;
+        font-size: 12vw;
+        text-wrap: nowrap;
+        color: var(--color-bg);
+        font-variation-settings:
+            "ENLA" 30,
+            "wdth" 80;
+        user-select: none;
+        -webkit-user-select: none;
+        cursor: default;
+    }
+
+    span.dpw-banner:first-of-type {
+        top: -0.25em;
+    }
+
+    span.dpw-banner:last-of-type {
+        bottom: -0.25em;
+    }
+
+    div :global(a) {
+        color: white;
+        font-size: 1.25em;
+        filter: grayscale();
+    }
+
+    .to-footer {
+        position: fixed;
+        font-size: 0.8em;
+        bottom: 0.6em;
+        right: 1em;
+        z-index: 10;
+
+        @media (width < 512px) {
+            display: none;
+        }
+
+        a {
+            text-decoration: unset;
+            color: var(--color-text-lighter);
+            display: inline-block;
+
+            font-variation-settings:
+                "wdth" 100,
+                "ENLA" 0;
+
+            padding: 0 0 0.1em;
+            transition:
+                font-variation-settings 0.333333333s steps(4),
+                color 0.333333333s steps(4),
+                padding 0.333333333s steps(4);
+        }
+
+        a:hover,
+        a:focus-visible {
+            padding: 0.1em 0 0;
+            color: var(--color-primary);
+            font-variation-settings:
+                "wdth" 75,
+                "ENLA" 45;
+
+            outline: none;
+        }
+
+        a:focus-visible {
+            transition: none;
+        }
+
+        &:has(a:focus-visible) {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+    }
+</style>
