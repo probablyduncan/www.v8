@@ -75,14 +75,15 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
             metadata.source = "lightroom-intake";
             metadata.date = dateString;
 
-            // set tags from lightroom
-            metadata.tags = [
-                exifData.Keywords,
+            // set tags from lightroom (only those prefixed with "site-")
+            const lightroomKeywords = toSeveral(exifData.Keywords).filter(t => t && t.startsWith("site-")) as string[];
+            const lightroomOtherTagFields = [
                 exifData.Location,
                 exifData.City,
                 exifData.State,
                 exifData.Country,
-            ].flat(2).filter(t => t && t !== "").map(t => t!.toLowerCase());
+            ].filter(t => t && t.trim().length).map(t => t!.toLowerCase());
+            metadata.tags = lightroomKeywords.concat(lightroomOtherTagFields);
         }
 
         // non-lightroom
