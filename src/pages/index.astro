@@ -16,12 +16,17 @@ import Footer from "../components/footer.astro";
 import FooterScrollTo from "../components/footer-scroll-to.astro";
 
 const items = await getCollection("index");
-const tags = [...new Set(["best", ...items.flatMap(item => item.data.tags)])];
+const tags = [...new Set(["best", ...items.flatMap((item) => item.data.tags)])];
 
 const projectContentRenderer = (() => {
     const renderer = new marked.Renderer();
     renderer.link = ({ href, title, text }) => {
-        const { href: hrefResolved, title: titleResolved, rel, target } = resolveLink({ href, title, innerHtml: text });
+        const {
+            href: hrefResolved,
+            title: titleResolved,
+            rel,
+            target,
+        } = resolveLink({ href, title, innerHtml: text });
         return `<a href="${hrefResolved}" title="${titleResolved}" target="${target}" rel="${rel}" class="a">${marked.parseInline(text)}</a>`;
     };
     return renderer;
@@ -42,73 +47,117 @@ const projectContentRenderer = (() => {
         <Ticker />
         <main>
             <header>
-                <figure class="mobile-figure"><Image name="film_blur_falmouth" /></figure>
+                <figure class="mobile-figure">
+                    <Image name="mist_water_pennance_point-2020-11-28" />
+                </figure>
                 <h1>
                     <span class="ligatures">Duncan Petrie</span><sup
                         class="aalt"
                         title="you’re a star!"
-                        style="cursor: default; user-select: none; -webkit-user-select: none;">*</sup
+                        style="cursor: default; user-select: none; -webkit-user-select: none;"
+                        >*</sup
                     >
                 </h1>
                 <p class="indent">
-                        (<abbr title="hey! put your grubby little cursor somewhere else">that’s me!</abbr>) is a
-                    London-based photographer, writer, and web developer from Milwaukee, Wisconsin.
+                    (<abbr
+                        title="hey! put your grubby little cursor somewhere else"
+                        >that’s me!</abbr
+                    >) is a London-based photographer, writer, and web developer
+                    from Milwaukee, Wisconsin.
                 </p>
                 <p>This is my website.</p>
                 <hr />
                 <p>
-                    New here? Take a look at my <Link href="/palimpsest">photography</Link>
+                    New here? Take a look at my <Link href="/palimpsest"
+                        >photography</Link
+                    >
                     <br />or read a recent <Link href="/wind">story</Link>.
                 </p>
-                    <p>
-                        You can sign my <Link href="https://guestbook.duncanpetrie.com">guestbook</Link>, find a new <Link href="https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA">falafel</Link>, or have a cheese sandwich in my <Link href="https://duncans.cafe">cafe</Link>.
-                    </p>
                 <p>
-                    Or, if you’re already sick of this place, you can find links to some other websites <Link
-                        href="/weblinks">right here</Link
+                    You can sign my <Link
+                        href="https://guestbook.duncanpetrie.com"
+                        >guestbook</Link
+                    >, find a new <Link
+                        href="https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA"
+                        >falafel</Link
+                    >, or have a cheese sandwich in my <Link
+                        href="https://duncans.cafe">cafe</Link
                     >.
                 </p>
                 <p>
-                    Email me at <Link href="mailto:duncanpetrie1@gmail.com"><Email at="@" /></Link>.
+                    Or, if you’re already sick of this place, you can find links
+                    to some other websites <Link href="/weblinks"
+                        >right here</Link
+                    >.
+                </p>
+                <p>
+                    Email me at <Link href="mailto:duncanpetrie1@gmail.com"
+                        ><Email at="@" /></Link
+                    >.
                 </p>
                 <hr />
                 <br />
             </header>
-                <FooterScrollTo />
-            <RadioFilters
-                tags={tags}
-                listName="work"
-                showAll="first"
-                defaultTag="best"
-            />
-            <ul>
-                {
-                    items.map(({ data: item }) => {
-                        return (
-                            <FilterableListItem tags={item.tags} listName="work">
-                                {item.img && <figure class="mobile-figure">
-                                    <Image name={item.img} />
-                                </figure>}
-                                <div class="link-wrapper">
-                                    <div class="link-top">
-                                        <span class="link-date">{item.date}</span>
-                                        <span>|</span>
-                                        <span class="link-tags">{item.tags.map((t, i) => (<>
-                                        <FilterButton listName="work" tagName={t} >#{t}</FilterButton>{i !== item.tags.length - 1 && ","}
-                                        </>))}</span>
+            <FooterScrollTo />
+            <section>
+                <RadioFilters
+                    tags={tags}
+                    listName="work"
+                    showAll="first"
+                    defaultTag="best"
+                />
+                <ul>
+                    {
+                        items.map(({ data: item }) => {
+                            return (
+                                <FilterableListItem
+                                    tags={item.tags}
+                                    listName="work"
+                                >
+                                    {item.img && (
+                                        <figure class="mobile-figure">
+                                            <Image name={item.img} />
+                                        </figure>
+                                    )}
+                                    <div class="link-wrapper">
+                                        <div class="link-top">
+                                            <span class="link-date">
+                                                {item.date}
+                                            </span>
+                                            <span>|</span>
+                                            <span class="link-tags">
+                                                {item.tags.map((t, i) => (
+                                                    <>
+                                                        <FilterButton
+                                                            listName="work"
+                                                            tagName={t}
+                                                        >
+                                                            #{t}
+                                                        </FilterButton>
+                                                        {i !==
+                                                            item.tags.length -
+                                                                1 && ","}
+                                                    </>
+                                                ))}
+                                            </span>
+                                        </div>
+                                        <div
+                                            class="link-bottom"
+                                            set:html={marked.parseInline(
+                                                item.content,
+                                                {
+                                                    renderer:
+                                                        projectContentRenderer,
+                                                },
+                                            )}
+                                        />
                                     </div>
-                                    <div
-                                        class="link-bottom"
-                                        set:html={marked.parseInline(item.content, {
-                                            renderer: projectContentRenderer,
-                                        })}
-                                    />
-                                </div>
-                            </FilterableListItem>
-                        );
-                    })
-                }
-            </ul>
+                                </FilterableListItem>
+                            );
+                        })
+                    }
+                </ul>
+            </section>
         </main>
         <Footer />
     </body>
@@ -118,7 +167,8 @@ const projectContentRenderer = (() => {
     main {
         position: relative;
         padding: var(--padding);
-        width: min(55ch, 100%);
+        max-width: 100%;
+        width: 55ch;
         z-index: 10;
         margin-bottom: 20svh;
 
@@ -133,7 +183,8 @@ const projectContentRenderer = (() => {
         margin-bottom: 0;
     }
 
-    p, hr {
+    p,
+    hr {
         width: min(42ch, 100%);
     }
 
@@ -143,9 +194,9 @@ const projectContentRenderer = (() => {
 
         abbr {
             transition:
-                font-variation-settings 0.333333333s steps(4), 
+                font-variation-settings 0.333333333s steps(4),
                 color 0.333333333s steps(4);
-            
+
             font-variation-settings:
                 "wght" 400,
                 "wdth" 100,
@@ -155,15 +206,15 @@ const projectContentRenderer = (() => {
         &::before {
             position: absolute;
             left: -0.9em;
-			
+
             content: "*";
             font-feature-settings: "aalt";
-			font-size: 1.25em;
-            
-			opacity: 0.4;
+            font-size: 1.25em;
+
+            opacity: 0.4;
             transform-origin: 80% 30%;
-            
-			transition:
+
+            transition:
                 opacity 0.333333333s steps(4),
                 transform 0.333333333s steps(4);
         }
@@ -194,7 +245,11 @@ const projectContentRenderer = (() => {
     header .mobile-figure {
         margin-top: calc(1em + var(--padding));
     }
-    
+
+    section {
+        min-height: 80svh;
+    }
+
     ul .mobile-figure {
         margin-block: 1em;
     }
@@ -259,5 +314,4 @@ const projectContentRenderer = (() => {
     .link-bottom :global(br) {
         margin-bottom: 0.2em;
     }
-
 </style>
