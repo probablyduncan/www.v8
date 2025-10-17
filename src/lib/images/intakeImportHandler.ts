@@ -29,9 +29,8 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
         const start = performance.now();
 
         const intakeBuffer = fs.readFileSync(path.join(PATHS.INTAKE, filename));
-        const exifData: ExifData = await exifr.parse(intakeBuffer, true);
-        const { width, height } = await sharp(intakeBuffer).metadata();
 
+        // set up promises
         const outputBufferPromise = sharp(intakeBuffer)
             .resize(800, 800, { fit: 'inside' })
             .avif({
@@ -39,12 +38,14 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
                 effort: 9,
             })
             .toBuffer();
-
-        const uriPromise = getPlaceholder(sharp(intakeBuffer));
+        const exifDataPromise = exifr.parse(intakeBuffer, true);
+        const sharpMetadataPromise = sharp(intakeBuffer).metadata();
+        const placeholderPromise = getPlaceholder(sharp(intakeBuffer));
 
         let key: string;
         let metadata: ImageMetadataYamlSchema;
 
+        const exifData: ExifData = await exifDataPromise;
         if (exifData.Software?.toLowerCase().includes("lightroom")) {
 
             if (!exifData.DateTimeOriginal || !exifData.RawFileName) {
@@ -94,9 +95,16 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
             metadata.friendlyName = key;
         }
 
-        // common info
+        const { width, height } = await sharpMetadataPromise;
         metadata.ratio = width / height;
-        metadata.placeholderUri = await uriPromise;
+
+        const placeholderResult = await placeholderPromise;
+        metadata.placeholderUri = placeholderResult.uri;
+
+        // only update color if it's an array. String means we've overridden it
+        if (!metadata.dominantColor || Array.isArray(metadata.dominantColor)) {
+            metadata.dominantColor = placeholderResult.color;
+        }
 
         metadataCollection[key] = metadata;
 

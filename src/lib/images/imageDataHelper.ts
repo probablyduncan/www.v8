@@ -2,10 +2,11 @@ import path from "path";
 import { IMAGE_TAGS } from "../../content/imageKeys.g";
 import { readMetadata } from "./metadataHelper";
 
-function yamlToRuntimeMetadata(key: string, yamlData: ImageMetadataYamlSchema) {
+function yamlToRuntimeMetadata(key: string, yamlData: ImageMetadataYamlSchema): ImageMetadataRuntimeSchema {
     return {
         ...yamlData,
         path: path.normalize(path.join("images", key)),
+        color: Array.isArray(yamlData.dominantColor) ? `rgb(${yamlData.dominantColor.join(", ")})` : yamlData.dominantColor
     }
 }
 

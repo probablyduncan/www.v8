@@ -1,6 +1,15 @@
 type ImageCLIMode = "static" | "intake" | "metadata" | "types";
 
-type ImageMetadataRuntimeSchema = Omit<ImageMetadataYamlSchema, "friendlyName"> & { path: string };
+type ImageMetadataRuntimeSchema = Omit<ImageMetadataYamlSchema, "friendlyName" | "dominantColor"> & {
+    /**
+     * Path to image asset in /public.
+     */
+    path: string,
+    /**
+     * CSS color string.
+     */
+    color: string,
+};
 
 type ImageSource = "lightroom-intake" | "misc-intake" | "static";
 
@@ -41,6 +50,10 @@ type ImageMetadataYamlSchema = {
      * Generated data uri for background placeholder.
      */
     placeholderUri: string;
+    /**
+     * Dominant color, as [r,g,b]. Can be overwritten as a css color value.
+     */
+    dominantColor: [number, number, number] | string;
 };
 
 

@@ -36,7 +36,13 @@ export default async function doStaticImport(metadataCollection: Record<string, 
         const { width, height } = await sharp(buffer).metadata();
         metadata.ratio = width / height;
 
-        metadata.placeholderUri = await placeholderPromise;
+        const placeholderResult = await placeholderPromise;
+        metadata.placeholderUri = placeholderResult.uri;
+
+        // only update color if it's an array. String means we've overridden it
+        if (!metadata.dominantColor || Array.isArray(metadata.dominantColor)) {
+            metadata.dominantColor = placeholderResult.color;
+        }
 
         metadataCollection[filename] = metadata;
 

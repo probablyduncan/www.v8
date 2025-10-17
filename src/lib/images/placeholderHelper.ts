@@ -1,4 +1,4 @@
-import { blurhashToDataUri } from "@unpic/placeholder";
+import { blurhashToDataUri, getDominantColor } from "@unpic/placeholder";
 import { encode } from "blurhash";
 import type { Sharp } from "sharp";
 
@@ -21,8 +21,9 @@ export async function getPlaceholder(sharpObject: Sharp) {
     const pixelArray = new Uint8ClampedArray(sharpBuffer);
     const blurhash = encode(pixelArray, width, height, 4, 4);
     const uri = blurhashToDataUri(blurhash, 16, 16);
+    const color = getDominantColor(pixelArray)
 
-    return uri;
+    return { uri, color };
 }
 
 /**
