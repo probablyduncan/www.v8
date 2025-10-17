@@ -1,6 +1,7 @@
 import path from "path";
 import { IMAGE_TAGS } from "../../content/imageKeys.g";
 import { readMetadata } from "./metadataHelper";
+import type { SingleOrSeveral } from "@probablyduncan/common/sos";
 
 function yamlToRuntimeMetadata(key: string, yamlData: ImageMetadataYamlSchema): ImageMetadataRuntimeSchema {
     return {
@@ -30,15 +31,19 @@ export function getImagesByTag(tag: ImageTag): ImageMetadataRuntimeSchema[] {
     return _imagesByTag.get(tag)!;
 }
 
-export function getImagesByNamesAndTags(...args: (ImageName | ImageTag)[]) {
-    return args.flatMap(arg => {
+export function getImagesByNamesAndTags(...args: (SingleOrSeveral<ImageName | ImageTag | undefined>)[]) {
+    return args.flat().flatMap(arg => {
+
+        if (arg === undefined) {
+            return;
+        }
+
         if (IMAGE_TAGS.includes(arg as ImageTag)) {
             return getImagesByTag(arg as ImageTag);
         }
-        else {
-            return getImageByName(arg as ImageName);
-        }
-    });
+
+        return getImageByName(arg as ImageName);
+    }).filter(img => img);
 }
 
 let _allImages: ImageMetadataRuntimeSchema[];

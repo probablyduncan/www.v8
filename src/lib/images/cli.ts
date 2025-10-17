@@ -40,14 +40,14 @@ async function promptCLIMode(): Promise<Set<ImageCLIMode>> {
                 description: "process static images, intake images, and regenerate types",
             },
             {
-                name: "static",
-                value: "static|metadata|types",
-                description: "process static images in /public and regenerate types",
-            },
-            {
                 name: "intake",
                 value: "intake|metadata|types",
                 description: "process images in intake folder and regenerate types",
+            },
+            {
+                name: "static",
+                value: "static|metadata|types",
+                description: "process static images in /public and regenerate types",
             },
             {
                 name: "types",

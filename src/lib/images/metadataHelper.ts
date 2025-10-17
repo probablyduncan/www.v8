@@ -25,6 +25,7 @@ export function writeMetadata(metadata: Record<string, ImageMetadataYamlSchema>)
     const yamlString = yaml.stringify(metadata, {
         sortMapEntries: true,
         keepUndefined: false,
+        indent: 4,
     });
 
     fs.writeFileSync(PATHS.METADATA, yamlString);

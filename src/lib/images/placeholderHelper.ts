@@ -25,10 +25,3 @@ export async function getPlaceholder(sharpObject: Sharp) {
 
     return { uri, color };
 }
-
-/**
- * @returns background css property with data uri
- */
-export function uriToBackgroundCSS(uri: string) {
-    return `url("${uri}") center/cover`;
-}

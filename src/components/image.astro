@@ -1,7 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import { getImageByName } from "../lib/images/imageDataHelper";
-import { uriToBackgroundCSS } from "../lib/images/placeholderHelper";
 
 interface Props extends HTMLAttributes<"img"> {
     name?: ImageName;
@@ -30,7 +29,11 @@ if (image) {
           )
         : {};
 
-    style["background"] ??= uriToBackgroundCSS(image.placeholderUri);
+    style["background-color"] ??= image.color;
+    style["background-image"] ??= `url("${image.placeholderUri}")`;
+    style["background-position"] ??= "center";
+    style["background-size"] ??= "cover";
+
     style["aspect-ratio"] ??= image.ratio.toFixed(5);
 
     props.style = Object.keys(style)
