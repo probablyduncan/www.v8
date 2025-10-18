@@ -1,0 +1,65 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Image from "./image.astro";
+import {
+    getImageByMetadataKey,
+    getImageByName,
+} from "../lib/images/imageDataHelper";
+
+interface Props extends HTMLAttributes<"img"> {
+    data?: ImageMetadataRuntimeSchema;
+}
+
+const props = Astro.props;
+
+// check if src is actually an image filename or friendly name
+if (props.src) {
+    const srcWithoutSlash = props.src.startsWith("/")
+        ? props.src.replace("/", "")
+        : props.src;
+
+    for (let fn of [getImageByMetadataKey, getImageByName] as ((
+        key: string,
+    ) => ImageMetadataRuntimeSchema | undefined)[]) {
+        const result = fn(srcWithoutSlash);
+        if (result) {
+            props.src = undefined;
+            props.data = result;
+
+            // alt could be "" - make sure we use image's alt
+            if (!props.alt) {
+                props.alt = undefined;
+            }
+
+            break;
+        }
+    }
+}
+---
+
+<figure>
+    <Image {...props} />
+    {props.title && <figcaption>{props.title}</figcaption>}
+</figure>
+<style>
+    figure {
+        margin-block: 2em;
+
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+
+    figure:first-child {
+        margin-top: 0;
+    }
+
+    figcaption {
+        margin-top: 0.5em;
+        text-align: right;
+        font-size: 0.9em;
+        opacity: 0.6;
+
+        font-variation-settings: "wdth" 75;
+    }
+</style>

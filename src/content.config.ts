@@ -1,6 +1,6 @@
 import { file, glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
-import { IMAGE_NAMES } from "./content/imageKeys.g";
+import { IMAGE_NAMES, IMAGE_TAGS } from "./content/imageKeys.g";
 
 const minDate = new Date(0);
 const resolveDate = (d: string | undefined) => {
@@ -61,7 +61,7 @@ const index = defineCollection({
 })
 
 const text = defineCollection({
-    loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/text' }),
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/text" }),
     schema: z.object({
         title: z.string(),
 
@@ -73,4 +73,24 @@ const text = defineCollection({
     }),
 })
 
-export const collections = { weblinks, ticker, index, text };
+const photo = defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/photo" }),
+    schema: z.object({
+        title: z.string(),
+        date: z.string().or(z.date()),
+        
+        name: z.enum(IMAGE_NAMES).optional(),
+        names: z.array(z.enum(IMAGE_NAMES)).optional(),
+
+        tag: z.enum(IMAGE_TAGS).optional(),
+        tags: z.array(z.enum(IMAGE_TAGS)).optional(),
+
+        excludeName: z.enum(IMAGE_NAMES).optional(),
+        excludeNames: z.array(z.enum(IMAGE_NAMES)).optional(),
+        
+        excludeTag: z.enum(IMAGE_TAGS).optional(),
+        excludeTags: z.array(z.enum(IMAGE_TAGS)).optional(),
+    })
+})
+
+export const collections = { weblinks, ticker, index, text, photo };

@@ -1,0 +1,56 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import BaseMetadata from "../components/head/base-metadata.astro";
+import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
+import PageMetadata from "../components/head/page-metadata.astro";
+import { getImagesByNamesAndTags } from "../lib/images/imageDataHelper";
+import Image from "../components/image.astro";
+
+export async function getStaticPaths() {
+    const collection = await getCollection("photo");
+    return collection.map((p) => ({
+        params: { photo: p.id },
+    }));
+}
+
+const { photo: id } = Astro.params;
+const entry = await getEntry("photo", id)!;
+const { Content } = await render(entry);
+
+const images = getImagesByNamesAndTags(
+    entry.data.name,
+    entry.data.names,
+    entry.data.tag,
+    entry.data.tags,
+);
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseMetadata />
+        <GlobalStylesLoader />
+        <PageMetadata
+            title={`${entry.data.title} (on Duncan’s Website)`}
+            desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
+        />
+    </head>
+    <body>
+        <section>
+            {
+                images.map((image) => {
+                    return <Image data={image} />;
+                })
+            }
+        </section>
+    </body>
+</html>
+
+<style>
+    section {
+        max-width: 400px;
+        display: flex;
+        gap: 80px;
+        flex-flow: column nowrap;
+    }
+</style>

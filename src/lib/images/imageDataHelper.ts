@@ -12,23 +12,23 @@ function yamlToRuntimeMetadata(key: string, yamlData: ImageMetadataYamlSchema): 
 }
 
 let _imagesByName: Map<ImageName, ImageMetadataRuntimeSchema>;
-export function getImageByName(key: ImageName): ImageMetadataRuntimeSchema {
+export function getImageByName(key: ImageName) {
     _imagesByName ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
         map.set(entry.friendlyName as ImageName, yamlToRuntimeMetadata(key, entry));
         return map;
     }, new Map<ImageName, ImageMetadataRuntimeSchema>());
-    return _imagesByName.get(key)!;
+    return _imagesByName.get(key);
 }
 
 let _imagesByTag: Map<ImageTag, ImageMetadataRuntimeSchema[]>;
-export function getImagesByTag(tag: ImageTag): ImageMetadataRuntimeSchema[] {
+export function getImagesByTag(tag: ImageTag) {
     _imagesByTag ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
         entry.tags?.forEach(tag => {
             map.get(tag as ImageTag)?.push(yamlToRuntimeMetadata(key, entry));
         });
         return map;
     }, new Map<ImageTag, ImageMetadataRuntimeSchema[]>(IMAGE_TAGS.map(tag => [tag, []])));
-    return _imagesByTag.get(tag)!;
+    return _imagesByTag.get(tag) ?? [];
 }
 
 export function getImagesByNamesAndTags(...args: (SingleOrSeveral<ImageName | ImageTag | undefined>)[]) {
@@ -50,4 +50,13 @@ let _allImages: ImageMetadataRuntimeSchema[];
 export function getAllImages() {
     _allImages ??= Object.entries(readMetadata()).map(([key, entry]) => yamlToRuntimeMetadata(key, entry));
     return _allImages;
+}
+
+let _imagesByKey: Map<string, ImageMetadataRuntimeSchema>;
+export function getImageByMetadataKey(key: string | undefined) {
+    _imagesByKey ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
+        map.set(key, yamlToRuntimeMetadata(key, entry));
+        return map;
+    }, new Map<string, ImageMetadataRuntimeSchema>());
+    return key ? _imagesByKey.get(key) : undefined;
 }

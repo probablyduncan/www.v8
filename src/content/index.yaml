@@ -55,7 +55,6 @@ wind:
     date: September, 2024
     tags: [best, stories]
     content: '[A List of the Wind](/wind "There was a list on the fridge in the Cabin of the Wind...") is a story about getting up and doing, finally, what needs to be done.'
-    img: rainshadow_door-2020-07-06
 man-upstairs:
     date: July, 2023
     tags: [best, lyric-and-verse]
@@ -86,3 +85,7 @@ pizza:
     tags: [best, films]
     content: "During the first covid lockdowns, I got really into making pizza, and I created a [timelapse film](https://youtu.be/-sBHX07eIMY/) documenting the process."
     img: pizza.gif
+cart:
+    date: Autumn, 2019
+    tags: [photography]
+    content: "After many undisturbed and unperturbed years, at least by [shopping carts](/a-la-cart), I arrived at University."

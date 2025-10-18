@@ -5,9 +5,9 @@ import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
 import { getEntry } from "astro:content";
 import { resolveLink } from "../lib/linkHelper";
-import Hourglass from "../components/hourglass.astro";
 import Footer from "../components/footer.astro";
 import FooterScrollTo from "../components/footer-scroll-to.astro";
+import MarkdownImage from "../components/markdown-image.astro";
 
 export async function getStaticPaths() {
     const collection = await getCollection("text");
@@ -87,9 +87,8 @@ if (entry.data.align === "right") {
                 </header>
                 <FooterScrollTo />
                 <article>
-                    <Content />
+                    <Content components={{ img: MarkdownImage }} />
                 </article>
-                <!-- <Hourglass /> -->
             </div>
         </main>
         <Footer />
@@ -100,7 +99,6 @@ if (entry.data.align === "right") {
         display: grid;
         grid-template-columns: var(--col-size-left) auto var(--col-size-right);
         align-items: stretch;
-        overflow-x: hidden;
         padding: 0 var(--padding);
     }
 

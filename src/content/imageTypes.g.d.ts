@@ -1,5 +1,5 @@
 //GENERATED CODE - MODIFICATIONS WILL BE OVERWRITTEN
 
-type ImageName = "icewater_lake_michigan-2017-01-20" | "rainshadow_door-2020-07-06" | "2020-07-26-DSC_0216.g.avif" | "gloaming_keweenaw_peninsula-2020-08-05" | "mist_water_pennance_point-2020-11-28" | "chimneys-2025-04-14" | "film_blur_falmouth" | "sunblind-2025-09-01" | "sunblind_from_ferry-2025-09-02" | "bigmapW4_small.jpg" | "glitch-screenshot-3.webp" | "pizza.gif" | "wiki.gif";
+type ImageName = "snowfall_pine_wood_i-2020-12-24" | "snowline_late_morning_i-2020-12-26" | "snowline_late_morning_ii-2020-12-26" | "snowline_late_morning_iii-2020-12-26" | "snowline_late_morning_iv-2020-12-26" | "snowline_late_morning_v-2020-12-26" | "snowfall_pine_wood_ii-2020-12-28" | "pasture_i-2021-01-01" | "pasture_ii-2021-01-02" | "bigmapW4_small.jpg" | "glitch-screenshot-3.webp" | "pizza.gif" | "wiki.gif" | "cart_ii-2019-10-01" | "cart_viii-2019-11-01" | "cart_ix-2021-03-17" | "cart_iv-2019-10-01" | "cart_v-2019-10-01" | "cart_xi-2021-03-17" | "cart_vii-2019-10-01";
 
-type ImageTag = "site-best" | "story - stillwater" | "_photos that shoud have names" | "site-all" | "milwaukee" | "wisconsin" | "usa" | "abstracts all" | "abstracts" | "bookmaybeidk" | "site-horizons" | "oldhoriz" | "world" | "door county" | "keweenaw" | "michigan" | "huw" | "falmouth" | "cornwall" | "uk" | "kintzing" | "london" | "washington island";
+type ImageTag = "site-best" | "site-all" | "site-adrift" | "châtel" | "france" | "site-cart" | "penryn" | "cornwall" | "uk";
