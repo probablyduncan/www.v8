@@ -3,8 +3,18 @@ import { getCollection, getEntry, render } from "astro:content";
 import BaseMetadata from "../components/head/base-metadata.astro";
 import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
-import { getImagesByNamesAndTags } from "../lib/images/imageDataHelper";
+import {
+    getAllImages,
+    getImage,
+    getImagesByNamesAndTags,
+} from "../lib/images/imageDataHelper";
 import Image from "../components/image.astro";
+import {
+    getDateDisplayString,
+    getYearMonthDay,
+    toWikipediaDateURL,
+} from "../lib/dateHelper";
+import { shuffleRef } from "@probablyduncan/common";
 
 export async function getStaticPaths() {
     const collection = await getCollection("photo");
@@ -17,12 +27,15 @@ const { photo: id } = Astro.params;
 const entry = await getEntry("photo", id)!;
 const { Content } = await render(entry);
 
-const images = getImagesByNamesAndTags(
-    entry.data.name,
-    entry.data.names,
-    entry.data.tag,
-    entry.data.tags,
-);
+const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
+
+if (entry.data.shuffle) {
+    shuffleRef(images);
+}
+
+const maxRatio = images.reduce((max, { ratio }) => {
+    return Math.max(max, ratio);
+}, 0);
 ---
 
 <!doctype html>
@@ -36,21 +49,214 @@ const images = getImagesByNamesAndTags(
         />
     </head>
     <body>
-        <section>
+        <a href="/">Home</a>
+        <a href="#" data-close-lightbox>Close</a>
+        <section
+            class="grid"
+            style={`--max-ratio-sqrt: ${Math.sqrt(maxRatio).toFixed(5)};`}
+        >
             {
                 images.map((image) => {
-                    return <Image data={image} />;
+                    return (
+                        <>
+                            <figure
+                                style={`
+                                --ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};
+                                --dominant-color: ${image.color};
+                            `}
+                            >
+                                <a href={"#" + image.name}>
+                                    <Image data={image} />
+                                </a>
+                                <figcaption>
+                                    <span>
+                                        {image.source === "lightroom-intake"
+                                            ? image.path.substring(
+                                                  image.path.lastIndexOf("-") +
+                                                      1,
+                                                  image.path.indexOf(".g"),
+                                              )
+                                            : image.path.substring(
+                                                  image.path.lastIndexOf("/") +
+                                                      1,
+                                              )}
+                                    </span>
+                                    {/* <span>{getYearMonthDay(image.date)}</span> */}
+                                </figcaption>
+                            </figure>
+                            {/* {Math.random() > 0.618 && <div style={`--ratio-sqrt: 1;`}></div>} */}
+                            <div class="lightbox" id={image.name}>
+                                <a href="#" data-close-lightbox>
+                                    Close
+                                </a>
+                                <figure>
+                                    <Image data={image} />
+                                    <figcaption>{image.alt}</figcaption>
+                                </figure>
+                            </div>
+                        </>
+                    );
                 })
             }
         </section>
+        <!-- <section
+            class="scroll"
+            style={`--max-ratio-sqrt: ${Math.sqrt(maxRatio).toFixed(5)};`}
+        >
+            {
+                images.map((image) => {
+                    return (
+                        <figure
+                            style={`--ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};`}
+                        >
+                            <Image data={image} />
+                        </figure>
+                    );
+                })
+            }
+        </section> -->
     </body>
 </html>
 
 <style>
-    section {
-        max-width: 400px;
-        display: flex;
-        gap: 80px;
-        flex-flow: column nowrap;
+    /* section {
+        width: min(100%, 1280px);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: 4px;
+        row-gap: 80px;
     }
+
+    figure {
+        --column: 1 / 13;
+        grid-column: var(--column);
+    } */
+
+    section.grid {
+        margin: calc(4 * var(--padding)) 0 0;
+        padding: calc(var(--padding) / 2) calc(var(--padding) / 4);
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-end;
+        justify-content: flex-start;
+        gap: calc(var(--padding) / 2) calc(var(--padding) / 4);
+    }
+
+    section.grid > figure {
+        width: 200px;
+        width: calc(200px * var(--ratio-sqrt) / var(--max-ratio-sqrt));
+    }
+
+    section.grid a {
+        cursor: zoom-in;
+        display: block;
+    }
+
+    section.grid a:hover {
+        filter: invert() sepia() contrast(60%) saturate(30%) brightness(110%);
+    }
+
+    section.grid figure:has(a:hover) figcaption {
+        border-color: gray;
+    }
+
+    section.grid figcaption {
+        border-top: 2px solid var(--dominant-color);
+        padding-top: 2px;
+        margin-top: 12px;
+        font-family: monospace;
+        font-size: 0.5em;
+        display: flex;
+        line-height: 1.6;
+        justify-content: flex-start;
+        gap: 1ch;
+        color: gray;
+        /* flex-flow: column; */
+        /* align-items: center; */
+        /* display: none; */
+    }
+
+    .lightbox {
+        display: none;
+    }
+
+    .lightbox:target,
+    .lightbox.open {
+        display: flex;
+        position: fixed;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        background-color: white;
+        inset: 0;
+    }
+
+    /* section.scroll {
+        width: min(600px, calc(100% - 2 * var(--padding)));
+        padding: 0 var(--padding);
+        box-sizing: content-box;
+        margin: 20svh auto 0;
+    }
+
+    section.scroll figure {
+        width: min(
+            calc(600px * var(--ratio-sqrt) / var(--max-ratio-sqrt)),
+            100%
+        );
+        margin: 0 auto 50svh;
+    } */
 </style>
+
+<script>
+    function initLightbox() {
+        // open buttons
+        document.querySelectorAll("a[href^='#']:has(img)").forEach((_a) => {
+            const a = _a as HTMLAnchorElement;
+            a.addEventListener("click", (e) => {
+                e.preventDefault();
+                softNavigate(a.href);
+            });
+        });
+
+        // close buttons
+        document.querySelectorAll(".lightbox a[href='#']").forEach((_a) => {
+            const a = _a as HTMLAnchorElement;
+            a.addEventListener("click", (e) => {
+                e.preventDefault();
+                softNavigate(a.href.replace("#", ""));
+            });
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                console.log(window.location);
+                softNavigate(window.location.origin + window.location.pathname);
+            }
+        });
+
+        if (window.location.hash) {
+            console.log("hash")
+            document
+                .querySelector(`.lightbox${window.location.hash}`)
+                ?.classList.add("open");
+        }
+    }
+
+    function softNavigate(href: string) {
+        history.replaceState({}, "", href);
+
+        document
+            .querySelectorAll(`.lightbox.open`)
+            .forEach((e) => e.classList.remove("open"));
+
+        if (window.location.hash) {
+            document
+                .querySelector(`.lightbox${window.location.hash}`)
+                ?.classList.toggle("open");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", initLightbox);
+</script>

@@ -48,7 +48,7 @@ const projectContentRenderer = (() => {
         <main>
             <header>
                 <figure class="mobile-figure">
-                    <Image name="mist_water_pennance_point-2020-11-28" />
+                    <Image name="pasture_i-2021-01-01" />
                 </figure>
                 <h1>
                     <span class="ligatures">Duncan Petrie</span><sup
@@ -59,41 +59,27 @@ const projectContentRenderer = (() => {
                     >
                 </h1>
                 <p class="indent">
-                    (<abbr
-                        title="hey! put your grubby little cursor somewhere else"
-                        >that’s me!</abbr
-                    >) is a London-based photographer, writer, and web developer
+                    (<abbr title="hey! put your grubby little cursor somewhere else">that’s me!</abbr>) is a London-based photographer, writer, and web developer
                     from Milwaukee, Wisconsin.
                 </p>
-                <p>This is my website.</p>
+                <p>
+                    I like going outside, looking around, and eating <Link href="https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA">falafel</Link>.
+                </p>
+                <p>
+                    I share my birthday with the <Link href="https://en.wikipedia.org/wiki/Old_New_Year">Old New Year</Link>, <Link href="https://en.wikipedia.org/wiki/World_Logic_Day">World Logic Day</Link>, and the <Link href="https://en.wikipedia.org/wiki/Feast_of_the_Ass">Feast of the Ass</Link>.
+                </p>
+                <p>
+                    This is my website.
+                </p>
                 <hr />
                 <p>
-                    New here? Take a look at my <Link href="/palimpsest"
-                        >photography</Link
-                    >
-                    <br />or read a recent <Link href="/wind">story</Link>.
+                    New here? Take a look at my <Link href="/palimpsest" title="Palimpsest">photography</Link>, read a <Link href="/wind" title="A List of the Wind">story</Link>, sing along to a <Link href="/where-bugs-can-scream" title="I come from a land where bugs can scream!">song I wrote</Link>, or sign my <Link href="https://guestbook.duncanpetrie.com">guestbook</Link>.
                 </p>
                 <p>
-                    You can sign my <Link
-                        href="https://guestbook.duncanpetrie.com"
-                        >guestbook</Link
-                    >, find a new <Link
-                        href="https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA"
-                        >falafel</Link
-                    >, or have a cheese sandwich in my <Link
-                        href="https://duncans.cafe">cafe</Link
-                    >.
+                    Or, if you’re already sick of this place, you can dive into some other websites <Link href="/weblinks" title="A Sea of Websites I Have Loved">right here</Link>.
                 </p>
                 <p>
-                    Or, if you’re already sick of this place, you can find links
-                    to some other websites <Link href="/weblinks"
-                        >right here</Link
-                    >.
-                </p>
-                <p>
-                    Email me at <Link href="mailto:duncanpetrie1@gmail.com"
-                        ><Email at="@" /></Link
-                    >.
+                    Email me at <Link href="mailto:duncanpetrie1@gmail.com"><Email at="@" /></Link>.
                 </p>
                 <hr />
                 <br />
@@ -116,7 +102,7 @@ const projectContentRenderer = (() => {
                                 >
                                     {item.img && (
                                         <figure class="mobile-figure">
-                                            <Image name={item.img} />
+                                            <Image name={item.img as ImageName} />
                                         </figure>
                                     )}
                                     <div class="link-wrapper">
@@ -159,6 +145,18 @@ const projectContentRenderer = (() => {
                 </ul>
             </section>
         </main>
+        <aside>
+            <!-- https://www.w3schools.com/howto/howto_js_draggable.asp -->
+            <figure style="width: 60%; position: absolute; right: 11%; top: 35%; rotate: 2deg;">
+                <Image name="snowline_late_morning_iii-2020-12-26" />
+            </figure>
+            <figure style="width: 60%; position: absolute; right: 11%; top: 35%; rotate: -1deg;">
+                <Image name="snowfall_pine_wood_ii-2020-12-28" />
+            </figure>
+            <figure style="width: 60%; position: absolute; right: 11%; top: 35%;">
+                <Image name="pasture_i-2021-01-01" />
+            </figure>
+        </aside>
         <Footer />
     </body>
 </html>
@@ -174,6 +172,18 @@ const projectContentRenderer = (() => {
 
         @media (width <= 720px) {
             margin-inline: auto;
+        }
+    }
+
+    aside {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100dvh;
+        width: calc(100% - 50ch + var(--padding));
+
+        @media (width <= 720px) {
+            display: none;
         }
     }
 

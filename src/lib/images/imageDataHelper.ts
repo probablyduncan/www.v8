@@ -6,8 +6,11 @@ import type { SingleOrSeveral } from "@probablyduncan/common/sos";
 function yamlToRuntimeMetadata(key: ImageKey, yamlData: ImageMetadataYamlSchema): ImageMetadataRuntimeSchema {
     return {
         ...yamlData,
+        key,
+        name: yamlData.friendlyName as ImageName,
         path: path.normalize(path.join("images", key)),
-        color: Array.isArray(yamlData.dominantColor) ? `rgb(${yamlData.dominantColor.join(", ")})` : yamlData.dominantColor
+        color: Array.isArray(yamlData.dominantColor) ? `rgb(${yamlData.dominantColor.map(c => c.toFixed()).join(", ")})` : yamlData.dominantColor,
+        date: yamlData.date ? new Date(yamlData.date) : undefined,
     }
 }
 
@@ -18,16 +21,7 @@ function yamlToRuntimeMetadata(key: ImageKey, yamlData: ImageMetadataYamlSchema)
  * Otherwise, returns undefined.
  */
 export function getImage(nameOrKey: string) {
-
-    if (nameOrKey in IMAGE_NAMES) {
-        return getImageByName(nameOrKey as ImageName);
-    }
-
-    if (nameOrKey in IMAGE_KEYS) {
-        return getImageByKey(nameOrKey as ImageKey)
-    }
-
-    return undefined;
+    return getImageByName(nameOrKey as ImageName) ?? getImageByKey(nameOrKey as ImageKey);
 }
 
 export function getImageByName(key: ImageName) {
@@ -43,18 +37,28 @@ export function getImagesByTag(tag: ImageTag) {
 }
 
 export function getImagesByNamesAndTags(...args: (SingleOrSeveral<ImageName | ImageTag | ImageKey | undefined>)[]) {
-    return args.flat().flatMap(arg => {
 
-        if (arg === undefined) {
-            return;
-        }
+    const names = new Set<ImageName>();
+    const tags = new Set<ImageTag>();
+    const keys = new Set<ImageKey>();
 
+    args.flat().forEach(arg => {
         if (IMAGE_TAGS.includes(arg as ImageTag)) {
-            return getImagesByTag(arg as ImageTag);
+            tags.add(arg as ImageTag);
         }
+        else if (IMAGE_NAMES.includes(arg as ImageName)) {
+            names.add(arg as ImageName);
+        }
+        else if (IMAGE_KEYS.includes(arg as ImageKey)) {
+            keys.add(arg as ImageKey);
+        }
+    });
 
-        return getImage(arg);
-    }).filter(img => img) as ImageMetadataRuntimeSchema[];
+    return allImages().filter(image =>
+        names.has(image.name)
+        || keys.has(image.key)
+        || image.tags?.some(tag => tags.has(tag))
+    );
 }
 
 export function getAllImages(): ImageMetadataRuntimeSchema[] {
@@ -63,11 +67,6 @@ export function getAllImages(): ImageMetadataRuntimeSchema[] {
 
 //#endregion
 //#region image maps
-
-let _allImages: ImageMetadataRuntimeSchema[];
-function allImages() {
-    return _allImages ??= Object.entries(readMetadata()).map(([key, entry]) => yamlToRuntimeMetadata(key as ImageKey, entry));
-}
 
 let _imagesByKey: Map<ImageKey, ImageMetadataRuntimeSchema>;
 function imagesByKey() {
@@ -87,12 +86,19 @@ function imagesByName() {
 
 let _imagesByTag: Map<ImageTag, ImageMetadataRuntimeSchema[]>;
 function imagesByTag() {
-    return _imagesByTag ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
-        entry.tags?.forEach(tag => {
-            map.get(tag as ImageTag)?.push(yamlToRuntimeMetadata(key as ImageKey, entry));
+    return _imagesByTag ??= allImages().reduce((map, image) => {
+        image.tags?.forEach(tag => {
+            map.get(tag as ImageTag)?.push(image);
         });
         return map;
     }, new Map<ImageTag, ImageMetadataRuntimeSchema[]>(IMAGE_TAGS.map(tag => [tag, []])));
+}
+
+let _allImages: ImageMetadataRuntimeSchema[];
+function allImages() {
+    return _allImages ??= Object.entries(readMetadata())
+        .map(([key, entry]) => yamlToRuntimeMetadata(key as ImageKey, entry))
+        .sort((a, b) => (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0));
 }
 
 //#endregion

@@ -8,6 +8,7 @@ import { resolveLink } from "../lib/linkHelper";
 import Footer from "../components/footer.astro";
 import FooterScrollTo from "../components/footer-scroll-to.astro";
 import MarkdownImage from "../components/markdown-image.astro";
+import { getDateDisplayString, toWikipediaDateURL } from "../lib/dateHelper";
 
 export async function getStaticPaths() {
     const collection = await getCollection("text");
@@ -19,19 +20,6 @@ export async function getStaticPaths() {
 const { text: id } = Astro.params;
 const entry = await getEntry("text", id)!;
 const { Content } = await render(entry);
-
-const toDateString = (d: Date) =>
-    d.toLocaleDateString("en-UK", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-    });
-
-const toWikipediaDateURL = (d: Date) => {
-    const month = d.toLocaleString("en-UK", { month: "long" });
-    const day = d.getDate();
-    return `https://wikipedia.org/wiki/${month}_${day}`;
-};
 
 const stanceMap: Record<typeof entry.data.stance, [number, number]> = {
     center: [1, 1],
@@ -80,7 +68,7 @@ if (entry.data.align === "right") {
                                 {...resolveLink({
                                     href: toWikipediaDateURL(entry.data.date),
                                     title: "and what else?",
-                                })}>{toDateString(entry.data.date)}</a
+                                })}>{getDateDisplayString(entry.data.date)}</a
                             >
                         </span>
                     </div>

@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { getImageByName } from "../lib/images/imageDataHelper";
+import { getImage } from "../lib/images/imageDataHelper";
 
 interface Props extends HTMLAttributes<"img"> {
     name?: ImageName;
@@ -11,7 +11,7 @@ const { name, data, ...props } = Astro.props;
 
 let image = data;
 if (!image && name) {
-    image = getImageByName(name);
+    image = getImage(name);
 }
 
 if (image) {

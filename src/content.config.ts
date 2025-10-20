@@ -1,6 +1,7 @@
 import { file, glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
-import { IMAGE_NAMES, IMAGE_TAGS } from "./content/imageKeys.g";
+import { IMAGE_KEYS, IMAGE_NAMES, IMAGE_TAGS } from "./content/imageKeys.g";
+import { shuffle } from "@probablyduncan/common";
 
 const minDate = new Date(0);
 const resolveDate = (d: string | undefined) => {
@@ -15,6 +16,11 @@ const resolveDate = (d: string | undefined) => {
 
     return parsed;
 }
+
+const zImageName = z.enum(IMAGE_NAMES);
+const zImageKey = z.enum(IMAGE_KEYS);
+const zImageTag = z.enum(IMAGE_TAGS);
+const zImage = zImageName.or(zImageKey);
 
 const weblinks = defineCollection({
     loader: file("src/content/weblinks.yaml"),
@@ -56,7 +62,7 @@ const index = defineCollection({
         tags: z.array(z.string())
             .or(z.string().transform((tag: string) => [tag])),
         content: z.string(),
-        img: z.enum(IMAGE_NAMES).optional(),
+        img: zImage.optional(),
     })
 })
 
@@ -78,18 +84,10 @@ const photo = defineCollection({
     schema: z.object({
         title: z.string(),
         date: z.string().or(z.date()),
+        shuffle: z.boolean().default(false),
         
-        name: z.enum(IMAGE_NAMES).optional(),
-        names: z.array(z.enum(IMAGE_NAMES)).optional(),
-
-        tag: z.enum(IMAGE_TAGS).optional(),
-        tags: z.array(z.enum(IMAGE_TAGS)).optional(),
-
-        excludeName: z.enum(IMAGE_NAMES).optional(),
-        excludeNames: z.array(z.enum(IMAGE_NAMES)).optional(),
-        
-        excludeTag: z.enum(IMAGE_TAGS).optional(),
-        excludeTags: z.array(z.enum(IMAGE_TAGS)).optional(),
+        names: z.array(zImage).optional(),
+        tags: z.array(zImageTag).optional(),
     })
 })
 

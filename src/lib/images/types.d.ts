@@ -1,6 +1,6 @@
 type ImageCLIMode = "static" | "intake" | "metadata" | "types";
 
-type ImageMetadataRuntimeSchema = Omit<ImageMetadataYamlSchema, "friendlyName" | "dominantColor"> & {
+type ImageMetadataRuntimeSchema = Omit<ImageMetadataYamlSchema, "friendlyName" | "dominantColor" | "date"> & {
     /**
      * Path to image asset in /public.
      */
@@ -9,6 +9,18 @@ type ImageMetadataRuntimeSchema = Omit<ImageMetadataYamlSchema, "friendlyName" |
      * CSS color string.
      */
     color: string,
+    /**
+     * Date the photo was taken.
+     */
+    date?: Date,
+    /**
+     * Metadata key
+     */
+    key: ImageKey,
+    /**
+     * Image friendly name
+     */
+    name: ImageName,
 };
 
 type ImageSource = "lightroom-intake" | "misc-intake" | "static";
@@ -41,7 +53,7 @@ type ImageMetadataYamlSchema = {
     /**
      * Lightroom tags. Can be overwritten.
      */
-    tags?: string[];
+    tags?: ImageTag[];
     /**
      * Aspect ratio of image (width/height).
      */
