@@ -38,8 +38,10 @@ export function writeTypes(metadata: Record<string, ImageMetadataYamlSchema>) {
 
     const imageNames = new Set<string>();
     const imageTags = new Set<string>();
+    const keys = Object.keys(metadata);
 
-    Object.values(metadata).forEach(entry => {
+    keys.forEach(key => {
+        const entry = metadata[key];
         if (imageNames.has(entry.friendlyName)) {
             throw "duplicate image name! " + entry.friendlyName;
         }
@@ -51,6 +53,15 @@ export function writeTypes(metadata: Record<string, ImageMetadataYamlSchema>) {
 
     let types = genMessage;
     let arrays = genMessage;
+
+    if (keys.length) {
+        types += `\n\ntype ImageKey = "${keys.join(`" | "`)}";`
+        arrays += `\n\nexport const IMAGE_KEYS = ["${keys.join(`", "`)}"] as const;`
+    }
+    else {
+        types += `\n\ntype ImageKey = never;`;
+        arrays += `\n\export const IMAGE_KEYS = [];`;
+    }
 
     if (imageNames.size) {
         types += `\n\ntype ImageName = "${[...imageNames].join(`" | "`)}";`;

@@ -1,10 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import Image from "./image.astro";
-import {
-    getImageByMetadataKey,
-    getImageByName,
-} from "../lib/images/imageDataHelper";
+import { getImage } from "../lib/images/imageDataHelper";
 
 interface Props extends HTMLAttributes<"img"> {
     data?: ImageMetadataRuntimeSchema;
@@ -18,20 +15,14 @@ if (props.src) {
         ? props.src.replace("/", "")
         : props.src;
 
-    for (let fn of [getImageByMetadataKey, getImageByName] as ((
-        key: string,
-    ) => ImageMetadataRuntimeSchema | undefined)[]) {
-        const result = fn(srcWithoutSlash);
-        if (result) {
-            props.src = undefined;
-            props.data = result;
+    const image = getImage(srcWithoutSlash);
+    if (image) {
+        props.src = undefined;
+        props.data = image;
 
-            // alt could be "" - make sure we use image's alt
-            if (!props.alt) {
-                props.alt = undefined;
-            }
-
-            break;
+        // alt could be "" - make sure we use image's alt
+        if (!props.alt) {
+            props.alt = undefined;
         }
     }
 }

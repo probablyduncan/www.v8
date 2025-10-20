@@ -1,9 +1,9 @@
 import path from "path";
-import { IMAGE_TAGS } from "../../content/imageKeys.g";
+import { IMAGE_KEYS, IMAGE_NAMES, IMAGE_TAGS } from "../../content/imageKeys.g";
 import { readMetadata } from "./metadataHelper";
 import type { SingleOrSeveral } from "@probablyduncan/common/sos";
 
-function yamlToRuntimeMetadata(key: string, yamlData: ImageMetadataYamlSchema): ImageMetadataRuntimeSchema {
+function yamlToRuntimeMetadata(key: ImageKey, yamlData: ImageMetadataYamlSchema): ImageMetadataRuntimeSchema {
     return {
         ...yamlData,
         path: path.normalize(path.join("images", key)),
@@ -11,27 +11,38 @@ function yamlToRuntimeMetadata(key: string, yamlData: ImageMetadataYamlSchema): 
     }
 }
 
-let _imagesByName: Map<ImageName, ImageMetadataRuntimeSchema>;
+//#region public getters
+
+/**
+ * If the string is an image name or metadata key, returns the corresponding image.
+ * Otherwise, returns undefined.
+ */
+export function getImage(nameOrKey: string) {
+
+    if (nameOrKey in IMAGE_NAMES) {
+        return getImageByName(nameOrKey as ImageName);
+    }
+
+    if (nameOrKey in IMAGE_KEYS) {
+        return getImageByKey(nameOrKey as ImageKey)
+    }
+
+    return undefined;
+}
+
 export function getImageByName(key: ImageName) {
-    _imagesByName ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
-        map.set(entry.friendlyName as ImageName, yamlToRuntimeMetadata(key, entry));
-        return map;
-    }, new Map<ImageName, ImageMetadataRuntimeSchema>());
-    return _imagesByName.get(key);
+    return imagesByName().get(key);
 }
 
-let _imagesByTag: Map<ImageTag, ImageMetadataRuntimeSchema[]>;
+export function getImageByKey(key: ImageKey) {
+    return imagesByKey().get(key);
+}
+
 export function getImagesByTag(tag: ImageTag) {
-    _imagesByTag ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
-        entry.tags?.forEach(tag => {
-            map.get(tag as ImageTag)?.push(yamlToRuntimeMetadata(key, entry));
-        });
-        return map;
-    }, new Map<ImageTag, ImageMetadataRuntimeSchema[]>(IMAGE_TAGS.map(tag => [tag, []])));
-    return _imagesByTag.get(tag) ?? [];
+    return imagesByTag().get(tag) ?? [];
 }
 
-export function getImagesByNamesAndTags(...args: (SingleOrSeveral<ImageName | ImageTag | undefined>)[]) {
+export function getImagesByNamesAndTags(...args: (SingleOrSeveral<ImageName | ImageTag | ImageKey | undefined>)[]) {
     return args.flat().flatMap(arg => {
 
         if (arg === undefined) {
@@ -42,21 +53,46 @@ export function getImagesByNamesAndTags(...args: (SingleOrSeveral<ImageName | Im
             return getImagesByTag(arg as ImageTag);
         }
 
-        return getImageByName(arg as ImageName);
-    }).filter(img => img);
+        return getImage(arg);
+    }).filter(img => img) as ImageMetadataRuntimeSchema[];
 }
+
+export function getAllImages(): ImageMetadataRuntimeSchema[] {
+    return allImages();
+}
+
+//#endregion
+//#region image maps
 
 let _allImages: ImageMetadataRuntimeSchema[];
-export function getAllImages() {
-    _allImages ??= Object.entries(readMetadata()).map(([key, entry]) => yamlToRuntimeMetadata(key, entry));
-    return _allImages;
+function allImages() {
+    return _allImages ??= Object.entries(readMetadata()).map(([key, entry]) => yamlToRuntimeMetadata(key as ImageKey, entry));
 }
 
-let _imagesByKey: Map<string, ImageMetadataRuntimeSchema>;
-export function getImageByMetadataKey(key: string | undefined) {
-    _imagesByKey ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
-        map.set(key, yamlToRuntimeMetadata(key, entry));
+let _imagesByKey: Map<ImageKey, ImageMetadataRuntimeSchema>;
+function imagesByKey() {
+    return _imagesByKey ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
+        map.set(key as ImageKey, yamlToRuntimeMetadata(key as ImageKey, entry));
         return map;
-    }, new Map<string, ImageMetadataRuntimeSchema>());
-    return key ? _imagesByKey.get(key) : undefined;
+    }, new Map<ImageKey, ImageMetadataRuntimeSchema>());
 }
+
+let _imagesByName: Map<ImageName, ImageMetadataRuntimeSchema>;
+function imagesByName() {
+    return _imagesByName ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
+        map.set(entry.friendlyName as ImageName, yamlToRuntimeMetadata(key as ImageKey, entry));
+        return map;
+    }, new Map<ImageName, ImageMetadataRuntimeSchema>());
+}
+
+let _imagesByTag: Map<ImageTag, ImageMetadataRuntimeSchema[]>;
+function imagesByTag() {
+    return _imagesByTag ??= Object.entries(readMetadata()).reduce((map, [key, entry]) => {
+        entry.tags?.forEach(tag => {
+            map.get(tag as ImageTag)?.push(yamlToRuntimeMetadata(key as ImageKey, entry));
+        });
+        return map;
+    }, new Map<ImageTag, ImageMetadataRuntimeSchema[]>(IMAGE_TAGS.map(tag => [tag, []])));
+}
+
+//#endregion
