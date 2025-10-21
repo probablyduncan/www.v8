@@ -50,7 +50,7 @@ if (entry.data.align === "right") {
         <main>
             <div class="wrapper">
                 <header>
-                    <div>
+                    <nav>
                         <span>
                             <a href="/" title="back! to the home page">Home</a>
                             /
@@ -71,9 +71,9 @@ if (entry.data.align === "right") {
                                 })}>{getDateDisplayString(entry.data.date)}</a
                             >
                         </span>
-                    </div>
+                    </nav>
                 </header>
-                <FooterScrollTo />
+                <FooterScrollTo includeTopButton />
                 <article>
                     <Content components={{ img: MarkdownImage }} />
                 </article>
@@ -100,28 +100,9 @@ if (entry.data.align === "right") {
     header {
         min-height: 50svh;
         padding-bottom: 2em;
-
-        a {
-            color: unset;
-            text-decoration: none;
-        }
-
-        a:hover,
-        a:focus-visible {
-            text-decoration: underline;
-            text-decoration-thickness: 0.0875em;
-            text-underline-offset: 0.125em;
-        }
-
-        a:focus-visible,
-        a:active {
-            outline: none;
-            background-color: var(--color-primary);
-            color: var(--color-bg);
-        }
     }
 
-    header > div {
+    header nav {
         position: sticky;
         top: 0;
 
@@ -145,6 +126,25 @@ if (entry.data.align === "right") {
             font-size: unset;
             display: inline;
             margin: 0;
+        }
+
+        a {
+            color: unset;
+            text-decoration: none;
+        }
+
+        a:hover,
+        a:focus-visible {
+            text-decoration: underline;
+            text-decoration-thickness: 0.0875em;
+            text-underline-offset: 0.125em;
+        }
+
+        a:focus-visible,
+        a:active {
+            outline: none;
+            background-color: var(--color-primary);
+            color: var(--color-bg);
         }
     }
 

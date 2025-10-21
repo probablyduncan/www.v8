@@ -15,6 +15,9 @@ import {
     toWikipediaDateURL,
 } from "../lib/dateHelper";
 import { shuffleRef } from "@probablyduncan/common";
+import Link from "../components/link.astro";
+import Footer from "../components/footer.astro";
+import FooterScrollTo from "../components/footer-scroll-to.astro";
 
 export async function getStaticPaths() {
     const collection = await getCollection("photo");
@@ -49,91 +52,193 @@ const maxRatio = images.reduce((max, { ratio }) => {
         />
     </head>
     <body>
-        <a href="/">Home</a>
-        <a href="#" data-close-lightbox>Close</a>
-        <section
-            class="grid"
-            style={`--max-ratio-sqrt: ${Math.sqrt(maxRatio).toFixed(5)};`}
-        >
-            {
-                images.map((image) => {
-                    return (
-                        <>
+        <main>
+            <section class="text">
+                <header>
+                    <nav>
+                        <span>
+                            <a href="/" title="back! to the home page">Home</a>
+                            /
+                            <h1>
+                                <a
+                                    href={"/" + entry.id}
+                                    title={entry.data.title.toLowerCase() +
+                                        " (you're already here!)"}
+                                    >{entry.data.title}</a
+                                >
+                            </h1>
+                        </span>
+                        <span>
+                            {
+                                typeof entry.data.date === "string" ? (
+                                    entry.data.date
+                                ) : (
+                                    <Link
+                                        href={toWikipediaDateURL(
+                                            entry.data.date,
+                                        )}
+                                        title="and what else?"
+                                    >
+                                        {getDateDisplayString(entry.data.date)}
+                                    </Link>
+                                )
+                            }
+                        </span>
+                    </nav>
+                </header>
+                <FooterScrollTo includeTopButton />
+                <article>
+                    <Content />
+                </article>
+            </section>
+            <section
+                class="images"
+                style={`--max-ratio-sqrt: ${Math.sqrt(maxRatio).toFixed(5)};`}
+            >
+                {
+                    images.map((image) => {
+                        return (
                             <figure
                                 style={`
+                                    --ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};
+                                    --dominant-color: ${image.color};
+                                    --rand: ${Math.random() - 0.5};
+                                `}
+                            >
+                                <Image data={image} />
+                            </figure>
+                        );
+                    })
+                }
+            </section>
+            <!-- <section
+                class="images"
+                style={`--max-ratio-sqrt: ${Math.sqrt(maxRatio).toFixed(5)};`}
+            >
+                {
+                    images.map((image) => {
+                        return (
+                            <>
+                                <figure
+                                    style={`
                                 --ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};
                                 --dominant-color: ${image.color};
                             `}
-                            >
-                                <a href={"#" + image.name}>
-                                    <Image data={image} />
-                                </a>
-                                <figcaption>
-                                    <span>
-                                        {image.source === "lightroom-intake"
-                                            ? image.path.substring(
-                                                  image.path.lastIndexOf("-") +
-                                                      1,
-                                                  image.path.indexOf(".g"),
-                                              )
-                                            : image.path.substring(
-                                                  image.path.lastIndexOf("/") +
-                                                      1,
-                                              )}
-                                    </span>
-                                    {/* <span>{getYearMonthDay(image.date)}</span> */}
-                                </figcaption>
-                            </figure>
-                            {/* {Math.random() > 0.618 && <div style={`--ratio-sqrt: 1;`}></div>} */}
-                            <div class="lightbox" id={image.name}>
-                                <a href="#" data-close-lightbox>
-                                    Close
-                                </a>
-                                <figure>
-                                    <Image data={image} />
-                                    <figcaption>{image.alt}</figcaption>
+                                >
+                                    <a href={"#" + image.name}>
+                                        <Image data={image} />
+                                    </a>
+                                    {/* <figcaption>
+                                        <span>{image.filename}</span>
+                                    </figcaption> */}
                                 </figure>
-                            </div>
-                        </>
-                    );
-                })
-            }
-        </section>
-        <!-- <section
-            class="scroll"
-            style={`--max-ratio-sqrt: ${Math.sqrt(maxRatio).toFixed(5)};`}
-        >
-            {
-                images.map((image) => {
-                    return (
-                        <figure
-                            style={`--ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};`}
-                        >
-                            <Image data={image} />
-                        </figure>
-                    );
-                })
-            }
-        </section> -->
+                                {Math.random() > 0.618 && (
+                                    <div
+                                        class="placeholder"
+                                        style={`--ratio-sqrt: 1;`}
+                                    />
+                                )}
+                                <div class="lightbox" id={image.name}>
+                                    <a href="#" data-close-lightbox>
+                                        Close
+                                    </a>
+                                    <figure>
+                                        <Image data={image} />
+                                        <figcaption>{image.alt}</figcaption>
+                                    </figure>
+                                </div>
+                            </>
+                        );
+                    })
+                }
+            </section> -->
+        </main>
+        <Footer />
     </body>
 </html>
 
 <style>
-    /* section {
-        width: min(100%, 1280px);
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        column-gap: 4px;
-        row-gap: 80px;
+    main {
+        padding: 0 var(--padding);
     }
 
-    figure {
-        --column: 1 / 13;
-        grid-column: var(--column);
-    } */
+    section.text {
+        width: 58ch;
+        max-width: calc(100vw - var(--padding) * 2);
+        padding-right: var(--padding);
+        margin: 0 auto;
+    }
 
-    section.grid {
+    article {
+        margin-bottom: 50svh;
+        @media (min-width: 58ch) {
+            text-align: justify;
+        }
+    }
+
+    header {
+        min-height: 50svh;
+        padding-bottom: 2em;
+    }
+
+    nav {
+        position: sticky;
+        top: 0;
+
+        padding-top: 1em;
+
+        font-variant-numeric: lining-nums;
+        font-variation-settings:
+            "wght" 600,
+            "wdth" 100,
+            "ENLA" 20;
+
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        @media screen and (max-width: 58ch) {
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: unset;
+            display: inline;
+            margin: 0;
+        }
+
+        a {
+            color: unset;
+            text-decoration: none;
+        }
+
+        a:hover,
+        a:focus-visible {
+            text-decoration: underline;
+            text-decoration-thickness: 0.0875em;
+            text-underline-offset: 0.125em;
+        }
+
+        a:focus-visible,
+        a:active {
+            outline: none;
+            background-color: var(--color-primary);
+            color: var(--color-bg);
+        }
+    }
+
+    section.images figure {
+        margin: 0 auto 50svh;
+        width: calc(58ch * var(--ratio-sqrt));
+        max-width: 100%;
+        transform: translateX(calc(var(--rand) * 100px));
+
+        @media screen and (max-width: 58ch) {
+            transform: none;
+        }
+    }
+
+    /* section.images {
         margin: calc(4 * var(--padding)) 0 0;
         padding: calc(var(--padding) / 2) calc(var(--padding) / 4);
         display: flex;
@@ -143,25 +248,26 @@ const maxRatio = images.reduce((max, { ratio }) => {
         gap: calc(var(--padding) / 2) calc(var(--padding) / 4);
     }
 
-    section.grid > figure {
+    section.images > figure,
+    section.images > .placeholder {
         width: 200px;
         width: calc(200px * var(--ratio-sqrt) / var(--max-ratio-sqrt));
     }
 
-    section.grid a {
+    section.images a {
         cursor: zoom-in;
         display: block;
     }
 
-    section.grid a:hover {
+    section.images a:hover {
         filter: invert() sepia() contrast(60%) saturate(30%) brightness(110%);
     }
 
-    section.grid figure:has(a:hover) figcaption {
+    section.images figure:has(a:hover) figcaption {
         border-color: gray;
     }
 
-    section.grid figcaption {
+    section.images figcaption {
         border-top: 2px solid var(--dominant-color);
         padding-top: 2px;
         margin-top: 12px;
@@ -172,9 +278,6 @@ const maxRatio = images.reduce((max, { ratio }) => {
         justify-content: flex-start;
         gap: 1ch;
         color: gray;
-        /* flex-flow: column; */
-        /* align-items: center; */
-        /* display: none; */
     }
 
     .lightbox {
@@ -191,7 +294,7 @@ const maxRatio = images.reduce((max, { ratio }) => {
         z-index: 9999;
         background-color: white;
         inset: 0;
-    }
+    } */
 
     /* section.scroll {
         width: min(600px, calc(100% - 2 * var(--padding)));
@@ -209,7 +312,7 @@ const maxRatio = images.reduce((max, { ratio }) => {
     } */
 </style>
 
-<script>
+<!-- <script>
     function initLightbox() {
         // open buttons
         document.querySelectorAll("a[href^='#']:has(img)").forEach((_a) => {
@@ -237,7 +340,7 @@ const maxRatio = images.reduce((max, { ratio }) => {
         });
 
         if (window.location.hash) {
-            console.log("hash")
+            console.log("hash");
             document
                 .querySelector(`.lightbox${window.location.hash}`)
                 ?.classList.add("open");
@@ -259,4 +362,4 @@ const maxRatio = images.reduce((max, { ratio }) => {
     }
 
     document.addEventListener("DOMContentLoaded", initLightbox);
-</script>
+</script> -->

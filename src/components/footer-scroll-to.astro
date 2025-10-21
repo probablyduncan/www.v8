@@ -1,11 +1,23 @@
 ---
-const arrows = "⇣👣"
+interface Props {
+    includeTopButton?: boolean;
+}
+
+const { includeTopButton } = Astro.props;
+
+const arrows = "⇣👣";
 ---
+
 <nav class="to-footer">
-    <a href="#footer" title="more information">more info </a> {arrows[0]}
+    <a href="#footer" title="more information">more info </a>
+    {arrows[0]}
 </nav>
+{includeTopButton && <nav class="to-top">
+    ⇡ <a href="#" title="back! to the top">top</a>
+</nav>}
 <style>
-    .to-footer {
+    .to-footer,
+    .to-top {
         position: fixed;
         font-size: 0.8em;
         bottom: 0.6em;
@@ -58,6 +70,16 @@ const arrows = "⇣👣"
             outline: 2px solid var(--color-primary);
             outline-offset: 2px;
             border-radius: 4px;
+        }
+    }
+
+    .to-top {
+        left: 1em;
+        right: unset;
+
+        a:hover,
+        a:focus-visible {
+            padding: 0 0 0.1em;
         }
     }
 </style>
