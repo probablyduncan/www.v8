@@ -66,6 +66,10 @@ type ImageMetadataYamlSchema = {
      * Dominant color, as [r,g,b]. Can be overwritten as a css color value.
      */
     dominantColor: [number, number, number] | string;
+    /**
+     * Original filename
+     */
+    filename: string;
 };
 
 

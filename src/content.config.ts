@@ -1,6 +1,6 @@
 import { file, glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
-import { IMAGE_KEYS, IMAGE_NAMES, IMAGE_TAGS } from "./content/imageKeys.g";
+import { IMAGE_KEYS, IMAGE_NAMES, IMAGE_TAGS } from "./content/images/imageKeys.g";
 import { shuffle } from "@probablyduncan/common";
 
 const minDate = new Date(0);

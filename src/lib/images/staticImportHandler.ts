@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { GENERATED_IMAGE_EXTENSION, PATHS } from "./consts";
+import { GENERATED_IMAGE_EXTENSION, PATHS, SHARP_SUPPORTED_FILE_TYPES } from "./consts";
 import log from "./log";
 import path from "path";
 import fs from "fs";
@@ -18,8 +18,9 @@ export default async function doStaticImport(metadataCollection: Record<string, 
 
     async function processStatic(filename: string) {
 
-        if (filename.endsWith(GENERATED_IMAGE_EXTENSION)) {
-            // don't process generated images
+        if (filename.endsWith(GENERATED_IMAGE_EXTENSION)
+            || !SHARP_SUPPORTED_FILE_TYPES.includes(path.parse(filename).ext)) {
+            // don't process generated images or unsupported types
             return;
         }
 

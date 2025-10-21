@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { GENERATED_IMAGE_EXTENSION, PATHS } from "./consts";
+import { GENERATED_IMAGE_EXTENSION, PATHS, SHARP_SUPPORTED_FILE_TYPES } from "./consts";
 import log from "./log";
 import path from "path";
 import fs from "fs";
@@ -20,7 +20,7 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
 
     async function processIntake(filename: string) {
 
-        if (![".jpg", ".tif", ".png", ".heic", ".avif", ".iiq"].includes(path.parse(filename).ext)) {
+        if (!SHARP_SUPPORTED_FILE_TYPES.includes(path.parse(filename).ext)) {
             // don't process unsupported images
             log("(warn) unsupported intake filetype", filename);
             return;
@@ -38,6 +38,7 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
                 effort: 9,
             })
             .toBuffer();
+
         const exifDataPromise = exifr.parse(intakeBuffer, true);
         const sharpMetadataPromise = sharp(intakeBuffer).metadata();
         const placeholderPromise = getPlaceholder(sharp(intakeBuffer));
@@ -83,7 +84,7 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
                 exifData.State,
                 exifData.Country,
             ].filter(t => t && t.trim().length).map(t => t!.toLowerCase());
-            metadata.tags = lightroomKeywords.concat(lightroomOtherTagFields);
+            metadata.tags = lightroomKeywords.concat(lightroomOtherTagFields) as ImageTag[];
         }
 
         // non-lightroom

@@ -1,7 +1,8 @@
 import path from "path";
-import { IMAGE_KEYS, IMAGE_NAMES, IMAGE_TAGS } from "../../content/imageKeys.g";
+import { IMAGE_KEYS, IMAGE_NAMES, IMAGE_TAGS } from "../../content/images/imageKeys.g";
 import { readMetadata } from "./metadataHelper";
 import type { SingleOrSeveral } from "@probablyduncan/common/sos";
+import { GENERATED_IMAGE_EXTENSION } from "./consts";
 
 function yamlToRuntimeMetadata(key: ImageKey, yamlData: ImageMetadataYamlSchema): ImageMetadataRuntimeSchema {
     return {
@@ -11,6 +12,7 @@ function yamlToRuntimeMetadata(key: ImageKey, yamlData: ImageMetadataYamlSchema)
         path: path.normalize(path.join("images", key)),
         color: Array.isArray(yamlData.dominantColor) ? `rgb(${yamlData.dominantColor.map(c => c.toFixed()).join(", ")})` : yamlData.dominantColor,
         date: yamlData.date ? new Date(yamlData.date) : undefined,
+        filename: yamlData.source === "lightroom-intake" ? key.replace(/^\d\d\d\d-\d\d-\d\d-/, "").replace(GENERATED_IMAGE_EXTENSION, "") : key,
     }
 }
 

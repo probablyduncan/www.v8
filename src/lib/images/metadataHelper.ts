@@ -101,8 +101,7 @@ export function removeMetadataEntriesWithoutFile(metadata: Record<string, ImageM
     }
 
     if (deleted.length) {
-        log(`deleted ${deleted.length} stale metadata entries`);
-        log(deleted.join());
+        log(`deleted ${deleted.length} stale metadata entries: [${deleted.join(", ")}]`);
     }
 }
 
