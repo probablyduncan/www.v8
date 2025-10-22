@@ -26,9 +26,13 @@ if (props.src) {
         }
     }
 }
+
+const ratio = props.data?.ratio ?? 1
 ---
 
-<figure>
+<figure style={`
+    --sqrt-ratio: ${Math.sqrt(ratio).toFixed(5)};
+`}>
     <Image {...props} />
     {props.title && <figcaption>{props.title}</figcaption>}
 </figure>
@@ -39,6 +43,13 @@ if (props.src) {
         display: flex;
         flex-flow: column;
         align-items: center;
+
+        max-width: calc(100vw - 2 * var(--padding));
+        --sqrt-ratio: 1;
+        width: calc(100% * var(--sqrt-ratio));
+
+        /* this isn't right!! */
+        /* margin-left: calc(29ch - 50% * var(--sqrt-ratio)); */
     }
 
     figure:first-child {
