@@ -10,4 +10,4 @@ export const PATHS = {
 
 export const GENERATED_IMAGE_EXTENSION = ".g.avif";
 
-export const SHARP_SUPPORTED_FILE_TYPES = [".jpg", ".tif", ".png", ".heic", ".avif", ".iiq"];
+export const SHARP_SUPPORTED_FILE_TYPES = [".jpg", ".tif", ".png", ".heic", ".avif", ".iiq", ".gif", ".webp"];

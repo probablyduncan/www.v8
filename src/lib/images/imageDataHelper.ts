@@ -9,7 +9,7 @@ function yamlToRuntimeMetadata(key: ImageKey, yamlData: ImageMetadataYamlSchema)
         ...yamlData,
         key,
         name: yamlData.friendlyName as ImageName,
-        path: path.normalize(path.join("images", key)),
+        path: path.normalize(path.join("/images", key)),
         color: Array.isArray(yamlData.dominantColor) ? `rgb(${yamlData.dominantColor.map(c => c.toFixed()).join(", ")})` : yamlData.dominantColor,
         date: yamlData.date ? new Date(yamlData.date) : undefined,
         filename: yamlData.source === "lightroom-intake" ? key.replace(/^\d\d\d\d-\d\d-\d\d-/, "").replace(GENERATED_IMAGE_EXTENSION, "") : key,
