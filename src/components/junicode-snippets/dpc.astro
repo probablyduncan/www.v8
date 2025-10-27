@@ -64,7 +64,7 @@ const props = Astro.props;
 
             e.addEventListener("mouseenter", on);
             e.addEventListener("mouseleave", off);
-            e.addEventListener("focus", () => {on(); console.log("focus")});
+            e.addEventListener("focus", on);
             e.addEventListener("blur", off);
         });
 

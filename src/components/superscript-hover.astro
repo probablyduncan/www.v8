@@ -100,7 +100,6 @@ const { icon, supClass, bigSup = false, ...a } = Astro.props;
             });
 
             e.addEventListener("mousemove", (e) => {
-                console.log(bigSup);
                 const tl = e.offsetX - icon.offsetLeft - icon.clientWidth / 2;
                 const tt = e.offsetY - icon.offsetTop - (bigSup ? 0 : icon.clientHeight / 2);
 
