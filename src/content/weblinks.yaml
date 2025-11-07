@@ -1,3 +1,152 @@
+# tags
+# personal-web
+# poetic-web
+# balls
+# garden
+# periodicals   - too broad?
+# archives      - too broad?
+# photography   - combine with art?
+# art
+# irl
+# design
+# tools
+# fonts
+# blog
+# maps
+
+farrant-me:
+    title: Josh Farrant
+    href: https://farrant.me/
+    desc: Have a look at the barnyard sounds in the footer. From the Index.
+    date: 2025/11/06
+    tags:
+        - personal-web
+        - blog
+wehtt-fonts:
+    title: Wehtt Fonts
+    href: https://wehtt.am/fonts/
+    desc: Free fonts for progressive causes, created by Matthew Hinders-Anderson.
+    date: 2025/11/06
+    tags:
+        - fonts
+perpetual-stew-club:
+    title: Perpetual Stew Club
+    href: https://www.perpetualstew.club/ 
+    desc: We've seen blogs. We've seen vlogs. This is the first stog, or stew log. New York Perpetual, baby. Images are broken.
+    date: 2025/11/05
+    tags:
+        - irl
+fall-map:
+    title: Fall Foliage Map
+    href: https://www.explorefall.com/fall-foliage-map
+    desc: Where are the best colors? There's a cool time slider as well, for planning your future woodland walks. From Naive Weekly.
+    date: 2025/11/05
+    tags:
+        - maps
+        - tools
+folk-texts:
+    title: Folklore and Mythology Electronic Texts
+    href: https://sites.pitt.edu/~dash/folktexts.html
+    desc: University of Pittsburgh archive of old stories, available online. From Naive Weekly.
+    date: 2025/11/05
+    tags:
+        - archive
+icannot-design:
+    title: icannot.design
+    href: https://icannot.design/
+    desc: I cannot! I cannot do it!
+    date: 2025/11/05
+    tags:
+        - personal-web
+        - poetic-web
+alex-party:
+    title: alex.party
+    href: https://alex.party/ 
+    desc: Up to my waist in comic sands? Sounds like a party to me, Alex.
+    date: 2025/11/05
+    tags:
+        - personal-web
+        - blog
+a-new-nothing:
+    title: a new nothing
+    href: https://anewnothing.com/
+    desc: Conversations between artists.
+    date: 2025/11/03
+    tags:
+        - photography
+        - art
+patrick-heng:
+    title: Patrick Heng
+    href: https://patrickheng.com/
+    desc: Beautiful, smooth, playful, interactive portfolio.
+    date: 2025/10/31
+    tags:
+        - design
+        - personal-web
+of-domains:
+    title: of.domains
+    href: https://of.domains/
+    desc: Scroll-driven ascii animation! Wild!
+    date: 2025/10/31
+    tags:
+        - design
+ai-poison:
+    title: Babble Entry Point
+    href: https://maurycyz.com/babble/entry-point
+    desc: Garbage for the Garbage King! An infinite labyrinth of pages for ai crawlers to slurp up. See the [process](https://maurycyz.com/projects/trap_bots/).
+    date: 2025/10/30
+    tags:
+        - tools
+        - garden
+bobert:
+    title: Bobert Shaw
+    href: https://bobertart.com/modelportfolio/
+    desc: Oil-painted 3D models! See the process on [Youtube](https://www.youtube.com/watch?v=fdI1ZJtAJmI).
+    date: 2025/10/27
+    tags:
+        - art
+alec-soth:
+    title: Alec Soth
+    href: https://alecsoth.com/
+    desc: Photographer. I like his pictures of the cold.
+    date: 2025/10/25
+    tags:
+        - photography
+comedy-wildlife:
+    title: Comedy Wildlife Awards
+    href: https://www.comedywildlifephoto.com/
+    desc: Funny little feathered friends, furry friends, etcetera.
+    date: 2025/10/24
+    tags:
+        - photography
+tina-zone:
+    title: tina.zone
+    href: https://tina.zone/
+    desc: Welcome to the Tina Zone! Lots to discover.
+    date: 2025/10/24
+    tags:
+        - personal-web
+        - art
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 kirsten-spruit:
     title: Kirsten Spruit
     href: https://kirstenspruit.com
@@ -13,7 +162,6 @@ kevin-garden:
     date: 2025/05/27
     tags:
         - personal-web
-        - poetic-web
         - garden
 ps-on-earth:
     title: <p>'s on earth
@@ -35,7 +183,6 @@ eileenie:
     desc: Personal site, playful, simple, full of joy. I like her Me page.
     date: 2025/05/03
     tags:
-        - poetic-web
         - personal-web
 colinaherne:
     title: Colin A Herne

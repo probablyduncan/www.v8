@@ -8,6 +8,8 @@ import PageMetadata from "../components/head/page-metadata.astro";
 import RadioFilters from "../components/filterable/radio-filters.astro";
 import FilterableListItem from "../components/filterable/filterable-list-item.astro";
 import FilterButton from "../components/filterable/filter-button.astro";
+import { marked } from "marked";
+import { resolveLink } from "../lib/linkHelper";
 
 const links = (await getCollection("weblinks")).sort((a, b) =>
     b.data.date.obj > a.data.date.obj
@@ -18,10 +20,27 @@ const links = (await getCollection("weblinks")).sort((a, b) =>
 );
 const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 
+const descriptionRenderer = (() => {
+    const renderer = new marked.Renderer();
+    renderer.link = ({ href, title, text }) => {
+        const {
+            href: hrefResolved,
+            title: titleResolved,
+            rel,
+            target,
+        } = resolveLink({ href, title, innerHtml: text });
+        return `<a href="${hrefResolved}" title="${titleResolved}" target="${target}" rel="${rel}" class="a">${marked.parseInline(text)}</a>`;
+    };
+    return renderer;
+})();
 
-
-// clicking anywhere on this weblinks page should spawn an 88x31 banner??
-// or they should flick in when you move your mouse around or something??
+function getDescriptionHTML(desc: string) {
+    desc = desc
+        .replaceAll("The Index", "[The Index](https://piccalil.li/the-index/)")
+        .replaceAll("the Index", "[the Index](https://piccalil.li/the-index/)")
+        .replaceAll("Naive Weekly", "[Naive Weekly](https://www.naiveweekly.com/)");
+    return marked.parseInline(formatQuotes(desc), { renderer: descriptionRenderer });
+}
 
 ---
 
@@ -58,11 +77,11 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                 <p aria-hidden="true"><span class="invisible">[</span>...</p>
                 <p>
                     and you are a hyper text transfer protozoa in the primordial
-                    soup of the world wide web, and the ebb and the rush of the open
-                    ocean’s tide is turning you ‘round, float: left and luring,
-                    cradling, coaxing you down the water column-gap, whispering
-                    promises in a language of salt and semantics, pulling at
-                    your ankles and you
+                    soup of the world wide web, and the ebb and the rush of the
+                    open ocean’s tide is turning you ‘round, float: left and
+                    luring, cradling, coaxing you down the water column-gap,
+                    whispering promises in a language of salt and semantics,
+                    pulling at your ankles and you
                 </p>
                 <p>
                     you could be here forever—you could make a life here
@@ -99,17 +118,39 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                 {
                     links.map(({ data: l }) => {
                         return (
-                            <FilterableListItem listName="weblinks" tags={l.tags}>
+                            <FilterableListItem
+                                listName="weblinks"
+                                tags={l.tags}
+                            >
                                 <div class="link-wrapper">
                                     <div class="link-top">
-                                        <span class="link-date">{l.date.text}</span>
+                                        <span class="link-date">
+                                            {l.date.text}
+                                        </span>
                                         <span>|</span>
-                                        <span class="link-tags">{l.tags.sort().map((t, i) => (<>
-                                        <FilterButton listName="weblinks" tagName={t} >#{t}</FilterButton>{i !== l.tags.length - 1 && ","}
-                                        </>))}</span>
+                                        <span class="link-tags">
+                                            {l.tags.sort().map((t, i) => (
+                                                <>
+                                                    <FilterButton
+                                                        listName="weblinks"
+                                                        tagName={t}
+                                                    >
+                                                        #{t}
+                                                    </FilterButton>
+                                                    {i !== l.tags.length - 1 &&
+                                                        ","}
+                                                </>
+                                            ))}
+                                        </span>
                                     </div>
                                     <div class="link-bottom">
-                                        <span class="link-title">[{l.title}](<a class="link-link" title={`${l.title}: ${l.href}`} href={l.href} target="_blank">{l.href}</a>)</span><span class="link-desc"> <span class="desc-dash">&mdash;</span>&mdash; {formatQuotes(l.desc)}</span>
+                                        <span class="link-title">
+                                            [{l.title}](<a
+                                                class="link-link"
+                                                title={`${l.title}: ${l.href}`}
+                                                href={l.href}
+                                                target="_blank">{l.href}</a>)</span><span class="link-desc">{" "}<span class="desc-dash">&mdash;</span>&mdash;{" "}<span set:html={getDescriptionHTML(l.desc)}></span>
+                                        </span>
                                     </div>
                                 </div>
                             </FilterableListItem>
@@ -118,18 +159,17 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
                 }
             </ul>
         </main>
-        <aside>
+        <!-- <aside>
             <a href="/" title="back! to the home page">
                 <span data-flipbook data-alt="↩" />
             </a>
-        </aside>
+        </aside> -->
     </body>
     <style>
-
         :root {
             /* overscroll-behavior: unset; */
-            --color-primary: #0000EE;
-            --color-secondary: #551A8B;
+            --color-primary: #0000ee;
+            --color-secondary: #551a8b;
         }
 
         body {
@@ -317,7 +357,7 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
 
         /* FLIPBOOK STUFF */
 
-        aside {
+        /* aside {
             position: fixed;
             bottom: calc(var(--padding) * 0.75);
             right: var(--padding);
@@ -432,6 +472,6 @@ const tags = [...new Set(links.flatMap((l) => l.data.tags))].sort();
             100% {
                 content: "ↈ";
             }
-        }
+        } */
     </style>
 </html>
