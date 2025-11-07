@@ -1,0 +1,241 @@
+---
+import { shuffleRef } from "@probablyduncan/common";
+import fs from "fs";
+import path from "path";
+
+const banners = fs
+    .readdirSync(path.join(process.cwd(), "public", "88x31"))
+    .filter((filename) =>
+        [".jpg", ".png", ".gif"].includes(path.parse(filename).ext),
+    );
+
+shuffleRef(banners);
+---
+
+<div data-88x31s>
+    {
+        banners
+            .slice(0, 50)
+            .map((filename) => (
+                <img
+                    id={filename}
+                    src={`/88x31/${filename}`}
+                    draggable="false"
+                />
+            ))
+    }
+</div>
+<style>
+    [data-88x31s] {
+        position: fixed;
+        inset: 0;
+        /* left: 65ch; */
+        /* right: -80px; */
+        z-index: 1;
+
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-select: none;
+
+        img {
+            width: 88px;
+            height: 31px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+            --x: 100vw;
+            --y: 100vh;
+            --r: 0rad;
+
+            transform: translate(calc(50% + var(--x)), calc(50% + var(--y)))
+                rotate(var(--r));
+
+            pointer-events: all;
+            user-select: auto;
+            -webkit-user-select: auto;
+        }
+    }
+</style>
+<script>
+    import { Bodies, Composite, Engine, Mouse, MouseConstraint } from "matter-js";
+
+    async function init88x31() {
+        const engine = Engine.create({
+            gravity: {
+                y: 1,
+            },
+        });
+
+        updateGravityOnScroll();
+
+        const floor = Bodies.rectangle(
+            -window.innerWidth / 2,
+            10,
+            window.innerWidth * 2,
+            20,
+            {
+                isStatic: true,
+                label: "floor",
+            },
+        );
+        Composite.add(engine.world, floor);
+
+        const leftWall = Bodies.rectangle(
+            -window.innerWidth - 10,
+            -window.innerHeight / 2,
+            20,
+            window.innerHeight * 2,
+            {
+                isStatic: true,
+                label: "left-wall",
+            },
+        );
+        Composite.add(engine.world, leftWall);
+
+        const rightWall = Bodies.rectangle(
+            10,
+            -window.innerHeight / 2,
+            20,
+            window.innerHeight * 2,
+            {
+                isStatic: true,
+                label: "left-wall",
+            },
+        );
+        Composite.add(engine.world, rightWall);
+
+        const banners = [...document.querySelectorAll("[data-88x31s] img")].map(
+            (_el) => {
+                const el = _el as HTMLImageElement;
+                const posX = (Math.random() * -window.innerWidth) / 2;
+                const posY =
+                    Math.random() * -2 * window.innerHeight -
+                    window.innerHeight;
+                const body = Bodies.rectangle(posX, posY, 88, 31, {
+                    label: el.id,
+                    density: 0.5 + Math.random(),
+                    angle: Math.random() * Math.PI * 2,
+                    friction: 0.1,
+                    frictionStatic: 0.2,
+                });
+                Composite.add(engine.world, body);
+
+                return {
+                    body,
+                    el,
+                };
+            },
+        );
+
+        // 0,0 should be bottom right corner of screen?
+        engine.world.bounds = {
+            min: {
+                x: -window.innerWidth,
+                y: -window.innerHeight,
+            },
+            max: {
+                x: 0,
+                y: 0,
+            },
+        };
+
+        let prevTime: number;
+        function onAnimationFrame(time: DOMHighResTimeStamp) {
+            const delta = time - (prevTime ?? time);
+            prevTime = time;
+
+            Engine.update(engine, delta);
+            render();
+            requestAnimationFrame(onAnimationFrame);
+        }
+
+        requestAnimationFrame(onAnimationFrame);
+
+        let lowestBanner: (typeof banners)[number];
+        let lowestPos: number;
+        function render() {
+            // const prevLowestBanner = lowestBanner;
+
+            for (let banner of banners) {
+                banner.el.style.setProperty(
+                    "--x",
+                    banner.body.position.x + "px",
+                );
+                banner.el.style.setProperty(
+                    "--y",
+                    banner.body.position.y + "px",
+                );
+                banner.el.style.setProperty("--r", banner.body.angle + "rad");
+
+                if (!lowestPos || banner.body.position.y >= lowestPos) {
+                    lowestPos = banner.body.position.y;
+                    lowestBanner = banner;
+                }
+            }
+
+            // if (prevLowestBanner !== lowestBanner) {
+            //     if (prevLowestBanner) {
+            //         prevLowestBanner!.el.style.
+            //     }
+            //     lowestBanner.el.style.
+            // }
+        }
+
+        window.addEventListener("resize", () => {
+            return;
+            // TODO resize bounds and move walls?
+
+            engine.world.bounds.min = {
+                x: -window.innerWidth,
+                y: -window.innerHeight,
+            };
+
+            leftWall.position.x = -window.innerWidth - 10;
+            leftWall.isStatic = true;
+        });
+
+        function updateGravityOnScroll() {
+            let prevScrollY: number | undefined;
+            let prevNow: number | undefined;
+            let scrollTimeout: number | undefined;
+            window.addEventListener("scroll", () => {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+
+                if (
+                    window.scrollY + window.innerHeight >=
+                    document.body.scrollHeight ||
+                    window.scrollY <= 0
+                ) {
+                    // if at top or bottom of screen get out
+                    engine.gravity.y = 1;
+                    prevNow = undefined;
+                    prevScrollY = undefined;
+                    return;
+                }
+
+                const now = performance.now();
+                const timeDelta = now - (prevNow ?? now - 1);
+                prevNow = now;
+
+                const scroll = window.scrollY;
+                const scrollDelta = scroll - (prevScrollY ?? scroll);
+                prevScrollY = scroll;
+
+                let scrollPerMs = Math.pow(scrollDelta / timeDelta, 3);
+                engine.gravity.y = 1 - Math.max(-2, Math.min(scrollPerMs, 2));
+
+                scrollTimeout = window.setTimeout(() => {
+                    engine.gravity.y = 1;
+                }, 100);
+            });
+        }
+    }
+
+    document
+        .querySelector("summary")
+        ?.addEventListener("click", init88x31, { once: true });
+    // document.addEventListener("DOMContentLoaded", init88x31);
+</script>

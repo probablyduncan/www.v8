@@ -10,6 +10,7 @@ import FilterableListItem from "../components/filterable/filterable-list-item.as
 import FilterButton from "../components/filterable/filter-button.astro";
 import { marked } from "marked";
 import { resolveLink } from "../lib/linkHelper";
+import EightyEightThirtyOne from "../components/eighty-eight-thirty-one.astro";
 
 const links = (await getCollection("weblinks")).sort((a, b) =>
     b.data.date.obj > a.data.date.obj
@@ -56,6 +57,7 @@ function getDescriptionHTML(desc: string) {
         <title>Duncan’s Weblinks</title>
     </head>
     <body>
+        <EightyEightThirtyOne />
         <Ticker />
         <header>
             <div class="title">
@@ -200,7 +202,7 @@ function getDescriptionHTML(desc: string) {
                 "wght" 600,
                 "wdth" 100,
                 "ENLA" 20;
-            
+
             h1 {
                 font-size: unset;
                 display: inline;
@@ -272,7 +274,7 @@ function getDescriptionHTML(desc: string) {
         .link-top {
             margin-bottom: 0.125rem;
             color: var(--color-text-lighter);
-        
+
             user-select: none;
             -webkit-user-select: none;
         }
@@ -284,7 +286,7 @@ function getDescriptionHTML(desc: string) {
                 "wght" 500,
                 "wdth" 80,
                 "ENLA" 0;
-        
+
             user-select: text;
             -webkit-user-select: text;
         }
