@@ -9,6 +9,7 @@ import Footer from "../components/footer.astro";
 import FooterScrollTo from "../components/footer-scroll-to.astro";
 import MarkdownImage from "../components/markdown-image.astro";
 import { getDateDisplayString, toWikipediaDateURL } from "../lib/dateHelper";
+import Noise from "../components/noise.astro";
 
 export async function getStaticPaths() {
     const collection = await getCollection("text");
@@ -47,6 +48,7 @@ if (entry.data.align === "right") {
     <body
         style={`--col-size-left: ${stance[0]}fr; --col-size-right: ${stance[1]}fr;`}
     >
+        <Noise />
         <main>
             <div class="wrapper">
                 <header>

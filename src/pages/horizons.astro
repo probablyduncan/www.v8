@@ -5,6 +5,7 @@ import PageMetadata from "../components/head/page-metadata.astro";
 import Image from "../components/image.astro";
 import { getImage } from "../lib/images/imageDataHelper";
 import { Content as TextContent } from "../content/horizons.md";
+import Noise from "../components/noise.astro";
 
 const entry = {
     id: "horizons",
@@ -69,6 +70,7 @@ const horizonLerp = 0.5;
         />
     </head>
     <body>
+        <Noise />
         <nav>
             <span>
                 <a href="/" title="back! to the home page">Home</a>
