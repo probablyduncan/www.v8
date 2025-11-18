@@ -25,19 +25,19 @@ picture-takin-blues:
         What do you get when you cross the havin’ of a film camera with a night of listening to someone play the steel guitar? Why, the [picture takin’ blues](/picture-takin-blues "I don’t know how I could ever choose..."), of course.
 bugs-can-scream:
     date: August, 2025
-    tags: [best, lyric-and-verse]
+    tags: [best, lyric-and-verse, bugs]
     content: >
         I come from a land [where bugs can scream](/where-bugs-can-scream "Where bugs have hopes and bugs have dreams...")!
 pigeon-web:
     date: August, 2025 & 2024
-    tags: [best, code, photography]
+    tags: [best, code, photography, birds]
     content: >
         [To Pigeon-Fill the Sky](https://pigeons.duncanpetrie.com "To Pigeon-Fill the Sky (the Website)")
         is a website! In 2025, I turned my photobook into an interactive digital experience.
     img: glitch-screenshot-3.webp
 spider-cursor:
     date: July, 2025
-    tags: [best, code]
+    tags: [best, code, bugs]
     content: >
         There’s a [spider in my website](https://spider.duncanpetrie.com "A Spider’s Website"), and it’s interested in you!
 apocalypse-raise:
@@ -73,26 +73,66 @@ wind:
     date: September, 2024
     tags: [best, stories]
     content: >
-        [A List of the Wind](/wind "There was a list on the fridge in the Cabin of the Wind...")
+        [A List of the Wind](/list-of-the-wind "There was a list on the fridge in the Cabin of the Wind...")
         is a story about getting up and doing, finally, what needs to be done.
 pigeon-book:
     date: September, 2024
-    tags: [best, photobooks, photography]
+    tags: [best, photobooks, photography, birds]
     content: >
         [To Pigeon-Fill the Sky](https://pigeons.duncanpetrie.com/ "To Pigeon-Fill the Sky (the Book)")
         is a photographic storybook about AI, the creative process, and, of course, pigeons.
+saltish:
+    date: February, 2024
+    tags: [stories]
+    content: >
+        [Saltish and the Sea-beast](/saltish-and-the-sea-beast "It was the smell that woke them in the night...") is a story about going away, and about coming back, too.
+cold-wind:
+    date: January, 2024
+    tags: [lyric-and-verse]
+    content: >
+        There's a [cold wind]("There’s a cold wind, and it has a lot to say...")! And it's coming here today.
+wander-song:
+    date: September, 2023
+    tags: [lyric-and-verse]
+    content: >
+        I met a [lonesome weary lady](/wander-song "She said stranger don’t you like this little grave I dug...") lying in the mud.
+baron:
+    date: July, 2023
+    tags: [stories]
+    content: >
+        [The Baron's Old Fleet](/barons-old-fleet "An unplanted seed, an unwound spring, a ripe, low-hanging pear...") is a story about a man with a big floppy hat.
 man-upstairs:
     date: July, 2023
     tags: [best, lyric-and-verse]
     content: >
         I’ve learned to hate the [man upstairs](/man-upstairs "He scrapes and drags and thumps around..."),
         who stamps his feet and slides his chairs...
+horses:
+    date: July, 2023
+    tags: [lyric-and-verse]
+    content: I just wanna ride [horses](/wanna-ride-horses "I just wanna ride horses!")!
 lingermyth:
     date: April, 2022
     tags: [best, photobooks, photography]
     content: >
         [Lingermyth](/lingermyth "Gradually, we grew out of our past...") is an artist 
         book of 50 images created as a final degree project at Falmouth University.
+birdhat:
+    date: 2020-2020
+    tags: [photography, birds]
+    content: >
+        I have a lot of photos of birds. None of them have hats. Oh no! I better [get to work](https://www.instagram.com/bird.hat/).
+stars:
+    date: January, 2022
+    tags: [best, stories]
+    content: >
+        [A Necklace of Stars](/necklace-of-stars "The ground was littered with stars...") is a love story, short and bitter.
+yearning:
+    date: October, 2021
+    tags: [best, photography]
+    content: >
+        My dissertation, [On Yearning](yearning.pdf "yearning.pdf"), is about the feeling you get when
+        you look to the horizon and long to see beyond it.
 wiki:
     date: April, 2021
     tags: [best, films]
@@ -104,12 +144,32 @@ fluffy:
     date: March, 2021
     tags: [stories]
     content: >
-        Breaking news: I found the [fluffiest cloud](/fluffy "Say It Loud! Fluffy Cloud!")!
+        Breaking news: I found the [fluffiest cloud](/fluffy-cloud "Say It Loud! Fluffy Cloud!")!
 adrift:
     date: Winter, 2021
     tags: [photography]
     content: >
         Occasionally, when I'm [romping through the snow](/adrift "Snowdrifts of the French Alps"), my hands will thaw for just enough time to pull out my camera.
+heartland:
+    date: 2019-2021
+    tags: [photography, birds]
+    content: >
+        I grew up in [boring old Wisconsin](/heartland "Boring Old Wisconsin‽"), and I spent the first 18 years of my life waiting to get out.
+bells-again:
+    date: Autumn, 2021
+    tags: [lyric-and-verse]
+    content: And it gets [so late so early](/bells-again "all those hours of the night to wish") in this candlelit November...
+neon-gardens:
+    date: Autumn, 2020
+    tags: [stories]
+    content: >
+        I went in and ordered a [hot dog](/neon-gardens-of-the-night "“You know, I made my fortune off of pickles,” the hot dog man said...") with everything but the pickle.
+spider-shower:
+    date: April, 2020
+    tags: [lyric-and-verse, bugs]
+    content: >
+        There’s a [spider in my bathroom](/spider-shower "I can’t turn on the water now..."), in the corner of my shower!
+        And I don’t know where she came from, what she's doing at this hour.
 pizza:
     date: March, 2020
     tags: [best, films]
