@@ -13,7 +13,56 @@
 # fonts
 # blog
 # maps
+# games
 
+prof-or-hobo:
+    title: Prof Or Hobo?
+    href: https://www.proforhobo.com/
+    desc: A guessing game.
+    date: 2025/11/13
+    tags:
+        - games
+        - archives
+sandwich-finder:
+    title: Sandwich Game
+    href: https://nuel.pw/sandwich/
+    desc: >
+        Nice way to spend a few minutes: a beautiful game, and a tasty treat.
+    date: 2025/11/13
+    tags:
+        - games
+        - garden
+        - poetic-web
+stickertop:
+    title: stickertop.art
+    href: https://stickertop.art/
+    desc: Laptop sticker gallery.
+    date: 2025/11/12
+    tags:
+        - archives
+mark-zuck:
+    title: I am Mark Zuckerberg
+    href: https://iammarkzuckerberg.com
+    desc: I am Mark Zuckerberg. I am him, yes.
+    date: 2025/11/09
+    tags:
+        - personal-web
+mamdani-graphics:
+    title: Mamdanisign
+    href: https://homes.luddy.indiana.edu/ccshan/for/for.html
+    desc: Zohran graphic generator.
+    date: 2025/11/08
+    tags:
+        - tools
+        - fonts
+nasa-solar-map:
+    title: Solar System Map
+    href: https://eyes.nasa.gov/apps/orrery/
+    desc: A live, 3d map of the solar system.
+    date: 2025/11/07
+    tags:
+        - balls
+        - maps
 farrant-me:
     title: Josh Farrant
     href: https://farrant.me/
