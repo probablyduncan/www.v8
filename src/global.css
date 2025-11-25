@@ -48,7 +48,6 @@ body {
 
     background-color: var(--color-text);
     color: var(--color-bg);
-    filter: invert();
 }
 
 h1,
@@ -79,13 +78,12 @@ p {
 .a:focus-visible,
 .a:focus,
 .a:focus-within {
-    /* --focus-bg: black; */
     --focus-bg: var(--color-primary);
     
     background-color: var(--focus-bg);
     outline: 2px solid var(--focus-bg);
+    outline-offset: 0;
     color: white;
-    /* text-decoration: none; */
 }
 
 .ligatures {
@@ -124,6 +122,30 @@ code {
     text-underline-offset: inherit;
     padding-bottom: 0.125em;
     margin-bottom: -0.125em;
+}
+
+blockquote {
+    margin: unset;
+    font-style: italic;
+    color: var(--color-text-lighter);
+    padding-left: 1em;
+    position: relative;
+
+    p {
+        text-wrap: balance;
+        text-align: left;
+    }
+
+    ::before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        
+        content: ">";
+        content: "›";
+        content: "»";
+        /* font-style: normal; */
+    }
 }
 
 .px {
