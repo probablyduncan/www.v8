@@ -83,7 +83,7 @@ p {
     background-color: var(--focus-bg);
     outline: 2px solid var(--focus-bg);
     outline-offset: 0;
-    color: white;
+    color: var(--color-bg);
 }
 
 .ligatures {

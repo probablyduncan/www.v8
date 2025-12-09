@@ -3,21 +3,11 @@ import { getCollection, getEntry, render } from "astro:content";
 import BaseMetadata from "../components/head/base-metadata.astro";
 import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
 import PageMetadata from "../components/head/page-metadata.astro";
-import {
-    getAllImages,
-    getImage,
-    getImagesByNamesAndTags,
-} from "../lib/images/imageDataHelper";
 import Image from "../components/image.astro";
-import {
-    getDateDisplayString,
-    getYearMonthDay,
-    toWikipediaDateURL,
-} from "../lib/dateHelper";
-import { shuffleRef } from "@probablyduncan/common";
+import Noise from "../components/noise.astro";
+import { getImagesByNamesAndTags } from "../lib/images/imageDataHelper";
+import MarkdownImage from "../components/markdown-image.astro";
 import Link from "../components/link.astro";
-import Footer from "../components/footer.astro";
-import FooterScrollTo from "../components/footer-scroll-to.astro";
 
 export async function getStaticPaths() {
     const collection = await getCollection("photo");
@@ -31,14 +21,6 @@ const entry = await getEntry("photo", id)!;
 const { Content } = await render(entry);
 
 const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
-
-if (entry.data.shuffle) {
-    shuffleRef(images);
-}
-
-const maxRatio = images.reduce((max, { ratio }) => {
-    return Math.max(max, ratio);
-}, 0);
 ---
 
 <!doctype html>
@@ -47,145 +29,125 @@ const maxRatio = images.reduce((max, { ratio }) => {
         <BaseMetadata />
         <GlobalStylesLoader />
         <PageMetadata
-            title={`${entry.data.title} (on Duncan’s Website)`}
+            title={`${"GRID"} (on Duncan’s Website)`}
             desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
         />
     </head>
     <body>
+        <Noise />
+        <nav>
+            <span>
+                <a href="/" title="back! to the home page">Home</a>
+                /
+                <h1>
+                    <a
+                        href={entry.id}
+                        title={entry.data.title + " (you're already here!)"}
+                        >{entry.data.title}</a
+                    >
+                </h1>
+            </span>
+            <span>
+                <a href="#info" title="Information">Text</a>
+                <a href="#" title="No more of this please">Close</a>
+            </span>
+        </nav>
+        <aside id="info">
+            <article>
+                <Content components={{ img: MarkdownImage, a: Link }} />
+            </article>
+        </aside>
         <main>
-            <section class="text">
-                <header>
-                    <nav>
-                        <span>
-                            <a href="/" title="back! to the home page">Home</a>
-                            /
-                            <h1>
-                                <a
-                                    href={"/" + entry.id}
-                                    title={entry.data.title.toLowerCase() +
-                                        " (you're already here!)"}
-                                    >{entry.data.title}</a
-                                >
-                            </h1>
-                        </span>
-                        <span>
-                            {
-                                typeof entry.data.date === "string" ? (
-                                    entry.data.date
-                                ) : (
-                                    <Link
-                                        href={toWikipediaDateURL(
-                                            entry.data.date,
-                                        )}
-                                        title="and what else?"
-                                    >
-                                        {getDateDisplayString(entry.data.date)}
-                                    </Link>
-                                )
-                            }
-                        </span>
-                    </nav>
-                </header>
-                <FooterScrollTo includeTopButton />
-                <article>
-                    <Content />
-                </article>
-            </section>
-            <section
-                class="images"
-                style={`--max-ratio-sqrt: ${Math.sqrt(maxRatio).toFixed(5)};`}
-            >
-                {
-                    images.map((image) => {
-                        return (
-                            <figure
-                                style={`
-                                    --ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};
-                                    --dominant-color: ${image.color};
-                                    --rand: ${Math.random() - 0.5};
-                                `}
-                            >
-                                <Image data={image} />
-                            </figure>
-                        );
-                    })
-                }
-            </section>
-            <!-- <section
-                class="images"
-                style={`--max-ratio-sqrt: ${Math.sqrt(maxRatio).toFixed(5)};`}
-            >
-                {
-                    images.map((image) => {
-                        return (
-                            <>
-                                <figure
-                                    style={`
-                                --ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};
-                                --dominant-color: ${image.color};
-                            `}
-                                >
-                                    <a href={"#" + image.name}>
-                                        <Image data={image} />
-                                    </a>
-                                    {/* <figcaption>
-                                        <span>{image.filename}</span>
-                                    </figcaption> */}
-                                </figure>
-                                {Math.random() > 0.618 && (
-                                    <div
-                                        class="placeholder"
-                                        style={`--ratio-sqrt: 1;`}
-                                    />
-                                )}
-                                <div class="lightbox" id={image.name}>
-                                    <a href="#" data-close-lightbox>
-                                        Close
-                                    </a>
-                                    <figure>
-                                        <Image data={image} />
-                                        <figcaption>{image.alt}</figcaption>
-                                    </figure>
-                                </div>
-                            </>
-                        );
-                    })
-                }
-            </section> -->
+            {
+                images.map((image) => {
+                    const widthPX = Math.random() * 200 + 200;
+                    const leftLERP = Math.random();
+                    const topPX = Math.random() * 200 + 200;
+                    return (
+                        <figure
+                            style={`--widthPX: ${widthPX}px; --leftLerp: ${leftLERP}; --topPX: ${topPX}px; --ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};`}
+                        >
+                            <Image data={image} />
+                        </figure>
+                    );
+                })
+            }
         </main>
-        <Footer />
     </body>
 </html>
 
 <style>
     main {
-        padding: 0 var(--padding);
+        padding: calc(var(--padding) / 3) calc(var(--padding) / 2);
+        overflow: hidden;
     }
 
-    section.text {
-        width: 58ch;
-        max-width: calc(100vw - var(--padding) * 2);
-        padding-right: var(--padding);
-        margin: 0 auto;
+    figure {
+        position: relative;
+        z-index: 2;
+
+        --widthPX: 400px;
+        --leftLerp: 0;
+        --topPX: 300px;
+        --ratio-sqrt: 1;
+
+        --actual-width: calc(var(--widthPX) * var(--ratio-sqrt));
+
+        width: min(var(--widthPX), 100%);
+        margin-left: calc((100% - var(--widthPX)) * var(--leftLerp));
+        margin-top: var(--topPX);
+
+        cursor: zoom-in;
+
+        opacity: 1;
+        transform: none;
+        filter: none;
+
+        transition:
+            box-shadow 0.5s,
+            opacity 0.5s,
+            transform 0.5s,
+            filter 1s;
     }
 
-    article {
-        margin-bottom: 50svh;
-        @media (min-width: 58ch) {
-            text-align: justify;
-        }
+    figure.off-screen {
+        opacity: 0;
+        transform: translate(10px, 20px) rotate(2deg);
+        filter: blur(10px);
     }
 
-    header {
-        min-height: 50svh;
-        padding-bottom: 2em;
+    figure:hover {
+        box-shadow: 0 0 12px var(--color-bg-dark);
+        transform: scale(1.004);
+    }
+
+    body:has(figure:hover) figure:not(:hover) {
+        filter: blur(1px);
+    }
+
+    body:has(figure) nav {
+        transition:
+            filter 1s,
+            opacity 0.5s;
+    }
+
+    body:has(figure:hover) nav {
+        filter: blur(2px);
+        opacity: 0.8;
     }
 
     nav {
-        position: sticky;
-        top: 0;
+        position: fixed;
+        z-index: 1;
+        padding: calc(var(--padding) / 3) calc(var(--padding) / 2);
 
-        padding-top: 1em;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        user-select: none;
+        -webkit-user-select: none;
+        pointer-events: none;
 
         font-variant-numeric: lining-nums;
         font-variation-settings:
@@ -210,6 +172,9 @@ const maxRatio = images.reduce((max, { ratio }) => {
         a {
             color: unset;
             text-decoration: none;
+            pointer-events: auto;
+            user-select: auto;
+            -webkit-user-select: auto;
         }
 
         a:hover,
@@ -225,141 +190,102 @@ const maxRatio = images.reduce((max, { ratio }) => {
             background-color: var(--color-primary);
             color: var(--color-bg);
         }
-    }
 
-    section.images figure {
-        margin: 0 auto 50svh;
-        width: calc(58ch * var(--ratio-sqrt));
-        max-width: 100%;
-        transform: translateX(calc(var(--rand) * 100px));
+        a[href="#"] {
+            display: none;
+        }
 
-        @media screen and (max-width: 58ch) {
-            transform: none;
+        a[href="#info"] {
+            display: unset;
         }
     }
 
-    /* section.images {
-        margin: calc(4 * var(--padding)) 0 0;
-        padding: calc(var(--padding) / 2) calc(var(--padding) / 4);
-        display: flex;
-        flex-flow: row wrap;
-        align-items: flex-end;
-        justify-content: flex-start;
-        gap: calc(var(--padding) / 2) calc(var(--padding) / 4);
-    }
-
-    section.images > figure,
-    section.images > .placeholder {
-        width: 200px;
-        width: calc(200px * var(--ratio-sqrt) / var(--max-ratio-sqrt));
-    }
-
-    section.images a {
-        cursor: zoom-in;
-        display: block;
-    }
-
-    section.images a:hover {
-        filter: invert() sepia() contrast(60%) saturate(30%) brightness(110%);
-    }
-
-    section.images figure:has(a:hover) figcaption {
-        border-color: gray;
-    }
-
-    section.images figcaption {
-        border-top: 2px solid var(--dominant-color);
-        padding-top: 2px;
-        margin-top: 12px;
-        font-family: monospace;
-        font-size: 0.5em;
-        display: flex;
-        line-height: 1.6;
-        justify-content: flex-start;
-        gap: 1ch;
-        color: gray;
-    }
-
-    .lightbox {
+    #info {
         display: none;
     }
 
-    .lightbox:target,
-    .lightbox.open {
-        display: flex;
+    #info:target,
+    #info.open {
+        display: grid;
         position: fixed;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        background-color: white;
-        inset: 0;
-    } */
+        width: 100vw;
+        height: 100dvh;
+        color: white;
+        background-color: black;
+        z-index: 4;
+        padding-top: 40px;
+        box-sizing: border-box;
 
-    /* section.scroll {
-        width: min(600px, calc(100% - 2 * var(--padding)));
-        padding: 0 var(--padding);
-        box-sizing: content-box;
-        margin: 20svh auto 0;
+        overflow-y: scroll;
+
+        grid-template-columns: 1.618fr auto 1fr;
+
+        article {
+            grid-column: 2;
+            width: 58ch;
+            max-width: calc(100vw - var(--padding));
+            padding-right: var(--padding);
+
+            padding-top: 50svh;
+            padding-bottom: 100svh;
+
+            --color-primary: #8ae9ff;
+            --color-secondary: #e9c0ff;
+            --color-bg: black;
+            --color-text: white;
+
+            @media (min-width: 58ch) {
+                text-align: justify;
+            }
+        }
     }
 
-    section.scroll figure {
-        width: min(
-            calc(600px * var(--ratio-sqrt) / var(--max-ratio-sqrt)),
-            100%
-        );
-        margin: 0 auto 50svh;
-    } */
+    nav:has(~ #info:target, ~ #info.open) {
+        z-index: 5;
+        color: white;
+
+        a[href="#"] {
+            display: unset;
+        }
+
+        a[href="#info"] {
+            display: none;
+        }
+    }
 </style>
 
-<!-- <script>
-    function initLightbox() {
-        // open buttons
-        document.querySelectorAll("a[href^='#']:has(img)").forEach((_a) => {
-            const a = _a as HTMLAnchorElement;
-            a.addEventListener("click", (e) => {
-                e.preventDefault();
-                softNavigate(a.href);
+<script>
+    function initGallery() {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                const show =
+                    entry.isIntersecting || entry.boundingClientRect.top <= 0;
+                entry.target.classList.toggle("off-screen", !show);
             });
         });
 
-        // close buttons
-        document.querySelectorAll(".lightbox a[href='#']").forEach((_a) => {
-            const a = _a as HTMLAnchorElement;
-            a.addEventListener("click", (e) => {
-                e.preventDefault();
-                softNavigate(a.href.replace("#", ""));
-            });
+        document.querySelectorAll("figure").forEach((_f) => {
+            const figure = _f as HTMLElement;
+            observer.observe(figure);
         });
-
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-                console.log(window.location);
-                softNavigate(window.location.origin + window.location.pathname);
-            }
-        });
-
-        if (window.location.hash) {
-            console.log("hash");
-            document
-                .querySelector(`.lightbox${window.location.hash}`)
-                ?.classList.add("open");
-        }
     }
 
-    function softNavigate(href: string) {
-        history.replaceState({}, "", href);
+    function initTextPopup() {
+        const info = document.getElementById("info");
+        if (!info) return;
 
         document
-            .querySelectorAll(`.lightbox.open`)
-            .forEach((e) => e.classList.remove("open"));
-
-        if (window.location.hash) {
-            document
-                .querySelector(`.lightbox${window.location.hash}`)
-                ?.classList.toggle("open");
-        }
+            .querySelectorAll("a[href='#info'], a[href='#']")
+            .forEach((_a) => {
+                const a = _a as HTMLAnchorElement;
+                const isClose = a.href.endsWith("#");
+                a.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    info.classList.toggle("open", !isClose);
+                });
+            });
     }
 
-    document.addEventListener("DOMContentLoaded", initLightbox);
-</script> -->
+    document.addEventListener("DOMContentLoaded", initGallery);
+    document.addEventListener("DOMContentLoaded", initTextPopup);
+</script>
