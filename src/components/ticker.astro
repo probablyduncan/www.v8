@@ -2,6 +2,7 @@
 import { shuffleRef } from "@probablyduncan/common/shuffle";
 import { getCollection } from "astro:content";
 import { resolveLink } from "../lib/linkHelper";
+import Grabbable from "./grabbable.astro";
 
 const links = await getCollection("ticker");
 shuffleRef(links);
@@ -25,9 +26,9 @@ const animateSeconds = links.length * 30;
                             class="item"
                             style={`--rand: ${Math.floor(Math.random() * 10)};`}
                         >
-                            <a {...linkProps} tabindex="-1">
+                            <Grabbable tag="a" {...linkProps} tabindex="-1">
                                 {link.text}
-                            </a>
+                            </Grabbable>
                             <span>{link.text}</span>
                             <span>{link.text}</span>
                         </span>

@@ -5,9 +5,11 @@ interface Props extends HTMLAttributes<"div"> {
     tag?: HTMLTag;
 }
 const props = Astro.props;
-props.tag ??= "div";
 
-const tagAttributes = {...props};
+props.tag ??= "div";
+props.draggable ??= "false";
+
+const tagAttributes = { ...props };
 delete tagAttributes.tag;
 ---
 
@@ -15,17 +17,20 @@ delete tagAttributes.tag;
     <slot />
 </props.tag>
 <style>
-    [data-grabbable] {
-        pointer-events: auto;
-        cursor: grab;
-    }
+    @media screen and (width > 720px) and (prefers-reduced-motion: no-preference) {
+        [data-grabbable] {
+            pointer-events: auto;
+            cursor: grab;
+        }
 
-    [data-grabbable].grabbing {
-        cursor: grabbing;
+        [data-grabbable].grabbing {
+            cursor: grabbing;
+        }
     }
 </style>
 <script>
     import Vec2 from "@probablyduncan/common/vec2";
+    import prefersReducedMotion from "../lib/prefersReducedMotion";
 
     function initGrabbable() {
         const grabbables: {
@@ -52,6 +57,8 @@ delete tagAttributes.tag;
             grabbables.push(info);
 
             el.addEventListener("mousedown", (e) => {
+                if (!userCanGrab()) return;
+
                 info.grabbing = true;
                 info.el.classList.add("grabbing");
                 document.body.style.cursor = "grabbing";
@@ -62,6 +69,8 @@ delete tagAttributes.tag;
         });
 
         window.addEventListener("mouseup", () => {
+            if (!userCanGrab()) return;
+
             document.body.style.cursor = "unset";
             grabbables.forEach((g) => {
                 if (g.grabbing) {
@@ -74,6 +83,8 @@ delete tagAttributes.tag;
         });
 
         window.addEventListener("mousemove", (e) => {
+            if (!userCanGrab()) return;
+
             grabbables.forEach((g) => {
                 if (
                     !g.grabbing ||
@@ -111,6 +122,10 @@ delete tagAttributes.tag;
             });
         }
         requestAnimationFrame(animate);
+
+        function userCanGrab() {
+            return !prefersReducedMotion() && window.innerWidth > 720;
+        }
     }
     document.addEventListener("DOMContentLoaded", initGrabbable);
 </script>
