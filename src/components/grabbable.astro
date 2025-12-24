@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes, HTMLTag } from "astro/types";
+import { grabbableDataAttribute } from "../lib/grabbable";
 
 interface Props extends HTMLAttributes<"div"> {
     tag?: HTMLTag;
@@ -11,9 +12,11 @@ props.draggable ??= "false";
 
 const tagAttributes = { ...props };
 delete tagAttributes.tag;
+
+tagAttributes[grabbableDataAttribute] = true;
 ---
 
-<props.tag data-grabbable {...tagAttributes}>
+<props.tag {...tagAttributes}>
     <slot />
 </props.tag>
 <style>

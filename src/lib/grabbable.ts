@@ -1,6 +1,8 @@
 import Vec2 from "@probablyduncan/common/vec2";
 import prefersReducedMotion from "../lib/prefersReducedMotion";
 
+export const grabbableDataAttribute = "data-grabbable" as const;
+
 export function initGrabbables() {
     const grabbables: {
         el: HTMLElement;
@@ -11,7 +13,7 @@ export function initGrabbables() {
         grabStartTranslatePos: Vec2 | null;
     }[] = [];
 
-    document.querySelectorAll("[data-grabbable]").forEach((_el) => {
+    document.querySelectorAll(`[${grabbableDataAttribute}]`).forEach((_el) => {
         const el = _el as HTMLElement;
 
         const info: (typeof grabbables)[number] = {
@@ -98,7 +100,7 @@ export function canGrab() {
 }
 
 export function releaseGrabbables(parent?: Element) {
-    (parent ?? document).querySelectorAll("[data-grabbable]").forEach(e => {
+    (parent ?? document).querySelectorAll(`[${grabbableDataAttribute}]`).forEach(e => {
         (e as HTMLElement).style.transform = "";
     });
 }
