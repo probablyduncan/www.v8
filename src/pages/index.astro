@@ -208,10 +208,26 @@ const projectContentRenderer = (() => {
         max-width: 100%;
         width: 50ch;
         z-index: 10;
-        margin-bottom: 20svh;
+        padding-bottom: 20svh;
 
         @media (width <= 720px) {
             margin-inline: auto;
+        }
+    }
+
+    /* blur content behind */
+    @media screen and (width > 720px) {
+        main::before {
+            position: absolute;
+            inset: 0;
+            right: -20%;
+            mask: linear-gradient(to left,transparent 0%,#fff8 5%,#fff 30%);
+
+            content: "";
+            pointer-events: none;
+            z-index: -1;
+
+            backdrop-filter: blur(4px);
         }
     }
 
