@@ -87,6 +87,7 @@ export function initGrabbables() {
         grabbables.forEach((g) => {
             if (!g.el.style.transform) {
                 g.targetTranslate = Vec2.Zero;
+                g.grabbing = false;
             }
 
             g.currentTranslate = lerp.lerp(
@@ -105,12 +106,12 @@ export function canGrab() {
 
 export function releaseGrabbables(parentEl?: Element) {
     (parentEl ?? document).querySelectorAll(`[${grabbableDataAttribute}]`).forEach(e => {
-        (e as HTMLElement).style.transform = "";
+        releaseGrabbable(e as HTMLElement, false);
     });
 }
 
-export function releaseGrabbable(grabbableEl: HTMLElement) {
-    if (!grabbableEl.matches(`[${grabbableDataAttribute}]`)) {
+export function releaseGrabbable(grabbableEl: HTMLElement, checkIsGrabbable: boolean = true) {
+    if (checkIsGrabbable && !grabbableEl.matches(`[${grabbableDataAttribute}]`)) {
         return;
     }
 
