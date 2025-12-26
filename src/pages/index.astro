@@ -210,6 +210,8 @@ const projectContentRenderer = (() => {
         z-index: 10;
         padding-bottom: 20svh;
 
+        background: linear-gradient(to right,#fff 20%, transparent 100%);
+
         @media (width <= 720px) {
             margin-inline: auto;
         }
@@ -221,7 +223,7 @@ const projectContentRenderer = (() => {
             position: absolute;
             inset: 0;
             right: -20%;
-            mask: linear-gradient(to left,transparent 0%,#fff8 5%,#fff 30%);
+            mask: linear-gradient(to left,transparent 0%,#fff8 15%,#fff 40%);
 
             content: "";
             pointer-events: none;
