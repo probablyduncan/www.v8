@@ -36,6 +36,11 @@ export function initGrabbables() {
 
             info.grabStartMousePos = Vec2.From(e.clientX, e.clientY);
             info.grabStartTranslatePos = info.currentTranslate;
+            
+            // I don't like this, it's kind of the whole point to have to uncover stuff
+            // info.el.parentElement?.appendChild(info.el);
+            // maybe i can do something with intersection observer
+            // put other grabbables behind current one only when they're not intersecting?
         });
     });
 
@@ -81,7 +86,6 @@ export function initGrabbables() {
         const lerp = Vec2.From(Math.min(1, deltaMS * 0.0030625));
         grabbables.forEach((g) => {
             if (!g.el.style.transform) {
-                g.currentTranslate = Vec2.Zero;
                 g.targetTranslate = Vec2.Zero;
             }
 
@@ -99,8 +103,16 @@ export function canGrab() {
     return !prefersReducedMotion() && window.innerWidth > 720;
 }
 
-export function releaseGrabbables(parent?: Element) {
-    (parent ?? document).querySelectorAll(`[${grabbableDataAttribute}]`).forEach(e => {
+export function releaseGrabbables(parentEl?: Element) {
+    (parentEl ?? document).querySelectorAll(`[${grabbableDataAttribute}]`).forEach(e => {
         (e as HTMLElement).style.transform = "";
     });
+}
+
+export function releaseGrabbable(grabbableEl: HTMLElement) {
+    if (!grabbableEl.matches(`[${grabbableDataAttribute}]`)) {
+        return;
+    }
+
+    grabbableEl.style.transform = "";
 }
