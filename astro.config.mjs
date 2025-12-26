@@ -9,4 +9,5 @@ export default defineConfig({
     remarkPlugins: [remarkLineBreaks],
     rehypePlugins: [rehypeUnwrapImages],
   })],
+  site: "https://beta.duncanpetrie.com",
 });
