@@ -54,7 +54,7 @@ const projectContentRenderer = (() => {
                     <Image name="pasture_i-2021-01-01" />
                 </figure>
                 <h1>
-                    <span class="ligatures">Duncan Petrie</span><sup
+                    <span class="ligatures" data-slide-trigger="default">Duncan Petrie</span><sup
                         class="aalt"
                         title="you’re a star!"
                         style="cursor: default; user-select: none; -webkit-user-select: none;"
@@ -70,7 +70,7 @@ const projectContentRenderer = (() => {
                 </p>
                 <p>
                     I like going outside, looking around, and eating <Link
-                        href="https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA"
+                        href="https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA" data-slide-trigger="falafel"
                         >falafel</Link
                     >.
                 </p>
@@ -86,7 +86,7 @@ const projectContentRenderer = (() => {
                         >Feast of the Ass</Link
                     >.
                 </p>
-                <p>This is my website.</p>
+                <p>This is my website!</p>
                 <hr />
                 <p>
                     New here? Take a look at my <Link href="https://pigeons.duncanpetrie.com"
@@ -126,20 +126,20 @@ const projectContentRenderer = (() => {
                 />
                 <ul>
                     {
-                        items.map(({ data: item }) => {
+                        items.map(({ id, data: item }) => {
                             return (
                                 <FilterableListItem
                                     tags={item.tags}
                                     listName="work"
                                 >
-                                    {item.img && (
+                                    {item.mobileImage && (
                                         <figure class="mobile-figure">
                                             <Image
-                                                name={item.img as ImageName}
+                                                name={item.mobileImage as ImageName}
                                             />
                                         </figure>
                                     )}
-                                    <div class="link-wrapper">
+                                    <div class="link-wrapper" data-slide-trigger={id}>
                                         <div class="link-top">
                                             <span class="link-date">
                                                 {item.date}
@@ -179,23 +179,48 @@ const projectContentRenderer = (() => {
                 </ul>
             </section>
         </main>
-        <aside>
-            <!-- https://www.w3schools.com/howto/howto_js_draggable.asp -->
-            <Grabbable tag="figure"
-                style="width: 60%; position: absolute; right: 11%; top: 35%; rotate: 2deg;"
-            >
-                <Image name="snowline_late_morning_iii-2020-12-26" />
-            </Grabbable>
-            <Grabbable tag="figure"
-                style="width: 60%; position: absolute; right: 11%; top: 35%; rotate: -1deg;"
-            >
-                <Image name="snowfall_pine_wood_ii-2020-12-28" />
-            </Grabbable>
-            <Grabbable tag="figure"
-                style="width: 60%; position: absolute; right: 11%; top: 35%;"
-            >
-                <Image name="pasture_i-2021-01-01" />
-            </Grabbable>
+        <aside data-slide-container>
+            <div data-slide="default">
+                <Grabbable style="position: absolute; width: 28%; right: 28%; top: 18%; rotate: -1deg;" tag="figure">
+                    <Image name="melted_moon_rosemullion-2021-02-26" />
+                </Grabbable>
+                <Grabbable style="position: absolute; width: 28%; right: 28%; top: 18%; rotate: 1deg;" tag="figure">
+                    <Image name="best_wishes_penzance-2022-03-22" />
+                </Grabbable>
+            </div>
+            <div data-slide="falafel">
+                <div style="position: absolute; top: 45%; left: 40%; transform: translate(-50%, -50%); width: 250px; height: 400px;">
+                    <Grabbable style="position: absolute; rotate: 150deg;" tag="figure">
+                        <Image name="falafel1.gif" noPlaceholder autoWidth />
+                    </Grabbable>
+                    <Grabbable style="position: absolute; top: 10%; right: 15%; rotate: 230deg;" tag="figure">
+                        <Image name="falafel2.gif" noPlaceholder autoWidth />
+                    </Grabbable>
+                    <Grabbable style="position: absolute; top: 36%; left: 12%; rotate: 45deg;" tag="figure">
+                        <Image name="falafel2.gif" noPlaceholder autoWidth />
+                    </Grabbable>
+                    <Grabbable style="position: absolute; top: 50%; right: 15%; rotate: 25deg;" tag="figure">
+                        <Image name="falafel1.gif" noPlaceholder autoWidth />
+                    </Grabbable>
+                    <Grabbable style="position: absolute; bottom: 20%; left: 60%; rotate: -15deg;w" tag="figure">
+                        <Image name="falafel2.gif" noPlaceholder autoWidth />
+                    </Grabbable>
+                    <Grabbable style="position: absolute; bottom: 0; right: 0; rotate: 55deg;" tag="figure">
+                        <Image name="falafel1.gif" noPlaceholder autoWidth />
+                    </Grabbable>
+                    <Grabbable style="position: absolute; top: 20%; left: 40%; rotate: 4deg;" tag="figure">
+                        <Image name="falafels.gif" noPlaceholder autoWidth />
+                    </Grabbable>
+                </div>
+            </div>
+            <div data-slide="adrift">
+                <Grabbable style="position: absolute; width: 60%; right: 11%; top: 35%; rotate: 2deg;" tag="figure">
+                    <Image name="snowline_late_morning_iii-2020-12-26" />
+                </Grabbable>
+                <Grabbable style="position: absolute; width: 60.5%; right: 11%; top: 34.5%; rotate: -1deg;" tag="figure">
+                    <Image name="pasture_i-2021-01-01" />
+                </Grabbable>
+            </div>
         </aside>
         <!-- <Footer /> -->
     </body>
@@ -210,7 +235,7 @@ const projectContentRenderer = (() => {
         z-index: 10;
         padding-bottom: 20svh;
 
-        background: linear-gradient(to right,#fff 20%, transparent 100%);
+        background: linear-gradient(to right,#fff8 5%, transparent 100%);
 
         @media (width <= 720px) {
             margin-inline: auto;
@@ -242,6 +267,16 @@ const projectContentRenderer = (() => {
 
         @media (width <= 720px) {
             display: none;
+        }
+    }
+
+    [data-slide] {
+
+        position: absolute;
+        inset: 0;
+        
+        &:not([data-slide="default"]) {
+            transform: translate(-100vw, -100vh);
         }
     }
 
@@ -337,6 +372,21 @@ const projectContentRenderer = (() => {
         margin-bottom: 1em;
     }
 
+    @media screen and (width > 720px) and (prefers-reduced-motion: no-preference) {
+        .link-wrapper {
+            cursor: default;
+            margin-bottom: 0.5em;
+            margin-inline: -0.5em;
+            padding: 0.5em;
+            border: 2px dashed #00000004;
+            transition: border-color 0.5s;
+        }
+
+        .link-wrapper:hover {
+            border-color: #0000000D;
+        }
+    }
+
     .link-top {
         margin-bottom: 0.125em;
         color: var(--color-text-lighter);
@@ -383,3 +433,7 @@ const projectContentRenderer = (() => {
         margin-bottom: 0.2em;
     }
 </style>
+<script>
+    import { initIndexSlides } from "../lib/indexSlides";
+    document.addEventListener("DOMContentLoaded", initIndexSlides);
+</script>

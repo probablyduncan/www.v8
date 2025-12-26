@@ -22,7 +22,7 @@ pantsless-again:
     date: September, 2025
     tags: [lyric-and-verse]
     content: >
-        Now the whole party sees / Your dinosaur undees / You’re pantsless! / [Pantsless again]("You’re pantsless again!")!
+        Now the whole party sees / Your dinosaur undees / You‘re pantsless! / [Pantsless again](“You‘re pantsless again!“)!
 picture-takin-blues:
     date: August, 2025
     tags: [lyric-and-verse, photography]
@@ -39,7 +39,7 @@ pigeon-web:
     content: >
         [To Pigeon-Fill the Sky](https://pigeons.duncanpetrie.com "To Pigeon-Fill the Sky (the Website)")
         is a website! In 2025, I turned my photobook into an interactive digital experience.
-    img: glitch-screenshot-3.webp
+    mobileImage: glitch-screenshot-3.webp
 spider-cursor:
     date: July, 2025
     tags: [best, code, bugs]
@@ -144,7 +144,7 @@ wiki:
     content: >
         [The Triumph of the Commons](https://www.youtube.com/watch?v=JRXZAaDxGCQ/)
         is a film made entirely from videos and photos I found on Wikipedia.
-    img: wiki.gif
+    mobileImage: wiki.gif
 fluffy:
     date: March, 2021
     tags: [stories]
@@ -181,7 +181,7 @@ pizza:
     content: >
         During the first covid lockdowns, I got really into making pizza, and I created a 
         [timelapse film](https://youtu.be/-sBHX07eIMY/) documenting the process.
-    img: pizza.gif
+    mobileImage: pizza.gif
 cart:
     date: Autumn, 2019
     tags: [photography]
