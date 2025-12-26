@@ -5,9 +5,11 @@ import { getImage } from "../lib/images/imageDataHelper";
 interface Props extends HTMLAttributes<"img"> {
     name?: ImageName;
     data?: ImageMetadataRuntimeSchema;
+    noPlaceholder?: boolean;
+    autoWidth?: boolean;
 }
 
-const { name, data, ...props } = Astro.props;
+const { name, data, noPlaceholder = false, autoWidth = false, ...props } = Astro.props;
 
 let image = data;
 if (!image && name) {
@@ -29,10 +31,16 @@ if (image) {
           )
         : {};
 
-    style["background-color"] ??= image.color;
-    style["background-image"] ??= `url("${image.placeholderUri}")`;
-    style["background-position"] ??= "center";
-    style["background-size"] ??= "cover";
+    if (!noPlaceholder) {
+        style["background-color"] ??= image.color;
+        style["background-image"] ??= `url("${image.placeholderUri}")`;
+        style["background-position"] ??= "center";
+        style["background-size"] ??= "cover";
+    }
+
+    if (autoWidth) {
+        style["width"] ??= "auto";
+    }
 
     style["aspect-ratio"] ??= image.ratio.toFixed(5);
 
