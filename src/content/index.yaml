@@ -22,7 +22,7 @@ pantsless-again:
     date: September, 2025
     tags: [lyric-and-verse]
     content: >
-        Now the whole party sees / Your dinosaur undees / You‘re pantsless! / [Pantsless again](“You‘re pantsless again!“)!
+        Now the whole party sees / Your dinosaur undees / You‘re pantsless! / [Pantsless again]("You‘re pantsless again!")!
 picture-takin-blues:
     date: August, 2025
     tags: [lyric-and-verse, photography]
@@ -39,7 +39,7 @@ pigeon-web:
     content: >
         [To Pigeon-Fill the Sky](https://pigeons.duncanpetrie.com "To Pigeon-Fill the Sky (the Website)")
         is a website! In 2025, I turned my photobook into an interactive digital experience.
-    mobileImage: glitch-screenshot-3.webp
+    slideImages: glitch-screenshot-3.webp
 spider-cursor:
     date: July, 2025
     tags: [best, code, bugs]
@@ -50,6 +50,7 @@ apocalypse-raise:
     tags: [lyric-and-verse]
     content: >
         I got a [raise in the apocalypse](/apocalypse-raise "And it was worth it"), and I am feeling fine!
+    slideImages: 2022-02-26-DSC_0108.g.avif
 scrumptious:
     date: April, 2025
     tags: [best, lyric-and-verse]
@@ -68,6 +69,7 @@ sancho:
     content: >
         After reading Don Quixote, I created a [Sancho Simulator](https://sancho.duncanpetrie.com):
         all the squire's proverbs, randomized, tantalized, run-round and riled up.
+    slideImages: 2022-03-22-DSC_0139.g.avif
 finger:
     date: November, 2024
     tags: [code]
@@ -80,6 +82,7 @@ wind:
     content: >
         [The List of the Wind](/list-of-the-wind "There was a list on the fridge in the Cabin of the Wind...")
         is a story about getting up and doing, finally, what needs to be done.
+    mobileImage: 2022-01-02-DSC_0051.g.avif
 pigeon-book:
     date: September, 2024
     tags: [best, photobooks, photography, birds]
@@ -122,6 +125,8 @@ lingermyth:
     content: >
         [Lingermyth](/lingermyth "Gradually, we grew out of our past...") is an artist 
         book of 50 images created as a final degree project at Falmouth University.
+    slideImages: [2021-11-02-DSC_0175.g.avif, 2021-11-19-DSC_0253.g.avif]
+    mobileImage: 2022-03-18-DSC_0118.g.avif
 birdhat:
     date: 2020-2020
     tags: [photography, birds]
@@ -132,6 +137,7 @@ stars:
     tags: [best, stories]
     content: >
         [A Necklace of Stars](/necklace-of-stars "The ground was littered with stars...") is a love story, short and bright.
+    slideImages: 2025-09-01-000083590020.g.avif
 yearning:
     date: October, 2021
     tags: [best, photography]
@@ -144,7 +150,7 @@ wiki:
     content: >
         [The Triumph of the Commons](https://www.youtube.com/watch?v=JRXZAaDxGCQ/)
         is a film made entirely from videos and photos I found on Wikipedia.
-    mobileImage: wiki.gif
+    slideImages: wiki.gif
 fluffy:
     date: March, 2021
     tags: [stories]

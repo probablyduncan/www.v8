@@ -52,7 +52,7 @@ const projectContentRenderer = (() => {
         <main>
             <header>
                 <figure class="mobile-figure">
-                    <Image name="pasture_i-2021-01-01" />
+                    <Image name="north_atlantic_pennance_point-2021-01-14" />
                 </figure>
                 <h1>
                     <span class="ligatures" data-slide-trigger="default">Duncan Petrie</span><sup
@@ -128,16 +128,15 @@ const projectContentRenderer = (() => {
                 <ul>
                     {
                         items.map(({ id, data: item }) => {
-                            const mobileImage = item.mobileImage ?? item.slideImages?.at(0);
                             return (
                                 <FilterableListItem
                                     tags={item.tags}
                                     listName="work"
                                 >
-                                    {mobileImage && (
+                                    {item.mobileImage && (
                                         <figure class="mobile-figure">
                                             <Image
-                                                name={mobileImage as ImageName}
+                                                name={item.mobileImage as ImageName}
                                             />
                                         </figure>
                                     )}
@@ -254,7 +253,7 @@ const projectContentRenderer = (() => {
         z-index: 10;
         padding-bottom: 20svh;
 
-        background: linear-gradient(to right,#fff8 5%, transparent 100%);
+        background: linear-gradient(to right,#fff8 40%, transparent 100%);
 
         @media (width <= 720px) {
             margin-inline: auto;
@@ -303,6 +302,10 @@ const projectContentRenderer = (() => {
         font-size: calc(var(--font-size-base) * 3);
         font-size: 3rem;
         margin-bottom: 0;
+
+        @media screen and (width <= 720px) {
+            margin-top: 0.35em;
+        }
     }
 
     p,
@@ -364,16 +367,15 @@ const projectContentRenderer = (() => {
         margin-inline: 0;
     }
 
-    header .mobile-figure {
+    .mobile-figure {
+        width: calc(100% + var(--padding));
+        margin-inline: calc(var(--padding) / -2);
         margin-top: calc(1em + var(--padding));
+        margin-bottom: 1em;
     }
 
     section {
         min-height: 80svh;
-    }
-
-    ul .mobile-figure {
-        margin-block: 1em;
     }
 
     @media screen and (width > 720px) {

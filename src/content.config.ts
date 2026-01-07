@@ -1,7 +1,7 @@
 import { file, glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 import { IMAGE_KEYS, IMAGE_NAMES, IMAGE_TAGS } from "./content/images/imageKeys.g";
-import { shuffle } from "@probablyduncan/common";
+import { toSeveral } from "@probablyduncan/common/sos";
 
 const minDate = new Date(0);
 const resolveDate = (d: string | undefined) => {
@@ -65,6 +65,17 @@ const index = defineCollection({
 
         mobileImage: zImage.optional(),
         slideImages: zImage.or(z.array(zImage)).optional(),
+    }).transform(item => {
+        
+        if (item.slideImages) {
+            item.slideImages = toSeveral(item.slideImages)
+        }
+
+        if (item.slideImages && !item.mobileImage) {
+            item.mobileImage = item.slideImages[0];
+        }
+
+        return item;
     })
 })
 
