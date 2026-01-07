@@ -155,6 +155,7 @@ adrift:
     tags: [photography]
     content: >
         Occasionally, when I'm [romping through the snow](/adrift "Snowdrifts of the French Alps"), my hands will thaw for just enough time to pull out my camera.
+    slideImages: [2021-01-01-DSC_0513.g.avif, 2020-12-26-DSC_0272.g.avif, 2020-12-26-DSC_0253.g.avif]
 heartland:
     date: 2019-2021
     tags: [photography, birds]
@@ -181,10 +182,12 @@ pizza:
     content: >
         During the first covid lockdowns, I got really into making pizza, and I created a 
         [timelapse film](https://youtu.be/-sBHX07eIMY/) documenting the process.
-    mobileImage: pizza.gif
+    slideImages: [pizza.gif]
 cart:
     date: Autumn, 2019
     tags: [photography]
     content: >
         After many undisturbed and unperturbed years, at least by
         [shopping carts](/a-la-cart), I arrived at University.
+    slideImages: [2019-10-01-DSC_0030.g.avif, 2019-11-01-DSC_0002.g.avif, 2019-10-01-DSC_0012.g.avif]
+    mobileImage: 2019-11-01-DSC_0002.g.avif

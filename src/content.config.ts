@@ -62,7 +62,9 @@ const index = defineCollection({
         tags: z.array(z.string())
             .or(z.string().transform((tag: string) => [tag])),
         content: z.string(),
-        img: zImage.optional(),
+
+        mobileImage: zImage.optional(),
+        slideImages: zImage.or(z.array(zImage)).optional(),
     })
 })
 

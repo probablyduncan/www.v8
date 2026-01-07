@@ -16,6 +16,7 @@ import Footer from "../components/footer.astro";
 import FooterScrollTo from "../components/footer-scroll-to.astro";
 import Noise from "../components/noise.astro";
 import Grabbable from "../components/grabbable.astro";
+import { toSeveral } from "@probablyduncan/common/sos";
 
 const items = await getCollection("index");
 const tags = [...new Set(["best", ...items.flatMap((item) => item.data.tags)])];
@@ -127,15 +128,16 @@ const projectContentRenderer = (() => {
                 <ul>
                     {
                         items.map(({ id, data: item }) => {
+                            const mobileImage = item.mobileImage ?? item.slideImages?.at(0);
                             return (
                                 <FilterableListItem
                                     tags={item.tags}
                                     listName="work"
                                 >
-                                    {item.mobileImage && (
+                                    {mobileImage && (
                                         <figure class="mobile-figure">
                                             <Image
-                                                name={item.mobileImage as ImageName}
+                                                name={mobileImage as ImageName}
                                             />
                                         </figure>
                                     )}
@@ -154,9 +156,7 @@ const projectContentRenderer = (() => {
                                                         >
                                                             #{t}
                                                         </FilterButton>
-                                                        {i !==
-                                                            item.tags.length -
-                                                                1 && ","}
+                                                        {i !== item.tags.length - 1 && ","}
                                                     </>
                                                 ))}
                                             </span>
@@ -213,14 +213,33 @@ const projectContentRenderer = (() => {
                     </Grabbable>
                 </div>
             </div>
-            <div data-slide="adrift">
+            <!-- <div data-slide="adrift">
                 <Grabbable style="position: absolute; width: 60%; right: 11%; top: 35%; rotate: 2deg;" tag="figure">
                     <Image name="snowline_late_morning_iii-2020-12-26" />
                 </Grabbable>
                 <Grabbable style="position: absolute; width: 60.5%; right: 11%; top: 34.5%; rotate: -1deg;" tag="figure">
                     <Image name="pasture_i-2021-01-01" />
                 </Grabbable>
-            </div>
+            </div> -->
+            {items.map(({ id, data: { slideImages } }) => {
+                    
+                if (!slideImages) {
+                    return;
+                }
+
+                return <div data-slide={id}>
+                    {toSeveral(slideImages).toReversed().map(key => {
+                        const getRand = (c: number = 1) => (Math.random() - 0.5) * 2 * c;
+                        const width = 60 + getRand(0.5);
+                        const right = 11 + getRand(0.5);
+                        const top = 35 + getRand(0.5);
+                        const rotate = getRand(2);
+                        return <Grabbable style={`position: absolute; width: ${width}%; right: ${right}%; top: ${top}%; rotate: ${rotate}deg;`} tag="figure">
+                            <Image name={key as ImageName} />
+                        </Grabbable>
+                    })}
+                </div>
+            })}
         </aside>
         <!-- <Footer /> -->
     </body>
