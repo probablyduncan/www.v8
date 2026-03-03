@@ -20,6 +20,8 @@ const { photo: id } = Astro.params;
 const entry = await getEntry("photo", id)!;
 const { Content } = await render(entry);
 
+const hasText = !!entry.body?.trim();
+
 const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
 ---
 
@@ -47,16 +49,16 @@ const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
                     >
                 </h1>
             </span>
-            <span>
+            {hasText && <span>
                 <a href="#info" title="Information">Text</a>
                 <a href="#" title="Done reading!">Images</a>
-            </span>
+            </span>}
         </nav>
-        <aside id="info">
+        {hasText && <aside id="info">
             <article>
                 <Content components={{ img: MarkdownImage, a: Link }} />
             </article>
-        </aside>
+        </aside>}
         <main>
             {
                 images.map((image) => {
