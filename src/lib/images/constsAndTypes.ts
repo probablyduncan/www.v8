@@ -1,6 +1,30 @@
-type ImageCLIMode = "static" | "intake" | "metadata" | "types";
+import path from "path";
 
-type ImageMetadataRuntimeSchema = Omit<ImageMetadataYamlSchema, "friendlyName" | "dominantColor" | "date"> & {
+export const IMAGE_DIRECTORIES = {
+    STATIC_INTAKE: "static-intake",
+    LIGHTROOM_INTAKE: "lightroom-intake",
+    MISC_INTAKE: "misc-intake",
+} as const;
+
+export type ImageSource = typeof IMAGE_DIRECTORIES[keyof typeof IMAGE_DIRECTORIES];
+
+export const PATHS = {
+    INTAKE_INPUT: path.join(process.cwd(), "image-intake"),
+    STATIC: path.join(process.cwd(), "public", IMAGE_DIRECTORIES.STATIC_INTAKE),
+    LIGHTROOM_INTAKE_OUTPUT: path.join(process.cwd(), "public", IMAGE_DIRECTORIES.LIGHTROOM_INTAKE),
+    MISC_INTAKE_OUTPUT: path.join(process.cwd(), "public", IMAGE_DIRECTORIES.MISC_INTAKE),
+    METADATA: path.join(process.cwd(), "src", "content", "images", "imageMetadata.g.yaml"),
+    TYPES: path.join(process.cwd(), "src", "content", "images", "imageTypes.g.d.ts"),
+    KEYS: path.join(process.cwd(), "src", "content", "images", "imageKeys.g.ts"),
+} as const;
+
+export const GENERATED_IMAGE_EXTENSION = ".g.avif";
+
+export const SHARP_SUPPORTED_FILE_TYPES = [".jpg", ".tif", ".png", ".heic", ".avif", ".iiq", ".gif", ".webp"];
+
+export type ImageCLIMode = "static" | "intake" | "metadata" | "types";
+
+export type ImageMetadataRuntimeSchema = Omit<ImageMetadataYamlSchema, "friendlyName" | "dominantColor" | "date"> & {
     /**
      * Path to image asset in /public.
      */
@@ -23,12 +47,10 @@ type ImageMetadataRuntimeSchema = Omit<ImageMetadataYamlSchema, "friendlyName" |
     name: ImageName,
 };
 
-type ImageSource = "lightroom-intake" | "misc-intake" | "static";
-
 /**
  * Everything here gets regenerated when an image is processed.
  */
-type ImageMetadataYamlSchema = {
+export type ImageMetadataYamlSchema = {
     /**
      * "lightroom-intake" if this image was generated from intake and has lightroom exif data.\
      * "misc-intake" if this image was generated from intake.\
@@ -77,7 +99,7 @@ type ImageMetadataYamlSchema = {
  * A lot of this is Lightroom-specific, a lot might not be used.
  * Just trying to give a type to exifr.parse()
  */
-interface ExifData {
+export interface ExifData {
     /**
      * "Adobe Lightroom 8.1 (Macintosh)", "Adobe Photoshop 23.5 (Windows)", etc.
      * 

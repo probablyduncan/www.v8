@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { GENERATED_IMAGE_EXTENSION, PATHS, SHARP_SUPPORTED_FILE_TYPES } from "./consts";
+import { PATHS, SHARP_SUPPORTED_FILE_TYPES, type ImageMetadataYamlSchema } from "./constsAndTypes";
 import log from "./log";
 import path from "path";
 import fs from "fs";
@@ -8,25 +8,24 @@ import { getPlaceholder } from "./placeholderHelper";
 export default async function doStaticImport(metadataCollection: Record<string, ImageMetadataYamlSchema>) {
 
     // no intake dir, create it and get out
-    if (!fs.existsSync(PATHS.OUTPUT)) {
-        fs.mkdirSync(PATHS.OUTPUT);
+    if (!fs.existsSync(PATHS.STATIC)) {
+        fs.mkdirSync(PATHS.STATIC);
         return Promise.resolve([]);
     }
 
-    const filenames = fs.readdirSync(PATHS.OUTPUT);
+    const filenames = fs.readdirSync(PATHS.STATIC);
     return Promise.all(filenames.map(processStatic));
 
     async function processStatic(filename: string) {
 
-        if (filename.endsWith(GENERATED_IMAGE_EXTENSION)
-            || !SHARP_SUPPORTED_FILE_TYPES.includes(path.parse(filename).ext)) {
-            // don't process generated images or unsupported types
+        if (!SHARP_SUPPORTED_FILE_TYPES.includes(path.parse(filename).ext)) {
+            // don't process unsupported types
             return;
         }
 
         const start = performance.now();
 
-        const buffer = fs.readFileSync(path.join(PATHS.OUTPUT, filename));
+        const buffer = fs.readFileSync(path.join(PATHS.STATIC, filename));
         const placeholderPromise = getPlaceholder(sharp(buffer));
 
         const metadata = metadataCollection[filename] ?? {

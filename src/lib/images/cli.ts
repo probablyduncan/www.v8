@@ -2,6 +2,7 @@ import { select, confirm } from '@inquirer/prompts';
 import { cleanIntakeDir, readMetadata, removeGeneratedFilesNotInMetadata, removeMetadataEntriesWithoutFile, writeMetadata, writeTypes } from './metadataHelper';
 import doIntakeImport from './intakeImportHandler';
 import doStaticImport from './staticImportHandler';
+import type { ImageCLIMode } from './constsAndTypes';
 
 export async function imageIntakeCLI() {
 

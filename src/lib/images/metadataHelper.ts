@@ -1,6 +1,6 @@
 import fs from "fs";
 import yaml from "yaml";
-import { GENERATED_IMAGE_EXTENSION, PATHS } from "./consts";
+import { GENERATED_IMAGE_EXTENSION, PATHS, type ImageMetadataYamlSchema } from "./constsAndTypes";
 import path from "path";
 import log from "./log";
 
@@ -93,8 +93,9 @@ export function writeTypes(metadata: Record<string, ImageMetadataYamlSchema>) {
  */
 export function removeMetadataEntriesWithoutFile(metadata: Record<string, ImageMetadataYamlSchema>) {
     const deleted = [];
+    const placesToCheck = Object.values(PATHS).filter(p => p.includes("public"));
     for (let key in metadata) {
-        if (!fs.existsSync(path.join(PATHS.OUTPUT, key))) {
+        if (!placesToCheck.some(dir => fs.existsSync(path.join(dir, key)))) {
             deleted.push(key);
             delete metadata[key];
         }
@@ -109,10 +110,13 @@ export function removeMetadataEntriesWithoutFile(metadata: Record<string, ImageM
  * Deletes all generated files from output directory which do not have a corresponding entry in metadata.
  */
 export function removeGeneratedFilesNotInMetadata(metadata: Record<string, ImageMetadataYamlSchema>) {
-    const filenames = fs.readdirSync(PATHS.OUTPUT);
-    for (let filename in filenames) {
-        if (filename.endsWith(GENERATED_IMAGE_EXTENSION) && !(filename in metadata)) {
-            fs.rmSync(path.join(PATHS.OUTPUT, filename));
+    const dirs = [PATHS.LIGHTROOM_INTAKE_OUTPUT, PATHS.MISC_INTAKE_OUTPUT];
+    for (let dir of dirs) {
+        const filenames = fs.readdirSync(dir);
+        for (let filename of filenames) {
+            if (filename.endsWith(GENERATED_IMAGE_EXTENSION) && !(filename in metadata)) {
+                fs.rmSync(path.join(dir, filename));
+            }
         }
     }
 }
@@ -122,7 +126,7 @@ export function removeGeneratedFilesNotInMetadata(metadata: Record<string, Image
  */
 export function cleanIntakeDir(filenames: string[]) {
     filenames.forEach(filename => {
-        const filepath = path.join(PATHS.INTAKE, filename);
+        const filepath = path.join(PATHS.INTAKE_INPUT, filename);
         if (fs.existsSync(filepath)) {
             fs.rmSync(filepath);
         }

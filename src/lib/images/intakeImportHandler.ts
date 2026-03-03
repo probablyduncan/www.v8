@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { GENERATED_IMAGE_EXTENSION, PATHS, SHARP_SUPPORTED_FILE_TYPES } from "./consts";
+import { GENERATED_IMAGE_EXTENSION, PATHS, SHARP_SUPPORTED_FILE_TYPES, type ExifData, type ImageMetadataYamlSchema } from "./constsAndTypes";
 import log from "./log";
 import path from "path";
 import fs from "fs";
@@ -10,12 +10,12 @@ import exifr from "exifr";
 export default async function doIntakeImport(metadataCollection: Record<string, ImageMetadataYamlSchema>): Promise<(string | undefined)[]> {
 
     // no intake dir, create it and get out
-    if (!fs.existsSync(PATHS.INTAKE)) {
-        fs.mkdirSync(PATHS.INTAKE);
+    if (!fs.existsSync(PATHS.INTAKE_INPUT)) {
+        fs.mkdirSync(PATHS.INTAKE_INPUT);
         return Promise.resolve([]);
     }
 
-    const filenames = fs.readdirSync(PATHS.INTAKE);
+    const filenames = fs.readdirSync(PATHS.INTAKE_INPUT);
     return Promise.all(filenames.map(processIntake));
 
     async function processIntake(filename: string) {
@@ -28,7 +28,7 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
 
         const start = performance.now();
 
-        const intakeBuffer = fs.readFileSync(path.join(PATHS.INTAKE, filename));
+        const intakeBuffer = fs.readFileSync(path.join(PATHS.INTAKE_INPUT, filename));
 
         // set up promises
         const outputBufferPromise = sharp(intakeBuffer)
@@ -110,7 +110,8 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
 
         metadataCollection[key] = metadata;
 
-        fs.writeFileSync(path.join(PATHS.OUTPUT, key), await outputBufferPromise);
+        const directory = metadata.source === "lightroom-intake" ? PATHS.LIGHTROOM_INTAKE_OUTPUT : PATHS.MISC_INTAKE_OUTPUT;
+        fs.writeFileSync(path.join(directory, key), await outputBufferPromise);
 
         const end = performance.now();
         const elapsed = (end - start);
