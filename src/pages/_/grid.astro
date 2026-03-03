@@ -1,0 +1,264 @@
+---
+import BaseMetadata from "../../components/head/base-metadata.astro";
+import GlobalStylesLoader from "../../components/head/global-styles-loader.astro";
+import PageMetadata from "../../components/head/page-metadata.astro";
+import { getAllImages } from "../../lib/images/imageDataHelper";
+import Image from "../../components/image.astro";
+import Noise from "../../components/noise.astro";
+
+const images = getAllImages().filter((i) => i.source === "lightroom-intake");
+
+// can I split this into rows?
+// maybe I count ratios until I've reached 12 or something
+// and then I can render each row separately?
+
+const rows: {
+    images: (
+        | ImageMetadataRuntimeSchema
+        | {
+              ratio: number;
+              source: undefined;
+          }
+    )[];
+    ratioSum: number;
+    ratioAvg: number;
+}[] = [];
+
+const TARGET_RATIO_SUM = 4;
+
+function addToRow(
+    image:
+        | ImageMetadataRuntimeSchema
+        | {
+              ratio: number;
+              source: undefined;
+          },
+) {
+    // rows based on number of images?
+    // if (
+    //     !rows.length ||
+    //     rows[rows.length - 1].images.length > TARGET_RATIO_SUM
+    // ) {
+    //     rows.push({
+    //         ratioSum: image.ratio,
+    //         ratioAvg: image.ratio,
+    //         images: [image],
+    //     });
+    // } else {
+    //     const row = rows[rows.length - 1];
+    //     row.ratioSum += image.ratio;
+    //     row.ratioAvg =
+    //         (row.ratioAvg * row.images.length + image.ratio) /
+    //         (row.images.length + 1);
+    //     row.images.push(image);
+    // }
+
+    // rows based on ratio sum?
+    if (!rows.length || rows[rows.length - 1].ratioSum > TARGET_RATIO_SUM) {
+        rows.push({
+            ratioSum: image.ratio,
+            ratioAvg: image.ratio,
+            images: [image],
+        });
+    } else {
+        const row = rows[rows.length - 1];
+        row.ratioSum += image.ratio;
+        row.ratioAvg =
+            (row.ratioAvg * row.images.length + image.ratio) /
+            (row.images.length + 1);
+        row.images.push(image);
+    }
+}
+
+let blankChance = 0;
+const blankRatios = [3 / 2, 2 / 3, 4 / 3, 4 / 5];
+images.forEach((image) => {
+    addToRow(image);
+    if (Math.random() < blankChance) {
+        blankChance = 0;
+        addToRow({
+            ratio: blankRatios[Math.floor(Math.random() * blankRatios.length)],
+            source: undefined,
+        });
+    } else {
+        blankChance += 0.1;
+    }
+});
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseMetadata />
+        <GlobalStylesLoader />
+        <PageMetadata
+            title={`${"GRID"} (on Duncan’s Website)`}
+            desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
+        />
+    </head>
+    <body>
+        <Noise />
+        <nav>
+            <span>
+                <a href="/" title="back! to the home page">Home</a>
+                /
+                <h1>
+                    <a
+                        href={"/grid"}
+                        title={"photo grid (you're already here!)"}
+                        >Photography</a
+                    >
+                </h1>
+            </span>
+            <span>
+                <a href="#observational" title="Observational">Observational</a>
+                |
+                <a href="#horiz" title="Horizons">Horizons</a>
+                |
+                <a href="#wildlife" title="Wildlife">Wildlife</a>
+            </span>
+        </nav>
+        <main>
+            {
+                rows.map((row) => {
+                    return (
+                        <div
+                            class="row"
+                            style={`--ratio-sum: ${row.ratioSum}; --num-images: ${row.images.length};`}
+                        >
+                            {row.images.map((image) => {
+                                // image's width should be 100% * ratio / ratioSum
+                                // average height?
+
+                                if (image.source) {
+                                    return (
+                                        <figure
+                                            style={`--ratio: ${image.ratio};`}
+                                        >
+                                            <Image data={image} />
+                                        </figure>
+                                    );
+                                }
+
+                                return (
+                                    <div
+                                        class="empty"
+                                        style={`--ratio: ${image.ratio};`}
+                                    >
+                                        <span>◐</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                })
+            }
+        </main>
+    </body>
+</html>
+
+<style>
+    body {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        height: 100dvh;
+    }
+
+    main {
+        overflow-y: scroll;
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 0 1.5px 1.5px;
+        background-color: #393b43;
+
+        scrollbar-color: #1d1f27 #ffffff22;
+    }
+
+    .row {
+        display: flex;
+        width: 100%;
+
+        --ratio-sum: 1;
+        --num-images: 0;
+    }
+
+    .row figure {
+        --ratio: 1;
+        width: calc(
+            (100% - var(--num-images) * 3px) * var(--ratio) / var(--ratio-sum)
+        );
+        margin: 1.5px;
+    }
+
+    .row div.empty {
+        --ratio: 1;
+        width: calc(
+            (100% - var(--num-images) * 3px) * var(--ratio) / var(--ratio-sum)
+        );
+        margin: 1.5px;
+        background-color: #fafaff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1d1f2744;
+    }
+
+    nav {
+        background-color: #1d1f27;
+        color: white;
+        text-shadow: 0 0 2px #ffffff11;
+        padding: calc(var(--padding) / 5) calc(var(--padding) / 3);
+
+        font-size: 0.8em;
+
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        user-select: none;
+        -webkit-user-select: none;
+        pointer-events: none;
+
+        font-variant-numeric: lining-nums;
+        font-variation-settings:
+            "wght" 400,
+            "wdth" 90,
+            "ENLA" 10;
+
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        @media screen and (max-width: 58ch) {
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: unset;
+            display: inline;
+            margin: 0;
+        }
+
+        a {
+            color: unset;
+            text-decoration: none;
+            pointer-events: auto;
+            user-select: auto;
+            -webkit-user-select: auto;
+        }
+
+        a:hover,
+        a:focus-visible {
+            text-decoration: underline;
+            text-decoration-thickness: 0.0875em;
+            text-underline-offset: 0.125em;
+        }
+
+        a:focus-visible,
+        a:active {
+            outline: none;
+            background-color: var(--color-primary);
+            color: var(--color-bg);
+        }
+    }
+</style>

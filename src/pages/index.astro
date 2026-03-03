@@ -55,7 +55,7 @@ const projectContentRenderer = (() => {
                     <Image name="north_atlantic_pennance_point-2021-01-14" />
                 </figure>
                 <h1>
-                    <span class="ligatures" data-slide-trigger="default">Duncan Petrie</span><sup
+                    <a class="ligatures" data-slide-trigger="default" href="https://duncanpetrie.com">Duncan Petrie</a><sup
                         class="aalt"
                         title="you’re a star!"
                         style="cursor: default; user-select: none; -webkit-user-select: none;"
@@ -70,10 +70,7 @@ const projectContentRenderer = (() => {
                     from Milwaukee, Wisconsin.
                 </p>
                 <p>
-                    I like going outside, looking around, and eating <Link
-                        href="https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA" data-slide-trigger="falafel"
-                        >falafel</Link
-                    >.
+                    I like going outside, looking around, and eating <Link href="https://www.google.com/maps/d/viewer?mid=15A5_e_KS2Es4xs3ZhXmYR31dRmc0cpA">falafel</Link>.
                 </p>
                 <p>
                     I share my birthday with the <Link
@@ -185,31 +182,6 @@ const projectContentRenderer = (() => {
                     <Image name="best_wishes_penzance-2022-03-22" />
                 </Grabbable>
             </div>
-            <div data-slide="falafel">
-                <div style="position: absolute; top: 45%; left: 40%; transform: translate(-50%, -50%); width: 250px; height: 400px;">
-                    <Grabbable style="position: absolute; rotate: 150deg;" tag="figure">
-                        <Image name="falafel1.gif" noPlaceholder autoWidth />
-                    </Grabbable>
-                    <Grabbable style="position: absolute; top: 10%; right: 15%; rotate: 230deg;" tag="figure">
-                        <Image name="falafel2.gif" noPlaceholder autoWidth />
-                    </Grabbable>
-                    <Grabbable style="position: absolute; top: 36%; left: 12%; rotate: 45deg;" tag="figure">
-                        <Image name="falafel2.gif" noPlaceholder autoWidth />
-                    </Grabbable>
-                    <Grabbable style="position: absolute; top: 50%; right: 15%; rotate: 25deg;" tag="figure">
-                        <Image name="falafel1.gif" noPlaceholder autoWidth />
-                    </Grabbable>
-                    <Grabbable style="position: absolute; bottom: 20%; left: 60%; rotate: -15deg;w" tag="figure">
-                        <Image name="falafel2.gif" noPlaceholder autoWidth />
-                    </Grabbable>
-                    <Grabbable style="position: absolute; bottom: 0; right: 0; rotate: 55deg;" tag="figure">
-                        <Image name="falafel1.gif" noPlaceholder autoWidth />
-                    </Grabbable>
-                    <Grabbable style="position: absolute; top: 20%; left: 40%; rotate: 4deg;" tag="figure">
-                        <Image name="falafels.gif" noPlaceholder autoWidth />
-                    </Grabbable>
-                </div>
-            </div>
             <!-- <div data-slide="adrift">
                 <Grabbable style="position: absolute; width: 60%; right: 11%; top: 35%; rotate: 2deg;" tag="figure">
                     <Image name="snowline_late_morning_iii-2020-12-26" />
@@ -303,6 +275,18 @@ const projectContentRenderer = (() => {
 
         @media screen and (width <= 720px) {
             margin-top: 0.35em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: underline dashed;
+            text-decoration-thickness: 0.05em;
+            text-underline-offset: 0.125em;
+            text-decoration-color: #00000004;
+
+            &:hover {
+                text-decoration-color: #0000000D;
+            }
         }
     }
 

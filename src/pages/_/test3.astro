@@ -1,0 +1,81 @@
+---
+import { shuffle } from "@probablyduncan/common/shuffle";
+import BaseMetadata from "../../components/head/base-metadata.astro";
+import GlobalStylesLoader from "../../components/head/global-styles-loader.astro";
+import PageMetadata from "../../components/head/page-metadata.astro";
+import Image from "../../components/image.astro";
+import { getAllImages } from "../../lib/images/imageDataHelper";
+
+const images = shuffle(getAllImages());
+const maxRatio = images.reduce((currentMax, image) => {
+    let ratio = image.ratio;
+    if (ratio < 1) ratio = 1/ratio;
+    return Math.max(currentMax, ratio);
+}, 1);
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseMetadata />
+        <GlobalStylesLoader />
+        <PageMetadata
+            title="Duncan’s Testing Grounds"
+            desc="Testing grounds!"
+        />
+    </head>
+
+    <body>
+        <div class="wrapper" style={`
+            --max-ratio: ${maxRatio.toFixed(5)};
+            --max-ratio-sqrt: ${Math.sqrt(maxRatio).toFixed(5)};
+        `}>
+            {
+                images.map((image, index) => {
+                    return (
+                        <figure
+                            style={`
+                                --ratio: ${image.ratio.toFixed(5)};
+                                --ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};
+                                --vertical: ${image.ratio < 1 ? 1 : 0};
+                            `}
+                        >
+                            <Image data={image} />
+                        </figure>
+                    );
+                })
+            }
+        </div>
+    </body>
+</html>
+
+<script>
+    function init() {}
+
+    init();
+</script>
+<style>
+    body {
+        width: 100vw;
+        height: 100dvh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wrapper {
+        width: min(600px, 100%, 100dvh);
+        aspect-ratio: 1;
+        background-color: green;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wrapper figure {
+        position: absolute;
+        width: calc(100% * var(--ratio-sqrt) / var(--max-ratio-sqrt));
+        rotate: calc(var(--vertical) * 90deg);
+    }
+</style>

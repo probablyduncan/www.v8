@@ -1,0 +1,186 @@
+---
+import BaseMetadata from "../../components/head/base-metadata.astro";
+import GlobalStylesLoader from "../../components/head/global-styles-loader.astro";
+import PageMetadata from "../../components/head/page-metadata.astro";
+
+/**
+ * what do I want to support?
+ *
+ * manually click/interact somehow to go to next image
+ * programmatic go to image by key
+ * images slide around a bit when you hover
+ * flip images 90deg to show vertical/horizontal
+ *
+ * maybe they get messier as you click and then eventually
+ * then come back into place like putting the edge of a stack on the table?
+ **/
+
+//
+
+// const ratios = [3/2, 4/3, 2, 1, 4/5, 2/3];
+// const colors = ["green", "blue", "red", "orange", "cornflowerblue", "purple", "indianred"];
+// const cards = "aaaaaaaa".split("").map(() => ({
+//     ratio: ratios[Math.floor(Math.random() * ratios.length)],
+//     color: colors[Math.floor(Math.random() * colors.length)],
+// }));
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseMetadata />
+        <GlobalStylesLoader />
+        <PageMetadata
+            title="Duncan’s Testing Grounds"
+            desc="Testing grounds!"
+        />
+    </head>
+    <body>
+        <div id="prints">
+            {
+                [
+                    "blue",
+                    "red",
+                    "orange",
+                    "indianred",
+                    "cornflowerblue",
+                    "purple",
+                    "green",
+                ].map((color) => (
+                    <figure
+                        data-key={Math.random().toFixed(5)}
+                        style={`background-color: ${color};`}
+                    />
+                ))
+            }
+        </div>
+    </body>
+</html>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100svh;
+    }
+
+    #prints {
+        position: relative;
+        width: min(500px, 90svh, 90vw);
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        --vertical: 0;
+        rotate: calc(var(--vertical) * -90deg);
+        transition: rotate 0.5s;
+    }
+
+    figure {
+        position: absolute;
+        width: 300px;
+        aspect-ratio: 3 / 4;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.036);
+
+        rotate: calc(var(--vertical) * 90deg);
+
+        opacity: 0.6;
+    }
+
+    figure:last-child {
+        opacity: 1;
+    }
+
+    figure:nth-last-child(2) {
+        opacity: 0.8;
+    }
+</style>
+<script>
+    import { Vec2 } from "@probablyduncan/common";
+    import runOnLoad from "../lib/runOnLoad";
+
+    function initTest() {
+        const wrapper = document.getElementById("prints") as HTMLElement;
+        if (!wrapper) return;
+        wrapper.querySelectorAll("figure").forEach((_e) => {
+            const e = _e as HTMLElement;
+
+            e.addEventListener("click", () => {
+                // goToCard(e.dataset.key!);
+            });
+        });
+
+        wrapper.addEventListener("click", () => {
+            goToNextCard();
+        });
+
+        const currentCard = () => wrapper.lastElementChild as HTMLElement;
+        const nextCard = () =>
+            currentCard().previousElementSibling as HTMLElement;
+        const prevCard = () => wrapper.firstElementChild as HTMLElement;
+        const allCards = () => [...wrapper.childNodes] as HTMLElement[];
+
+        const cardsByKey = new Map<string, HTMLElement>();
+        allCards().forEach((c) =>
+            c.dataset?.key ? cardsByKey.set(c.dataset.key, c) : null,
+        );
+
+        function goToNextCard() {
+            const current = currentCard();
+            current.remove();
+            wrapper.prepend(current);
+        }
+
+        function goToCard(key: string) {
+            const el = cardsByKey.get(key);
+            if (!el) return;
+
+            while (currentCard().dataset.key !== key) {
+                goToNextCard();
+            }
+        }
+
+        const state = {
+            targetPos: Vec2.Zero,
+            animatePos: Vec2.Zero,
+        };
+
+        wrapper.addEventListener("mousemove", (e) => {
+            requestAnimationFrame(animate);
+            const { width, height, left, top } = wrapper.getBoundingClientRect();
+            const lerpX = (e.clientX - left) / width - 0.5;
+            const lerpY = (e.clientY - top) / height - 0.5;
+            state.targetPos = Vec2.From(lerpX, lerpY);
+        });
+
+        wrapper.addEventListener("mouseenter", () => {
+            requestAnimationFrame(animate);
+        })
+
+        wrapper.addEventListener("mouseleave", () => {
+            // state.targetPos = Vec2.Zero;
+        });
+
+        function animate() {
+            state.animatePos = Vec2.From(0.00125).lerp(
+                state.animatePos,
+                state.targetPos,
+            );
+
+            if (Math.abs(state.animatePos.x) < 0.001 && Math.abs(state.animatePos.y) < 0.001) {
+                // state.animatePos = Vec2.Zero;
+                return;
+            }
+
+            currentCard().style.transform = `translate(${state.animatePos.x * 30}px, ${state.animatePos.y * 20}px) rotate(${state.animatePos.x * (state.animatePos.y - 0.5) * -5}deg)`;
+            nextCard().style.transform = `translate(${state.animatePos.x * 20}px, ${state.animatePos.y * 10}px) rotate(${state.animatePos.x * (state.animatePos.y - 0.5) * -2}deg)`;
+            (nextCard().previousElementSibling as HTMLElement).style.transform = `translate(${state.animatePos.x * 10}px, ${state.animatePos.y * 5}px) rotate(${state.animatePos.x * (state.animatePos.y - 0.5) * -1}deg)`;
+
+            requestAnimationFrame(animate);
+        }
+    }
+
+    runOnLoad(initTest);
+</script>

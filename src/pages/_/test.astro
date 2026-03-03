@@ -1,0 +1,142 @@
+---
+import BaseMetadata from "../../components/head/base-metadata.astro";
+import GlobalStylesLoader from "../../components/head/global-styles-loader.astro";
+import PageMetadata from "../../components/head/page-metadata.astro";
+import {
+    getAllImages,
+    getImagesByNamesAndTags,
+} from "../../lib/images/imageDataHelper";
+
+const images = getAllImages();
+
+/**
+ * what do I want to support?
+ *
+ * manually click/interact somehow to go to next image
+ * programmatic go to image by key
+ * images slide around a bit when you hover
+ * flip images 90deg to show vertical/horizontal
+ *
+ * maybe they get messier as you click and then eventually
+ * then come back into place like putting the edge of a stack on the table?
+ **/
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseMetadata />
+        <GlobalStylesLoader />
+        <PageMetadata
+            title="Duncan’s Testing Grounds"
+            desc="Testing grounds!"
+        />
+    </head>
+    <body>
+        <div id="prints">
+            {
+                images.map((image) => {
+                    return (
+                        <figure
+                            style={`--r1: ${Math.random().toFixed(5)}; --r2: ${Math.random().toFixed(5)}; --r3: ${Math.random().toFixed(5)}; --ratio: ${image.ratio.toFixed(5)}; --ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)}; --vertical: ${image.ratio < 1 ? 1 : 0};`}
+                        >
+                            <img
+                                src={image.path}
+                                style={`background: url("${image.placeholderUri}") contain/cover; aspect-ratio: ${image.ratio};`}
+                            />
+                        </figure>
+                    );
+                })
+            }
+        </div>
+    </body>
+</html>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100svh;
+    }
+
+    #prints {
+        position: relative;
+        width: min(400px, 90svh, 90vw);
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        --vertical: 0;
+        rotate: calc(var(--vertical) * -90deg);
+        transition: rotate 0.5s;
+    }
+
+    figure {
+        --r1: 0.5;
+        --r2: 0.5;
+        --r3: 0.5;
+        --ratio: 1.5;
+        --ratio-sqrt: 1.2247448714;
+        --vertical: 0;
+
+        position: absolute;
+
+        opacity: 0.6;
+
+        margin: 0;
+        padding: 0;
+        width: calc(100% * var(--ratio-sqrt) / 1.5);
+
+        border-inline: calc(2px + 4px * var(--r1) * var(--r1)) solid black;
+        border-top: calc(2px + 4px * var(--r2) * var(--r2)) solid black;
+        border-bottom: calc(2px + 4px * var(--r3) * var(--r3)) solid black;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.036);
+
+        transform: rotate(
+                calc((var(--r1) - 0.5) * 2deg + var(--vertical) * 90deg)
+            )
+            translate(
+                calc((var(--r2) - 0.5) * 10px),
+                calc((var(--r3) - 0.5) * 10px)
+            );
+    }
+
+    figure:last-child {
+        opacity: 1;
+    }
+
+    figure:nth-last-child(2) {
+        opacity: 0.8;
+    }
+</style>
+<script>
+    import runOnLoad from "../lib/runOnLoad";
+
+    function initTest() {
+        const wrapper = document.getElementById("prints") as HTMLElement;
+        if (!wrapper) return;
+        wrapper.querySelectorAll("figure").forEach((_e) => {
+            const figure = _e as HTMLElement;
+            figure.addEventListener("click", () => {
+                
+                const nextImage = figure.previousElementSibling as HTMLElement;
+                
+                figure.remove();
+                wrapper.prepend(figure);
+
+                wrapper.style.setProperty(
+                    "--vertical",
+                    nextImage.style.getPropertyValue("--vertical"),
+                );
+
+                nextImage.style.setProperty("--r1", Math.random().toFixed(5));
+                nextImage.style.setProperty("--r2", Math.random().toFixed(5));
+                nextImage.style.setProperty("--r3", Math.random().toFixed(5));
+            });
+        });
+    }
+
+    runOnLoad(initTest);
+</script>

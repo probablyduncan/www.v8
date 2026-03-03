@@ -101,6 +101,8 @@ const photo = defineCollection({
         
         names: z.array(zImage).optional(),
         tags: z.array(zImageTag).optional(),
+
+        images: z.any(),
     })
 })
 

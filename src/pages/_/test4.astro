@@ -1,0 +1,153 @@
+---
+import { getImageByName } from "../../lib/images/imageDataHelper";
+import Image from "../../components/image.astro";
+import BaseMetadata from "../../components/head/base-metadata.astro";
+import GlobalStylesLoader from "../../components/head/global-styles-loader.astro";
+import PageMetadata from "../../components/head/page-metadata.astro";
+import Grabbable from "../../components/grabbable.astro";
+import { slideDataAttributes } from "../../lib/indexSlides";
+
+const triggers = [
+  {
+    id: "first-id",
+    title: "First one",
+    desc: "This is a little itty bitty trigger, wow! If you mouse over, maybe it'll do something interesting",
+    image: getImageByName("melted_moon_rosemullion-2021-02-26"),
+    color: "green",
+  },
+  {
+    id: "second-id",
+    title: "Second one",
+    desc: "This is a little itty bitty trigger, wow!",
+    image: getImageByName("cart-iv"),
+    color: "orange",
+  },
+  {
+    id: "third-id",
+    title: "Third one",
+    desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
+    image: getImageByName("afterglow_rosemullion-2020-12-06"),
+    color: "blue",
+  },
+  {
+    id: "fourth-id",
+    title: "Fourth one",
+    desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
+    image: getImageByName("glitch-screenshot-3.webp"),
+    color: "yellow",
+  },
+  {
+    id: "fifth-id",
+    title: "Fifth one",
+    desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
+    image: getImageByName("wiki.gif"),
+    color: "red",
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseMetadata />
+    <GlobalStylesLoader />
+    <PageMetadata
+      title="Duncan’s Website"
+      desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
+    />
+  </head>
+  <body>
+    <main>
+      <ul>
+        {
+          triggers.map((trigger) => (
+            <li {...{[slideDataAttributes.trigger]: trigger.id}}>
+              <h1>{trigger.title}</h1>
+              <div>{trigger.desc}</div>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+    <aside {...{[slideDataAttributes.container]: true}}>
+      {
+        triggers.map((trigger) => (
+          <figure {...{[slideDataAttributes.slide]: trigger.id}} style={`--c: ${trigger.color};`}>
+            <Grabbable tag="span">
+              <Image data={trigger.image} />
+              <figcaption>{trigger.title}</figcaption>
+            </Grabbable>
+          </figure>
+        ))
+      }
+    </aside>
+  </body><style>
+    ul {
+      list-style-type: none;
+      padding: unset;
+    }
+
+    main {
+      position: relative;
+      max-width: 50ch;
+      z-index: 10;
+    }
+
+    li {
+      border: 1px solid gray;
+      margin: 1em;
+      padding: 1em;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+      background-color: #fafaffcc;
+    }
+
+    h1 {
+      margin: unset;
+      cursor: pointer;
+      display: inline;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    aside {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: calc(100vw - 50ch);
+      height: 100vh;
+    }
+
+    figure {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column;
+      z-index: -2;
+      pointer-events: none;
+      user-select: none;
+      transform: translate(-100vw, -100vh);
+      /* background-color: var(--c); */
+
+      & :global(img) {
+        width: 400px;
+      }
+    }
+
+    figcaption {
+      margin-top: 0.5em;
+      text-align: right;
+      font-size: 0.9em;
+      opacity: 0.6;
+      font-variation-settings: "wdth" 75;
+    }
+  </style>
+  <script>
+    import { initIndexSlides } from "../lib/indexSlides";
+    document.addEventListener("DOMContentLoaded", initIndexSlides);
+  </script>
+</html>
