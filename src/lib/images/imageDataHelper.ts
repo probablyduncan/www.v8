@@ -2,7 +2,7 @@ import path from "path";
 import { IMAGE_KEYS, IMAGE_NAMES, IMAGE_TAGS } from "../../content/images/imageKeys.g";
 import { readMetadata } from "./metadataHelper";
 import type { SingleOrSeveral } from "@probablyduncan/common/sos";
-import { GENERATED_IMAGE_EXTENSION, type ImageMetadataRuntimeSchema, type ImageMetadataYamlSchema } from "./constsAndTypes";
+import { GENERATED_IMAGE_EXTENSION, IMAGE_DIRECTORIES, type ImageMetadataRuntimeSchema, type ImageMetadataYamlSchema } from "./constsAndTypes";
 
 function yamlToRuntimeMetadata(key: ImageKey, yamlData: ImageMetadataYamlSchema): ImageMetadataRuntimeSchema {
     return {
@@ -12,7 +12,7 @@ function yamlToRuntimeMetadata(key: ImageKey, yamlData: ImageMetadataYamlSchema)
         path: path.normalize(path.join(yamlData.source, key)),
         color: Array.isArray(yamlData.dominantColor) ? `rgb(${yamlData.dominantColor.map(c => c.toFixed()).join(", ")})` : yamlData.dominantColor,
         date: yamlData.date ? new Date(yamlData.date) : undefined,
-        filename: yamlData.source === "lightroom-intake" ? key.replace(/^\d\d\d\d-\d\d-\d\d-/, "").replace(GENERATED_IMAGE_EXTENSION, "") : key,
+        filename: yamlData.source === IMAGE_DIRECTORIES.LIGHTROOM_INTAKE ? key.replace(/^\d\d\d\d-\d\d-\d\d-/, "").replace(GENERATED_IMAGE_EXTENSION, "") : key,
     }
 }
 

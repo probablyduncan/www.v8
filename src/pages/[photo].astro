@@ -8,6 +8,7 @@ import Noise from "../components/noise.astro";
 import { getImagesByNamesAndTags } from "../lib/images/imageDataHelper";
 import MarkdownImage from "../components/markdown-image.astro";
 import Link from "../components/link.astro";
+import { getDateDisplayString } from "../lib/dateHelper";
 
 export async function getStaticPaths() {
     const collection = await getCollection("photo");
@@ -23,6 +24,10 @@ const { Content } = await render(entry);
 const hasText = !!entry.body?.trim();
 
 const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
+const maxRatioSqrt = Math.sqrt(images.reduce((currentMax, image) => {
+    const ratio = image.ratio >= 1 ? image.ratio : 1 / image.ratio;
+    return Math.max(currentMax, ratio);
+}, 0)).toFixed(5);
 ---
 
 <!doctype html>
@@ -65,12 +70,28 @@ const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
                     const widthPX = Math.random() * 200 + 200;
                     const leftLERP = Math.random();
                     const topPX = Math.random() * 200 + 200;
+                    const ratioSqrt = Math.sqrt(image.ratio).toFixed(5);
+                    const dialogId = "image-lightbox-" + image.key;
                     return (
                         <figure
-                            style={`--widthPX: ${widthPX}px; --leftLerp: ${leftLERP}; --topPX: ${topPX}px; --ratio-sqrt: ${Math.sqrt(image.ratio).toFixed(5)};`}
+                            class="image"
+                            style={`--widthPX: ${widthPX}px; --leftLerp: ${leftLERP}; --topPX: ${topPX}px; --ratio-sqrt: ${ratioSqrt};`}
                         >
-                            <Image data={image} />
+                            <button command="show-modal" commandfor={dialogId} style="cursor: zoom-in;">
+                                <Image data={image} />
+                            </button>
                         </figure>
+                        <dialog closedby="any" id={dialogId} style={`--ratio: ${image.ratio}; --ratio-sqrt: ${ratioSqrt}; --max-ratio-sqrt: ${maxRatioSqrt}`}>
+                            <figure>
+                                {/* <button commandfor={dialogId} command="close" style="cursor: zoom-out;"> */}
+                                    <Image data={image} />
+                                {/* </button> */}
+                                <figcaption>
+                                    <span>{image.alt}</span>
+                                    <span>{getDateDisplayString(image.date)}</span>
+                                </figcaption>
+                            </figure>
+                        </dialog>
                     );
                 })
             }
@@ -84,7 +105,7 @@ const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
         overflow: hidden;
     }
 
-    figure {
+    .image {
         position: relative;
         z-index: 2;
 
@@ -99,8 +120,6 @@ const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
         margin-left: calc((100% - var(--widthPX)) * var(--leftLerp));
         margin-top: var(--topPX);
 
-        cursor: zoom-in;
-
         opacity: 1;
         transform: none;
         filter: none;
@@ -112,28 +131,28 @@ const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
             filter 1s;
     }
 
-    figure.off-screen {
+    .image.off-screen {
         opacity: 0;
         transform: translate(10px, 20px) rotate(2deg);
         filter: blur(10px);
     }
 
-    figure:hover {
+    .image:hover {
         box-shadow: 0 0 12px var(--color-bg-dark);
         transform: scale(1.004);
     }
 
-    body:has(figure:hover) figure:not(:hover) {
+    body:has(.image:hover, dialog[open]) .image:not(:hover) {
         filter: blur(1px);
     }
 
-    body:has(figure) nav {
+    body:has(.image) nav {
         transition:
             filter 1s,
             opacity 0.5s;
     }
 
-    body:has(figure:hover) nav {
+    body:has(.image:hover, dialog[open]) nav {
         filter: blur(2px);
         opacity: 0.8;
     }
@@ -254,11 +273,46 @@ const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
             display: none;
         }
     }
+
+    dialog[open] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        --ratio-sqrt: 1;
+        --ratio: 1;
+        --max-ratio-sqrt: 1;
+        --max-square-size: calc(100dvmin);
+        width: calc(var(--max-square-size) * var(--ratio-sqrt) / var(--max-ratio-sqrt));
+
+        max-width: unset;
+        max-height: unset;
+
+        border: none;
+
+        button, img {
+            width: 100%;
+        }
+
+        &::backdrop {
+            cursor: zoom-out;
+            /* background-color: #fafaffee; */
+        }
+
+        figcaption {
+            position: fixed;
+            bottom: calc(var(--padding) / 3);
+            left: calc(var(--padding) / 2);
+            right: calc(var(--padding) / 2);
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 </style>
 
 <script>
     function initGallery() {
-        const observer = new IntersectionObserver((entries, observer) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 const show =
                     entry.isIntersecting || entry.boundingClientRect.top <= 0;
@@ -266,7 +320,7 @@ const images = getImagesByNamesAndTags(entry.data.names, entry.data.tags);
             });
         });
 
-        document.querySelectorAll("figure").forEach((_f) => {
+        document.querySelectorAll(".image").forEach((_f) => {
             const figure = _f as HTMLElement;
             observer.observe(figure);
         });
