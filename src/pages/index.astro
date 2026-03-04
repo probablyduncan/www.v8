@@ -34,6 +34,12 @@ const projectContentRenderer = (() => {
     };
     return renderer;
 })();
+
+const slideSizeDict: Record<typeof items[number]["data"]["slideSize"], number> = {
+    "small": 0.618,
+    "medium": 1,
+    "large": 1.618,
+}
 ---
 
 <!doctype html>
@@ -190,7 +196,7 @@ const projectContentRenderer = (() => {
                     <Image name="pasture_i-2021-01-01" />
                 </Grabbable>
             </div> -->
-            {items.map(({ id, data: { slideImages } }) => {
+            {items.map(({ id, data: { slideImages, slideSize } }) => {
                     
                 if (!slideImages) {
                     return;
@@ -203,7 +209,7 @@ const projectContentRenderer = (() => {
                         const right = 11 + getRand(0.5);
                         const top = 35 + getRand(0.5);
                         const rotate = getRand(2);
-                        return <Grabbable style={`position: absolute; width: ${width}%; right: ${right}%; top: ${top}%; rotate: ${rotate}deg;`} tag="figure">
+                        return <Grabbable style={`position: absolute; width: ${width * slideSizeDict[slideSize]}%; right: ${right}%; top: ${top}%; rotate: ${rotate}deg;`} tag="figure">
                             <Image name={key as ImageName} />
                         </Grabbable>
                     })}

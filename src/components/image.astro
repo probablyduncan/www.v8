@@ -37,6 +37,9 @@ if (image) {
         style["background-image"] ??= `url("${image.placeholderUri}")`;
         style["background-position"] ??= "center";
         style["background-size"] ??= "cover";
+
+        // unset background on load, to avoid background behind transparent images
+        props.onload ??= "this.style.backgroundColor=\"unset\";this.style.backgroundImage=\"unset\";";
     }
 
     if (autoWidth) {

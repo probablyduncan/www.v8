@@ -65,6 +65,7 @@ const index = defineCollection({
 
         mobileImage: zImage.optional(),
         slideImages: zImage.or(z.array(zImage)).optional(),
+        slideSize: z.enum(["small", "medium", "large"]).default("medium"),
     }).transform(item => {
         
         if (item.slideImages) {
