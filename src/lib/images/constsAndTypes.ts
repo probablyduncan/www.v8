@@ -1,18 +1,18 @@
 import path from "path";
 
-export const IMAGE_DIRECTORIES = {
+export const IMAGE_SOURCES = {
     STATIC_INTAKE: "static-intake",
     LIGHTROOM_INTAKE: "lightroom-intake",
     MISC_INTAKE: "misc-intake",
 } as const;
 
-export type ImageSource = typeof IMAGE_DIRECTORIES[keyof typeof IMAGE_DIRECTORIES];
+export type ImageSource = typeof IMAGE_SOURCES[keyof typeof IMAGE_SOURCES];
 
 export const PATHS = {
     INTAKE_INPUT: path.join(process.cwd(), "image-intake"),
-    STATIC: path.join(process.cwd(), "public", IMAGE_DIRECTORIES.STATIC_INTAKE),
-    LIGHTROOM_INTAKE_OUTPUT: path.join(process.cwd(), "public", IMAGE_DIRECTORIES.LIGHTROOM_INTAKE),
-    MISC_INTAKE_OUTPUT: path.join(process.cwd(), "public", IMAGE_DIRECTORIES.MISC_INTAKE),
+    STATIC: path.join(process.cwd(), "public", IMAGE_SOURCES.STATIC_INTAKE),
+    LIGHTROOM_INTAKE_OUTPUT: path.join(process.cwd(), "public", IMAGE_SOURCES.LIGHTROOM_INTAKE),
+    MISC_INTAKE_OUTPUT: path.join(process.cwd(), "public", IMAGE_SOURCES.MISC_INTAKE),
     METADATA: path.join(process.cwd(), "src", "content", "images", "imageMetadata.g.yaml"),
     TYPES: path.join(process.cwd(), "src", "content", "images", "imageTypes.g.d.ts"),
     KEYS: path.join(process.cwd(), "src", "content", "images", "imageKeys.g.ts"),

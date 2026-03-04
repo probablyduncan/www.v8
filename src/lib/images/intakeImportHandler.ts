@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { GENERATED_IMAGE_EXTENSION, IMAGE_DIRECTORIES, PATHS, SHARP_SUPPORTED_FILE_TYPES, type ExifData, type ImageMetadataYamlSchema } from "./constsAndTypes";
+import { GENERATED_IMAGE_EXTENSION, IMAGE_SOURCES, PATHS, SHARP_SUPPORTED_FILE_TYPES, type ExifData, type ImageMetadataYamlSchema } from "./constsAndTypes";
 import log from "./log";
 import path from "path";
 import fs from "fs";
@@ -73,7 +73,7 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
                 metadata.alt = newAlt;
             }
 
-            metadata.source = IMAGE_DIRECTORIES.LIGHTROOM_INTAKE;
+            metadata.source = IMAGE_SOURCES.LIGHTROOM_INTAKE;
             metadata.date = dateString;
 
             // set tags from lightroom (only those prefixed with "site-")
@@ -93,7 +93,7 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
             metadata = metadataCollection[key] ?? {
                 alt: "",
             };
-            metadata.source = IMAGE_DIRECTORIES.MISC_INTAKE;
+            metadata.source = IMAGE_SOURCES.MISC_INTAKE;
             metadata.friendlyName = key;
         }
 
@@ -110,7 +110,7 @@ export default async function doIntakeImport(metadataCollection: Record<string, 
 
         metadataCollection[key] = metadata;
 
-        const directory = metadata.source === IMAGE_DIRECTORIES.LIGHTROOM_INTAKE ? PATHS.LIGHTROOM_INTAKE_OUTPUT : PATHS.MISC_INTAKE_OUTPUT;
+        const directory = metadata.source === IMAGE_SOURCES.LIGHTROOM_INTAKE ? PATHS.LIGHTROOM_INTAKE_OUTPUT : PATHS.MISC_INTAKE_OUTPUT;
         fs.writeFileSync(path.join(directory, key), await outputBufferPromise);
 
         const end = performance.now();

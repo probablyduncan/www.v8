@@ -5,9 +5,9 @@ import PageMetadata from "../../components/head/page-metadata.astro";
 import { getAllImages } from "../../lib/images/imageDataHelper";
 import Image from "../../components/image.astro";
 import Noise from "../../components/noise.astro";
-import { IMAGE_DIRECTORIES, type ImageMetadataRuntimeSchema } from "../../lib/images/constsAndTypes";
+import { IMAGE_SOURCES, type ImageMetadataRuntimeSchema } from "../../lib/images/constsAndTypes";
 
-const images = getAllImages().filter((i) => i.source === IMAGE_DIRECTORIES.LIGHTROOM_INTAKE);
+const images = getAllImages().filter((i) => i.source === IMAGE_SOURCES.LIGHTROOM_INTAKE);
 
 // can I split this into rows?
 // maybe I count ratios until I've reached 12 or something

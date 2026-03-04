@@ -182,6 +182,7 @@ spider-shower:
     content: >
         There’s a [spider in my bathroom](/spider-shower "I can’t turn on the water now..."), in the corner of my shower!
         And I don’t know where she came from, what she's doing at this hour.
+    slideImages: [spider-shower-animated.webp]
 pizza:
     date: March, 2020
     tags: [best, films]

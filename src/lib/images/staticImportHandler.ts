@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { PATHS, SHARP_SUPPORTED_FILE_TYPES, type ImageMetadataYamlSchema } from "./constsAndTypes";
+import { IMAGE_SOURCES, PATHS, SHARP_SUPPORTED_FILE_TYPES, type ImageMetadataYamlSchema } from "./constsAndTypes";
 import log from "./log";
 import path from "path";
 import fs from "fs";
@@ -29,7 +29,7 @@ export default async function doStaticImport(metadataCollection: Record<string, 
         const placeholderPromise = getPlaceholder(sharp(buffer));
 
         const metadata = metadataCollection[filename] ?? {
-            source: "static",
+            source: IMAGE_SOURCES.STATIC_INTAKE,
             friendlyName: filename,
         };
 

@@ -1,0 +1,137 @@
+---
+import { getImageByName } from "../lib/images/imageDataHelper";
+import Image from "../components/image.astro";
+import BaseMetadata from "../components/head/base-metadata.astro";
+import GlobalStylesLoader from "../components/head/global-styles-loader.astro";
+import PageMetadata from "../components/head/page-metadata.astro";
+import Grabbable from "../components/grabbable.astro";
+import { slideDataAttributes } from "../lib/indexSlides";
+
+const triggers = [
+    {
+        id: "first-id",
+        title: "First one",
+        desc: "This is a little itty bitty trigger, wow! If you mouse over, maybe it'll do something interesting",
+        image: getImageByName("melted_moon_rosemullion-2021-02-26"),
+        color: "green",
+    },
+    {
+        id: "second-id",
+        title: "Second one",
+        desc: "This is a little itty bitty trigger, wow!",
+        image: getImageByName("cart-iv"),
+        color: "orange",
+    },
+    {
+        id: "third-id",
+        title: "Third one",
+        desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
+        image: getImageByName("afterglow_rosemullion-2020-12-06"),
+        color: "blue",
+    },
+    {
+        id: "fourth-id",
+        title: "Fourth one",
+        desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
+        image: getImageByName("glitch-screenshot-3.webp"),
+        color: "yellow",
+    },
+    {
+        id: "fifth-id",
+        title: "Fifth one",
+        desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
+        image: getImageByName("wiki.gif"),
+        color: "red",
+    },
+];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseMetadata />
+        <GlobalStylesLoader />
+        <PageMetadata
+            title="Duncan’s Website"
+            desc="Yes, that’s right! This is his website! He is a London-based photographer, writer, and web developer from Milwaukee, Wisconsin. Come inside. Take off your coat. Stay a while."
+        />
+    </head>
+    <body>
+        <main>
+            <ul>
+                {
+                    triggers.map((trigger) => (
+                        <li data-anchor style={`--anchor-name: --${trigger.id};`}>
+                            <h1>{trigger.title}</h1>
+                            <div>{trigger.desc}</div>
+                        </li>
+                        <div
+                            data-target
+                            style={`--anchor-name: --${trigger.id};`}
+                        >
+                            <Image data={trigger.image} />
+                        </div>
+                    ))
+                }
+            </ul>
+        </main>
+        <aside>
+            {
+                triggers.map((trigger) => (<></>))
+            }
+        </aside>
+    </body><style>
+        ul {
+            list-style-type: none;
+            padding: unset;
+        }
+
+        main {
+            position: relative;
+            max-width: 50ch;
+            z-index: 10;
+        }
+
+        [data-anchor] {
+            border: 1px solid gray;
+            margin: 1em;
+            padding: 1em;
+            border-radius: 4px;
+            backdrop-filter: blur(4px);
+            background-color: #fafaffcc;
+
+            &:hover {
+                anchor-name: var(--anchor-name);
+            }
+        }
+
+        [data-anchor]:not(:hover) + [data-target] {
+            display: none;
+        }
+
+        [data-target] {
+            position: fixed;
+            position-visibility: anchors-visible;
+
+            top: 0;
+            bottom: 0;
+            left: anchor(var(--anchor-name) end);
+            right: 0;
+
+            background-color: green;
+        }
+
+        h1 {
+            margin: unset;
+            cursor: pointer;
+            display: inline;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    </style>
+    <script>
+        function init() {}
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
+</html>

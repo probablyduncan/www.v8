@@ -111,8 +111,8 @@ export function initIndexSlides() {
                 const newLerp =
                     slide.id === state.currentSlideId ? lerp : lerp.divide(1.5);
                 slide.currentPos = newLerp.lerp(slide.currentPos, slide.targetPos);
+                slide.slideEl.style.transform = `translate(${slide.currentPos.x}px, ${slide.currentPos.y}px)`;
             }
-            slide.slideEl.style.transform = `translate(${slide.currentPos.x}px, ${slide.currentPos.y}px)`;
         });
     }
     requestAnimationFrame(animate);

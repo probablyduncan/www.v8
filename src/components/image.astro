@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import { getImage } from "../lib/images/imageDataHelper";
-import { IMAGE_DIRECTORIES, type ImageMetadataRuntimeSchema } from "../lib/images/constsAndTypes";
+import { IMAGE_SOURCES, type ImageMetadataRuntimeSchema } from "../lib/images/constsAndTypes";
 
 interface Props extends HTMLAttributes<"img"> {
     name?: ImageName;
@@ -55,7 +55,7 @@ if (image) {
 
     const classList = [props["class:list"], props.class?.split(" ")];
 
-    if (image.source == IMAGE_DIRECTORIES.STATIC_INTAKE) {
+    if (image.source == IMAGE_SOURCES.STATIC_INTAKE) {
         classList.unshift("px");
     }
 
