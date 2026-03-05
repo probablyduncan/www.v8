@@ -1,6 +1,7 @@
 import Vec2 from "@probablyduncan/common/vec2";
 import { releaseGrabbables } from "../lib/grabbable";
 import getScreenSize from "./screenSize";
+import prefersReducedMotion from "./prefersReducedMotion";
 
 export const slideDataAttributes = {
     container: "data-slide-container",
@@ -39,11 +40,6 @@ export function initIndexSlides() {
             return;
         }
 
-        const isDefault = id === "default";
-        if (isDefault) {
-            state.currentSlideId = id;
-        }
-
         const slide: SlideData = {
             id,
             slideEl,
@@ -51,9 +47,16 @@ export function initIndexSlides() {
             currentPos: Vec2.Zero,
         }
 
-        if (!isDefault) {
+        if (id === "default") {
+            state.currentSlideId = id;
+        }
+        else {
             slide.currentPos = getOffScreenPosition(slide, Vec2.From(0, 1));
             slide.slideEl.style.transform = `translate(${slide.currentPos.x}px, ${slide.currentPos.y}px)`;
+        }
+
+        if (prefersReducedMotion()) {
+            return;
         }
 
         slides.set(id, slide);
@@ -71,12 +74,15 @@ export function initIndexSlides() {
 
                 state.currentSlideId = id;
                 slide.targetPos = null;
-
+                
+                const newSlideBoundingRect = getChildrenBoundingClientRect(slide.slideEl);
+                
                 // if new slide not already on screen, move it to the correct spot just off screen
-                if (!isOnScreen(slide)) {
+                if (!isOnScreen(newSlideBoundingRect)) {
                     slide.currentPos = getOffScreenPosition(
                         slide,
                         state.mouseDir.negate(),
+                        newSlideBoundingRect,
                     );
                     releaseGrabbables(slide.slideEl);
                 }
@@ -121,12 +127,14 @@ export function initIndexSlides() {
             }
         });
     }
-    requestAnimationFrame(animate);
+
+    if (slides.size > 0) {
+        requestAnimationFrame(animate);
+    }
 }
 
-function isOnScreen(slide: SlideData) {
-    const { top, left, bottom, right } =
-        slide.slideEl.getBoundingClientRect();
+function isOnScreen(boundingRect: DOMRect) {
+    const { top, left, bottom, right } = boundingRect;
 
     return !(
         bottom < 0 ||
@@ -136,9 +144,8 @@ function isOnScreen(slide: SlideData) {
     );
 }
 
-function getOffScreenPosition(slide: SlideData, dir: Vec2) {
-    const { width, height, left, top } =
-        slide.slideEl.getBoundingClientRect();
+function getOffScreenPosition(slide: SlideData, dir: Vec2, boundingRect?: DOMRect) {
+    const { width, height, left, top } = boundingRect ?? getChildrenBoundingClientRect(slide.slideEl);
     const screen = getScreenSize();
 
     const containerCenterPos = Vec2.From(left + width / 2, top + height / 2);
@@ -181,7 +188,29 @@ function getOffScreenPosition(slide: SlideData, dir: Vec2) {
     return result.multiply(1.2);
 }
 
+function getChildrenBoundingClientRect(el: HTMLElement): DOMRect {
 
-export function nextSlide() {
+    let leftest = Infinity,
+        rightest = -Infinity,
+        topmost = Infinity,
+        bottommost = -Infinity;
 
+    for (let i = 0; i < el.children.length; i++) {
+        const { left, right, top, bottom } = el.children[i].getBoundingClientRect();
+
+        if (leftest > left) {
+            leftest = left;
+        }
+        if (rightest < right) {
+            rightest = right;
+        }
+        if (topmost > top) {
+            topmost = top;
+        }
+        if (bottommost < bottom) {
+            bottommost = bottom;
+        }
+    }
+
+    return new DOMRect(leftest, topmost, rightest - leftest, bottommost - topmost);
 }
