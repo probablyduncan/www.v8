@@ -62,8 +62,8 @@ export function initIndexSlides() {
         slides.set(id, slide);
 
         document.querySelectorAll(`[${slideDataAttributes.trigger}='${id}']`).forEach((triggerEl) => {
-            triggerEl.addEventListener("mouseenter", () => {
-                if (state.currentSlideId === id) return;
+            triggerEl.addEventListener("mouseenter", (e) => {
+                if (state.currentSlideId === id || scrolling) return;
 
                 // if prev slide on screen, set it to animate out
                 if (state.currentSlideId && slides.has(state.currentSlideId)) {
@@ -74,9 +74,9 @@ export function initIndexSlides() {
 
                 state.currentSlideId = id;
                 slide.targetPos = null;
-                
+
                 const newSlideBoundingRect = getChildrenBoundingClientRect(slide.slideEl);
-                
+
                 // if new slide not already on screen, move it to the correct spot just off screen
                 if (!isOnScreen(newSlideBoundingRect)) {
                     slide.currentPos = getOffScreenPosition(
@@ -90,18 +90,30 @@ export function initIndexSlides() {
         });
     });
 
-    window.addEventListener("mousemove", (e) => {
-        const newMousePos = Vec2.From(e.clientX, e.clientY);
+    window.addEventListener("mousemove", ({ clientX, clientY }) => {
+        const newMousePos = Vec2.From(clientX, clientY);
         const oldMousePos = state.mousePos ?? newMousePos;
         const mousePosDelta = newMousePos.subtract(oldMousePos);
         state.mouseDir = mousePosDelta.normalized();
         state.mousePos = newMousePos;
 
-        const els = document.elementsFromPoint(e.clientX, e.clientY);
+        const els = document.elementsFromPoint(clientX, clientY);
         if (state.currentSlideId && slides.has(state.currentSlideId) && els.some(el => el.matches(`[${slideDataAttributes.trigger}='${state.currentSlideId}']`))) {
             const currentSlide = slides.get(state.currentSlideId)!;
             currentSlide.targetPos = (currentSlide.targetPos ?? Vec2.Zero).add(mousePosDelta.divide(10));
         }
+    });
+
+    let scrolling = false;
+    window.addEventListener("scroll", () => {
+        if (!scrolling) {
+            scrolling = true;
+        }
+    });
+
+    window.addEventListener("scrollend", () => {
+        scrolling = false;
+        state.mouseDir = Vec2.Zero;
     });
 
     let prevTimeMS: DOMHighResTimeStamp = 0;
