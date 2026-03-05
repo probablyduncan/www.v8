@@ -379,9 +379,11 @@ const slideSizeDict: Record<typeof items[number]["data"]["slideSize"], number> =
         }
     }
 
-    .sticky-filters {
-        position: sticky;
-        top: var(--padding);
+    @media screen and (width > 720px) {
+        .sticky-filters {
+            position: sticky;
+            top: var(--padding);
+        }
     }
 
     ul {

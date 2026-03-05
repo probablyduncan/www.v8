@@ -74,7 +74,6 @@ const index = defineCollection({
 
         // if mobile image is set to an image, use that
         // but if it's true or false, determine it based on the slide images
-        console.log(item.mobileImage);
         if (item.mobileImage === true) {
             item.mobileImage = item.slideImages?.at(0) ?? false;
         }

@@ -13,6 +13,7 @@ wikipi:
     tags: [code]
     content: >
         How do you fit one infinity into another? [Wikiπdia](https://wikipi.duncanpetrie.com) uses π as an index for Wikipedia articles with numbers in their titles.
+    slideImages: wikipi.webp
 lamp:
     date: September, 2025
     tags: [best, stories]
@@ -40,6 +41,7 @@ pigeon-web:
         [To Pigeon-Fill the Sky](https://pigeons.duncanpetrie.com "To Pigeon-Fill the Sky (the Website)")
         is a website! In 2025, I turned my photobook into an interactive digital experience.
     slideImages: glitch-screenshot-3.webp
+    slideSize: large
 spider-cursor:
     date: July, 2025
     tags: [best, code, bugs]
@@ -85,6 +87,7 @@ wind:
         [The List of the Wind](/list-of-the-wind "There was a list on the fridge in the Cabin of the Wind...")
         is a story about getting up and doing, finally, what needs to be done.
     slideImages: 2022-01-02-DSC_0051.g.avif
+    slideSize: large
 pigeon-book:
     date: September, 2024
     tags: [best, photobooks, photography, birds]
