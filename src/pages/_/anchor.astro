@@ -10,38 +10,63 @@ import { slideDataAttributes } from "../lib/indexSlides";
 const triggers = [
     {
         id: "first-id",
-        title: "First one",
+        title: "Melted Moon",
         desc: "This is a little itty bitty trigger, wow! If you mouse over, maybe it'll do something interesting",
         image: getImageByName("melted_moon_rosemullion-2021-02-26"),
         color: "green",
+        x: 10,
+        y: 0,
+        w: 40,
     },
     {
         id: "second-id",
-        title: "Second one",
+        title: "Cart",
         desc: "This is a little itty bitty trigger, wow!",
         image: getImageByName("cart-iv"),
         color: "orange",
+        x: 10,
+        y: 0,
+        w: 100,
     },
     {
         id: "third-id",
-        title: "Third one",
+        title: "Rosemullion",
         desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
         image: getImageByName("afterglow_rosemullion-2020-12-06"),
         color: "blue",
+        x: 10,
+        y: 0,
+        w: 30,
     },
     {
         id: "fourth-id",
-        title: "Fourth one",
+        title: "Pigeon Glitch",
         desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
         image: getImageByName("glitch-screenshot-3.webp"),
         color: "yellow",
+        x: 10,
+        y: 0,
+        w: 120,
     },
     {
         id: "fifth-id",
-        title: "Fifth one",
+        title: "Wiki",
         desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
         image: getImageByName("wiki.gif"),
         color: "red",
+        x: 10,
+        y: 0,
+        w: 200,
+    },
+    {
+        id: "sixth-id",
+        title: "Waterline",
+        desc: "Really really long trigger, this one goes on for ever and ever and ever, to no avail. There aren't no triggers as long as this one. It just rambles, and rambles, and doesn't ever shut up.",
+        image: getImageByName("waterline_lake_michigan-2020-03-24"),
+        color: "red",
+        x: -500,
+        y: 50,
+        w: 300,
     },
 ];
 ---
@@ -61,35 +86,57 @@ const triggers = [
             <ul>
                 {
                     triggers.map((trigger) => (
-                        <li data-anchor style={`--anchor-name: --${trigger.id};`}>
+                        <li
+                            data-anchor
+                            style={`--anchor-name: --${trigger.id};`}
+                        >
                             <h1>{trigger.title}</h1>
                             <div>{trigger.desc}</div>
                         </li>
-                        <div
-                            data-target
-                            style={`--anchor-name: --${trigger.id};`}
-                        >
-                            <Image data={trigger.image} />
-                        </div>
+                        // <div
+                        //     data-target
+                        //     style={`--anchor-name: --${trigger.id};`}
+                        // >
+                        //     <Image data={trigger.image} />
+                        // </div>
                     ))
                 }
             </ul>
         </main>
         <aside>
             {
-                triggers.map((trigger) => (<></>))
+                triggers.map((trigger) => (
+                    <div
+                        data-target
+                        style={`--anchor-name: --${trigger.id}; --x: ${trigger.x}px; --y: ${trigger.y}px; --w: ${trigger.w}px;`}
+                    >
+                        <Grabbable tag="span">
+                            <Image data={trigger.image} />
+                        </Grabbable>
+                    </div>
+                ))
             }
         </aside>
     </body><style>
-        ul {
-            list-style-type: none;
-            padding: unset;
+
+        body {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: stretch;
+            justify-content: stretch;
         }
 
         main {
-            position: relative;
             max-width: 50ch;
-            z-index: 10;
+        }
+
+        aside {
+            /* overflow: hidden; */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: unset;
         }
 
         [data-anchor] {
@@ -100,25 +147,43 @@ const triggers = [
             backdrop-filter: blur(4px);
             background-color: #fafaffcc;
 
-            &:hover {
-                anchor-name: var(--anchor-name);
-            }
-        }
-
-        [data-anchor]:not(:hover) + [data-target] {
-            display: none;
+            anchor-name: var(--anchor-name);
         }
 
         [data-target] {
-            position: fixed;
+            --w: 100px;
+            --x: 0px;
+            --y: 0px;
+
+            position: absolute;
             position-visibility: anchors-visible;
+            position-anchor: var(--anchor-name);
 
-            top: 0;
-            bottom: 0;
-            left: anchor(var(--anchor-name) end);
-            right: 0;
+            position-area: right;
 
-            background-color: green;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            img {
+                width: var(--w);
+                transform: translate(var(--x), var(--y));
+            }
+
+            &::after {
+                content: "";
+                display: block;
+                position: fixed;
+                position-anchor: var(--anchor-name);
+                position-area: inherit;
+                background: purple;
+                align-self: stretch;
+                justify-self: stretch;
+                opacity: 0.1;
+                pointer-events: none;
+                inset: 0;
+            }
         }
 
         h1 {
