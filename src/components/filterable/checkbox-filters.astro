@@ -1,6 +1,6 @@
 ---
 import {
-    getFilterableTagClass,
+    getFilterableTag,
     type FilterButtonProps,
 } from "../../lib/filterableHelper";
 
@@ -10,17 +10,17 @@ const { listName, tags, showAll = "off", defaultTag } = Astro.props;
 let css = [];
 if (showAll === "off") {
     css.push(
-        `form.filters[name=${listName}] ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+        `form.filters[name=${listName}] ~ * .${getFilterableTag(listName)} { display: none; }`,
     );
 } else {
     css.push(
-        `form.filters[name=${listName}]:has(input[type=checkbox]:checked) ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+        `form.filters[name=${listName}]:has(input[type=checkbox]:checked) ~ * .${getFilterableTag(listName)} { display: none; }`,
     );
 }
 
-tags.forEach((t) =>
+tags.forEach((tag) =>
     css.push(
-        `form.filters[name=${listName}]:has(input[type=checkbox][name=${t}]:checked) ~ * .${getFilterableTagClass(listName, t)} { display: inherit; }`,
+        `form.filters[name=${listName}]:has(input[type=checkbox][name=${tag}]:checked) ~ * .${getFilterableTag(listName, tag)} { display: inherit; }`,
     ),
 );
 ---

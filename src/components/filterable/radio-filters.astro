@@ -1,37 +1,50 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import {
-    getFilterableTagClass,
+    getFilterableTag,
+    getFilterName,
+    getFilterListId,
     type FilterButtonProps,
 } from "../../lib/filterableHelper";
 
-interface Props extends FilterButtonProps {}
+interface Props extends FilterButtonProps, HTMLAttributes<"ul"> {}
 const {
     listName,
     tags,
     showAll = "off",
     defaultTag,
     allText = "all",
+    ...ulProps
 } = Astro.props;
+
+ulProps.id = getFilterListId(listName);
+
+if (ulProps.class) {
+    ulProps.class += " filters";
+}
+else {
+    ulProps.class = "filters";
+}
 
 let css = [];
 if (showAll === "off") {
     css.push(
-        `ul#${listName}-filters ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+        `ul#${ulProps.id} ~ * .${getFilterableTag(listName)} { display: none; }`,
     );
 } else {
     css.push(
-        `ul#${listName}-filters:has(input[type=radio]:not([value=all]):checked) ~ * .${getFilterableTagClass(listName)} { display: none; }`,
+        `ul#${ulProps.id}:has(input[type=radio]:not([value=all]):checked) ~ * .${getFilterableTag(listName)} { display: none; }`,
     );
 }
 
-tags.forEach((t) =>
+tags.forEach((tag) =>
     css.push(
-        `ul#${listName}-filters:has(input[type=radio][value=${t}]:checked) ~ * .${getFilterableTagClass(listName, t)} { display: inherit; }`,
+        `ul#${ulProps.id}:has(input[type=radio][value=${tag}]:checked) ~ * .${getFilterableTag(listName, tag)} { display: inherit; }`,
     ),
 );
 ---
 
-<ul class="filters" id={listName + "-filters"}>
+<ul {...ulProps}>
     {
         showAll === "first" && (
             <li>
@@ -39,8 +52,8 @@ tags.forEach((t) =>
                     {allText}
                     <input
                         type="radio"
-                        name={listName + "-filter"}
-                        id={listName + "-filter-all"}
+                        name={getFilterName(listName)}
+                        id={getFilterName(listName, "all")}
                         value="all"
                         checked={defaultTag === undefined}
                         autocomplete="off"
@@ -50,17 +63,17 @@ tags.forEach((t) =>
         )
     }
     {
-        tags.map((t, i) => (
+        tags.map((tag, i) => (
             <li>
-                <label title={`filter by tag: ${t}`} data-contents={`#${t}`}>
-                    #{t}
+                <label title={`filter by tag: ${tag}`} data-contents={`#${tag}`}>
+                    #{tag}
                     <input
                         type="radio"
-                        name={listName + "-filter"}
-                        id={listName + "-filter-" + t}
-                        value={t}
+                        name={getFilterName(listName)}
+                        id={getFilterName(listName, tag)}
+                        value={tag}
                         checked={
-                            defaultTag === t ||
+                            defaultTag === tag ||
                             (defaultTag === undefined &&
                             showAll !== "first" &&
                             i === 0)
@@ -78,8 +91,8 @@ tags.forEach((t) =>
                     {allText}
                     <input
                         type="radio"
-                        name={listName + "-filter"}
-                        id={listName + "-filter-all"}
+                        name={getFilterName(listName)}
+                        id={getFilterName(listName, "all")}
                         value="all"
                         checked={defaultTag === undefined}
                         autocomplete="off"
@@ -142,6 +155,7 @@ tags.forEach((t) =>
             font-variation-settings 0.5s;
 
         background-color: #fff8;
+        backdrop-filter: blur(4px);
     }
 
     /* pseudo element spacer rules */
@@ -225,7 +239,7 @@ tags.forEach((t) =>
                 }
 
                 label.addEventListener("click", () => {
-                    window.scrollTo({ top: ul.offsetTop - 60, behavior: "instant" });
+                    window.scrollTo({ top: (ul.parentElement?.offsetTop ?? ul.offsetTop) - 60, behavior: "instant" });
                 });
             });
     }

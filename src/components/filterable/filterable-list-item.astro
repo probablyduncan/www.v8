@@ -1,5 +1,5 @@
 ---
-import { getFilterableTagClass } from '../../lib/filterableHelper';
+import { getFilterableTag } from '../../lib/filterableHelper';
 
 interface Props {
     listName: string;
@@ -9,4 +9,4 @@ interface Props {
 const { listName, tags } = Astro.props;
 ---
 
-<li class:list={[getFilterableTagClass(listName), tags.map((t) => getFilterableTagClass(listName, t))]}><slot /></li>
+<li class:list={[getFilterableTag(listName), tags.map((t) => getFilterableTag(listName, t))]}><slot /></li>

@@ -127,6 +127,7 @@ const slideSizeDict: Record<typeof items[number]["data"]["slideSize"], number> =
                     listName="work"
                     showAll="first"
                     defaultTag="best"
+                    class="sticky-filters"
                 />
                 <ul>
                     {
@@ -370,6 +371,11 @@ const slideSizeDict: Record<typeof items[number]["data"]["slideSize"], number> =
         .mobile-figure {
             display: none;
         }
+    }
+
+    .sticky-filters {
+        position: sticky;
+        top: var(--padding);
     }
 
     ul {

@@ -1,4 +1,6 @@
 ---
+import { getFilterName } from '../../lib/filterableHelper';
+
 interface Props {
     listName: string;
     tagName: string;
@@ -7,4 +9,4 @@ interface Props {
 const { listName, tagName } = Astro.props;
 ---
 
-<label for={`${listName}-filter-${tagName}`} title={`filter by tag: ${tagName}`}><slot /></label>
+<label for={getFilterName(listName, tagName)} title={`filter by tag: ${tagName}`}><slot /></label>
