@@ -48,8 +48,14 @@ export function initIndexSlides() {
             id,
             slideEl,
             targetPos: null,
-            currentPos: isDefault ? Vec2.Zero : getScreenSize().multiply(5),
+            currentPos: Vec2.Zero,
         }
+
+        if (!isDefault) {
+            slide.currentPos = getOffScreenPosition(slide, Vec2.From(0, 1));
+            slide.slideEl.style.transform = `translate(${slide.currentPos.x}px, ${slide.currentPos.y}px)`;
+        }
+
         slides.set(id, slide);
 
         document.querySelectorAll(`[${slideDataAttributes.trigger}='${id}']`).forEach((triggerEl) => {
