@@ -294,6 +294,12 @@ const slideSizeDict: Record<typeof items[number]["data"]["slideSize"], number> =
             &:hover {
                 text-decoration-color: #0000000D;
             }
+
+            &:focus {
+                color: var(--color-bg);
+                background-color: var(--color-text);
+                outline: none;
+            }
         }
     }
 
