@@ -383,7 +383,9 @@ const slideSizeDict: Record<typeof items[number]["data"]["slideSize"], number> =
     @media screen and (width > 720px) {
         .sticky-filters {
             position: sticky;
-            top: var(--padding);
+            top: 0;
+            padding-top: 2em;
+            margin-top: -2em;
         }
     }
 

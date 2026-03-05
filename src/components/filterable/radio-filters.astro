@@ -153,9 +153,9 @@ tags.forEach((tag) =>
             color 0.1s,
             background-color 0.1s,
             font-variation-settings 0.5s;
-
-        background-color: #fff8;
-        backdrop-filter: blur(4px);
+            
+        background-color: #fffc;
+        backdrop-filter: blur(2px);
     }
 
     /* pseudo element spacer rules */
@@ -239,7 +239,7 @@ tags.forEach((tag) =>
                 }
 
                 label.addEventListener("click", () => {
-                    window.scrollTo({ top: (ul.parentElement?.offsetTop ?? ul.offsetTop) - 60, behavior: "instant" });
+                    window.scrollTo({ top: (ul.parentElement?.offsetTop ?? ul.offsetTop), behavior: "instant" });
                 });
             });
     }

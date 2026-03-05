@@ -68,8 +68,8 @@ export function initIndexSlides() {
                 // if prev slide on screen, set it to animate out
                 if (state.currentSlideId && slides.has(state.currentSlideId)) {
                     const prevSlide = slides.get(state.currentSlideId)!;
-                    prevSlide.targetPos = getOffScreenPosition(prevSlide, state.mouseDir);
                     releaseGrabbables(prevSlide.slideEl);
+                    prevSlide.targetPos = getOffScreenPosition(prevSlide, state.mouseDir);
                 }
 
                 state.currentSlideId = id;
