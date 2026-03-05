@@ -45,6 +45,7 @@ spider-cursor:
     tags: [best, code, bugs]
     content: >
         There’s a [spider in my website](https://spider.duncanpetrie.com "A Spider’s Website"), and it’s interested in you!
+    slideImages: spider-pointer.webp
 apocalypse-raise:
     date: May, 2025
     tags: [lyric-and-verse]
@@ -76,13 +77,14 @@ finger:
     content: >
         I made a [good point](https://finger.duncanpetrie.com). This was the start
         of my love affair with `requestAnimationFrame` and cursor-driven effects.
+    slideImages: finger-pointer.webp
 wind:
     date: September, 2024
     tags: [best, stories]
     content: >
         [The List of the Wind](/list-of-the-wind "There was a list on the fridge in the Cabin of the Wind...")
         is a story about getting up and doing, finally, what needs to be done.
-    mobileImage: 2022-01-02-DSC_0051.g.avif
+    slideImages: 2022-01-02-DSC_0051.g.avif
 pigeon-book:
     date: September, 2024
     tags: [best, photobooks, photography, birds]
@@ -94,6 +96,7 @@ saltish:
     tags: [stories]
     content: >
         [Saltish and the Sea-beast](/saltish-and-the-sea-beast "It was the smell that woke them in the night...") is a story about going away, and about coming back, too.
+    slideImages: 2021-02-26-DSC_0528.g.avif
 cold-wind:
     date: January, 2024
     tags: [lyric-and-verse]
@@ -119,6 +122,8 @@ horses:
     date: July, 2023
     tags: [lyric-and-verse]
     content: I just wanna ride [horses](/wanna-ride-horses "I just wanna ride horses!")!
+    slideImages: [2018-06-14-_DSC0593.g.avif]
+    slideSize: small
 lingermyth:
     date: April, 2022
     tags: [best, photobooks, photography]
@@ -132,18 +137,20 @@ birdhat:
     tags: [photography, birds]
     content: >
         I have a lot of photos of birds. None of them have hats. Oh no! I better [get to work](https://www.instagram.com/bird.hat/).
+    slideImages: [birdhat1.jpg, birdhat2.jpg, birdhat3.jpg]
 stars:
     date: January, 2022
     tags: [best, stories]
     content: >
         [A Necklace of Stars](/necklace-of-stars "The ground was littered with stars...") is a love story, short and bright.
-    slideImages: 2025-09-01-000083590020.g.avif
+    slideImages: [2025-06-04-000013080032.g.avif, 2025-06-17-000013140040.g.avif]
 yearning:
     date: October, 2021
     tags: [best, photography]
     content: >
         My dissertation, [On Yearning](yearning.pdf "yearning.pdf"), is about the feeling you get when
         you look to the horizon and long to see beyond it.
+    slideImages: 2021-06-20-DSC_0121.g.avif
 wiki:
     date: April, 2021
     tags: [best, films]
@@ -156,6 +163,7 @@ fluffy:
     tags: [stories]
     content: >
         Breaking news: I found the [fluffiest cloud](/fluffy-cloud "Say It Loud! Fluffy Cloud!")!
+    slideImages: cloudswells_falmouth-2021-11-02
 adrift:
     date: Winter, 2021
     tags: [photography]
@@ -167,6 +175,7 @@ heartland:
     tags: [photography, birds]
     content: >
         I grew up in [boring old Wisconsin](/heartland "Boring Old Wisconsin‽"), and I spent the first 18 years of my life waiting to get out.
+    slideImages: [2018-10-21-_DSC0092.g.avif, 2018-10-21-_DSC0084.g.avif]
 bells-again:
     date: Autumn, 2021
     tags: [lyric-and-verse]

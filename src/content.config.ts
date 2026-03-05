@@ -63,7 +63,7 @@ const index = defineCollection({
             .or(z.string().transform((tag: string) => [tag])),
         content: z.string(),
 
-        mobileImage: zImage.optional(),
+        mobileImage: zImage.or(z.boolean()).default(true),
         slideImages: zImage.or(z.array(zImage)).optional(),
         slideSize: z.enum(["small", "medium", "large"]).default("medium"),
     }).transform(item => {
@@ -72,13 +72,16 @@ const index = defineCollection({
             item.slideImages = toSeveral(item.slideImages)
         }
 
-        if (item.slideImages && !item.mobileImage) {
-            item.mobileImage = item.slideImages[0];
+        // if mobile image is set to an image, use that
+        // but if it's true or false, determine it based on the slide images
+        console.log(item.mobileImage);
+        if (item.mobileImage === true) {
+            item.mobileImage = item.slideImages?.at(0) ?? false;
         }
 
         return item;
-    })
-})
+    }),
+});
 
 const text = defineCollection({
     loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/text" }),
@@ -91,7 +94,7 @@ const text = defineCollection({
         align: z.enum(["left", "right"]).default("left"),
         stance: z.enum(["center", "side", "golden", "wide"]).default("golden"),
     }),
-})
+});
 
 const photo = defineCollection({
     loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/photo" }),

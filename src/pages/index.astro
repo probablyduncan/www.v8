@@ -205,7 +205,7 @@ const slideSizeDict: Record<typeof items[number]["data"]["slideSize"], number> =
                 return <div data-slide={id}>
                     {toSeveral(slideImages).toReversed().map(key => {
                         const getRand = (c: number = 1) => (Math.random() - 0.5) * 2 * c;
-                        const width = 60 + getRand(0.5);
+                        const width = 40 + getRand(0.5);
                         const right = 11 + getRand(0.5);
                         const top = 35 + getRand(0.5);
                         const rotate = getRand(2);
