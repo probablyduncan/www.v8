@@ -2001,62 +2001,62 @@
         - usa
 bigmapW4_small.jpg:
     dominantColor:
-        - 234.24945295404814
-        - 240.05032822757113
-        - 248.63457330415756
+        - 234.26303854875283
+        - 240.53514739229024
+        - 249.87301587301587
     friendlyName: bigmapW4_small.jpg
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAA+Ons+ens+ens+Ons9+ns9enq8ujp7ejn6ufl5+fj5+fi6efj7ufk8+jm+ejo/enp+enr+enr+urr++rq++vq+erp9Orn7+nl6ejj5efh4+bh5ebh6+fi8ujk+enl/urm+Ono+ero++ro/uvo/uzn/Ozm9+vk8Orj6Ojh4ebf3uXe4OXe5+bf8Ofg+enh/+ri+Onl+enl/Ovl/+zl/+3k/u3j+Ozh7urf5Ofd2uXc1uPb2ePb4eTb7ebc+end/+vd9+ni+Oni++vi/uzh/+3g/O3f9eze6unc3eXa0uLYzeDX0eDX3OLX6uXX+OjY/+vY9uje9+ne+ere++ze+uzd9uzc7era4ebY0+LWyN/UxN3Tyd3T1t/T5uPT9efU/+rV9Ofc9ejc9enc9erb8+rb7Ona4ufY1ePWyN7Tv9vRvdnQxNrP0t3Q4+HQ8+bS/enS8+fa8ufa8eja7uja6eja4ebY1uPXyd/UvtvSt9fPuNbOwtfN0dvO4uDP8OXR+unS8ufZ8efZ7ufa6Ofa4eba1uTZy+HXwNzUt9jStdXPudXOxNbN0trP4eDQ7uXT9+jU8ufa8efa7Ofb5efc3OXc0ePbxuDZvdzXuNjUudbRv9XQytfQ19vR5ODT7uXW9ejY9Ojc8ujd7ejd5ufe3ebe0+TeyuHcw97awdvYw9nVydnU09vU3d7W6OPY8Ofa9enc9ung9eng8enh6+nh4+ji3Ofi1eXg0OLfz+Dd0d7b1t7a3eDa5eLb7ebd8+nf9+vh+erj+Orj9uvk8uvl7evl6Ovl4+nl4Ojj3+bi3+Xg4uTg5+Xg7efh8+ni+Ozk++7l++vm++vn+uzn+e3o9+7o9O/o8e7o7u3n7Ozm7Orl7erl8Orl8+vm+O3n/O7o/vDp/ezo/ezp/u7p/u/q/vHq/fHr+/Lq+PHq9vDp9O7p9O7o9e3o+O7p++/p/vDq//Hr/uzp/u3p/+7q//Dq//Hr//Pr/vPr/PLr+fHq9/Dq9u/q9+/q+e/q/PDq//Hr//Lr
     ratio: 0.8
     source: static-intake
 birdhat1.jpg:
     dominantColor:
-        - 93.93617021276596
-        - 75.20696324951643
-        - 83.20309477756287
+        - 93.25140712945591
+        - 74.63227016885554
+        - 82.6454033771107
     friendlyName: birdhat1.jpg
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAATIV3TYV3ToZ3UYh3U4p5Vo17WJCAWpKEW5OJWpOMWJGNVY2LUIiHTIKBR318RHl3ToB8T4F8UoJ8V4R8W4d+XouBYY6FYZCKYJKPXpGSWo+TV4yRU4aOUIGJTXuDTHd/UXmBU3qBWHyBXn+CZIOEaIeIaouNao6SZ4+XY4+aXo2bWYqaVoWXVX+SVXmNVXWJVHKHVnOHXXWHZXiHbH2JcYKNc4eTcouZbo2faI6jYo2lXYmkW4ShW32bXHeWXnKRV2yLWWyLYG6KaXGJcXaLdnyPeIKWd4iec42mbY+sZ46uYouuYIWpYH2jYnWbY2+VWWiNXGiMYmmKa2uHcm+Id3aMen6VeYagdo2qcZGybJK2Z4+1ZYiwZH6nZXOdZmuVW2eNXWaLYmWHaWWCcGiBdW+GeHmQeIWed4+sdJW2cJe7bJS6aYyzZ4CoZXKaZWaOXWiKXmeIYWSBZWF6amJ2bml7cnaIdYOadpCrdZm3c5y9cJm8bI+0Z4GlY3CTYWGEXWqGXmiDXmN6YF5wY15rZmVwa3J/b4KUc5CndZq1dJ68cpu7bZGxZoGfYG2KW1t3XWqAXWd9W2J0W1xoXFphX2FmZG93aX+Nb46hc5mwc523cZq1bJCrZH+YXGqAVVZqXGd7W2V3WV9uV1ljV1hcWl5hX2tyZXuGa4qab5SocZivb5WtaYuiYXqPV2V4UFBhWmJ2WWBzWFxsV1djV1ZfWVxjXWhxY3aCaIOTa4yfbI+kaoyiZYKYXXKHVF5yTUtfWFpxWFlwWFdsWFRnWVVlW1tqX2VzYnCAZnuMZ4GVZ4OYZICWX3aNWWiAUldwTUdiVlJvV1JuWFFtWlJsXVVtYFtxYmJ4ZGt/ZHKGZHaLYnaNXnKKWmqEVV17UU9xTkNoVUttVkttWU1vXFBwYFVzY1p3ZWF8ZWeAZGuDYW2EXmuEWmeBVl99U1V3UUpyT0FuVUhtVkltWUtvXU9yYVR2ZVp5ZmB9ZmWAZGiCYGmCXGeBWGJ+VVt7UlJ2UUhyUEBw
     ratio: 1
     source: static-intake
 birdhat2.jpg:
     dominantColor:
-        - 159.88045977011495
-        - 154
-        - 148.33793103448275
+        - 166.1930501930502
+        - 160.33590733590734
+        - 154.86100386100387
     friendlyName: birdhat2.jpg
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAk4yJlo+NnJiYo6Omq62zsLW+sbnFr7jHqrTFoa2/l6O2jZmrhJCgfomWeYSNd4KIkouJlI6NmZaWoaCjp6mwq7C6rLPAqbLBoq2+maW4j5yvhZKlfYqaeISRdYCKdX6FkIuJko2Nl5SVnZ2ho6SrpaqzpKu4oKm4l6O0jZqugpCleYebc4CScXyLcXuFc3uDj4uLkY2OlZOVmpqenqCnn6OtnKKvlZ6ui5apf4yhc4OYbHuQaXeKbHeGcHmEdHuDkI6Pko+RlZSXmZmem52lmp2olJuoi5SlfoqecH+VZXaNYXGHZHGEbHWEdXuHfICJlJKTlZSVl5eampqgmpyll5unkJalhI2fdYGWZnWMXG2EXGuBZXGDcnqJf4SPiIuUmZiZmZmam5yfnZ6knJ+ol5yojpWkgYqdcn2SY3GIXGuBYG2BbXeHfoSRjJGblpminp6enp+foKGkoKOpn6Ksmp+skJeng4yedH+UZ3SJY2+EanWGeYGPi5Cbmp6npKevoaOioqOko6Woo6etoqawnKOwk5urh5CieoSYcHuPbniKdn+OhYyYlpulpKmyrrK6o6Wko6ampKiqpamvo6myn6Wyl5+ujJWngYueeoSWeYKTgYiWjpWgnaOtqq+4s7jAoaWloqamo6eqo6mvoqmyn6aymaGvkJqqiJKjgoydgoubiJCek5qmoKawq7G6s7jBnaKknaOlnqWon6asn6evnaWwmaKuk5yrjZamiZKiiJKhjZWjlZ2pn6axp664rbS9lp6hl56imKCkmqKnmqOqmqKrl6Crk52qj5mojJemjJamjpink5yqmqKun6iypKy1j5mekJmfkpuglJ2ilZ6klp+mlZ6ok52okZuojpmojZiojpmpkJqpk52qlqCrmaKsipWci5WcjJedj5mekZqgkpyik5ykkpynkZuoj5qqjZmqjZmqjZiojZmnjpmlj5mkiJObiZSbipWcjZedj5mekZqgkpyjkpymkZuoj5uqjZqqjJiqi5ioi5eli5ajjJah
     ratio: 1
     source: static-intake
 birdhat3.jpg:
     dominantColor:
-        - 156.27624309392266
-        - 138.59944751381215
-        - 113.45580110497238
+        - 155.90144927536232
+        - 137.35652173913044
+        - 112.39710144927537
     friendlyName: birdhat3.jpg
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAgZapgZeqg5qshJ2thJ+ug5+tf5yqe5amdo+hc4iccoWadYace4ygg5Smip2sjqKwf5Smf5WngJeogZmpgJqpfpmne5Wkdo+fcoiab4OWcIGVdIOXe4qdgpKjiZqqjqCufZOjfZOjfZSjfZSje5OieJCfdIuacIWVbH+Qa3uNbXqNcn6ReoaYgo+giZiojp2tfZKgfZKgfJGfeY+ddouacoaWbYCQaXmKZnSFZ3GDanOFcXqLeoOUgo2eiZWmjpusf5OffpKffJCdeIuac4WVbn6PaHaIY2+BYmp8Y2p7aW5/cXeHeoGSg4ycipSlj5qrg5ahgpWgf5Geeouac4OUbHqMZXCEYWl9X2R4YmV4aWx9cnaGe4GRhIydi5WmkJqsiJmlh5ikg5SifY2ddoWWbXqOZnCGYWh+YGR6Y2V6amx/dHeIfYOTho6ejZeokZyujZ2qjJypiJimgZGieYmbcX+TaXWLY2yEYmh/Zml/bG+DdnmMf4WWiJChjpmqkp+wkJ+tjp6sipqqhJWmfI6gdIWZbHuSZ3OLZW6GaG2FbnKId3yPgIeZiJOjj5yrk6Kxjp6tjZ2sipurhJeofZGjdoqeboGXaXmQZ3OLaXGJbnSLdn2Rf4iaiJSkj52sk6OxiZqpiJqphZmogZene5OkdY2fboWZaX2SZ3aNaHKKbXSLdHyQfYeZhpOijZ2rkqOwf5OifpOifZSiepOidpGgcY2dbIeYZ36RZHaLZHGHaXKHcHiMeoSVg5Cfi5uokKKucYqXcYqYcYyZcI6bb46bbIuYaIWUY32NYHSGYG6BY22Ba3OGdX+Pf4yaiJijjZ+qYYCMYoGNZISQZoiTZoqUZYiTYoOPXnuIW3GAWml7Xmd6Zm1/cHqJe4iVhZSfi5ymVHiDVXqEWX6IXYOMX4aOYIWOXoGKWniDV257VmV1WWN0Yml5bXaEeYSRgpGciZqkTnV/UHeBVHyFWYGJXYWMXoSMXICIWXeBVW15VGRzWGFxYGd3bHSCeIOPgpCbiJmi
     ratio: 0.9985029940119761
     source: static-intake
 falafel1.gif:
     dominantColor:
-        - 3.199261992619926
-        - 1.5756457564575646
-        - 0.24538745387453875
+        - 2.632887189292543
+        - 1.0305927342256214
+        - 0.35181644359464626
     friendlyName: falafel1.gif
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAAABHAABJAABMAABQBSFRGi9QIzVKJjU/JS8wHyMdFg8IBAALAAAgAAAyAABAAABJAABBAABEAABJAARODidSHzVSJjtOKTtEJzY3IiwmGRwVCgAQAAAfAAAwAAA9AABFAAA5AAA9AABFABVOGDBVJT5YLEVWLkZPLUFEKDk1HysmEhkeAAAiAAAuAAA6AABCAAAxAAA3AABEDiZSIz1dLktjNFJkNlNgNE9WL0dJJzw7HCwwDRgtAAAyAAA5AAA/AAAtAAA2ABNJHjdbLktqOFlzPWB2P2J0PV5rOFdfMEtRJj1EGy08DRo6AAA9AABBAAAwAAA7FipSKkZoOFp5QWeFRm6KSHCIRm2BQGV1OVpmMExYJj1NGy1HEh5GChFHAAA5DBtFIjpdM1N1QGaJSXSWT3ucUH2bTnqUSXKIQWd5OFlqLkpcJTtUHS5QGCVPDRxEFytQKUVoOV2BRnCVUH2jVYWqVoeqVIOjT3uXR3CIPmJ4NVNqLEVfJDlaIDFYEyZOHDNZLUtwPWKJSnWeU4OsWIqzWoyzWImsU4ChS3WRQmeBOVhzMEpoKD9iIzdfEihVHDRfLUx1PWOMSnagU4OvWYu2W422WYmvVIGkTHWVQ2eFOVl3MEttKEBnIzlkCiFZFi9hKUd1OV6LR3GdUH+qVoaxWIixVoWrUX2gSnGSQWOEN1V3LUdtJTxoHzRlAAtaBiBhID1xMlWEQGiUSnWgUH2mUn+lUXugTHOWRWiKPFp9MkxyKD5qHTJlFSljAABYAABdECtqKEZ5N1qHQmiQSG+VS3GUSm6PRWaHPlt8NU5yKj9pHi9jESBgAhNfAABVAABYAAhiGjRtLUp3OFh+P2CBQmKBQV98PVh1Nk1tLT9lIS5fERhbAABaAABaAABSAABUAABbCh9iIzpqMEpvN1JwO1VvOlJrNktlMEBfJjBZGBtWAQBUAABUAABVAABQAABTAABYABNeHjRkLERoNE1pOE9oN01kNEZfLTpZIypVFA9SAABSAABSAABT
     ratio: 1.35
     source: static-intake
 falafel2.gif:
     dominantColor:
-        - 5.169014084507042
-        - 2.9690140845070423
-        - 0.36338028169014086
+        - 3.2777777777777777
+        - 1.8070175438596492
+        - 0.2807017543859649
     friendlyName: falafel2.gif
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAZ2JZaGRcaWhia21rbXN0cHh9c3yDdH6HdX+IdH2GcnqCbXR7aG5yYmdoXGFfWF1YYlpUYltWZF9cZmRkaGpsam90bHJ5bXR8bHR9a3J7aG52ZWlvYWRoXF5fWFlYVVZTWU5OWk9QW1NVXVhbX11iYGBnYGNrYGRtXmJsXGBpWVxlV1hgVVVaU1FUUk9QUU1MT0JNUEROUUZRUkpVU05ZUlBcUVFdTk9dSk1bR0pXREdUREVQRUROR0RMSkVMTEZMRj5URj9VRkBWRkJXRENYQUJYPEBXNj1ULjlRKDZOJjRMKjZMMjlNOz5PQkJSR0VUP0ZjPkZjPUZjOkViNkNhLkBgIzxdEDhbADRYADJXADRXAjhYID5bMURePEphQ01kPVZ0PFV0OVRzNFJzK09yHEtxAEhvAEVuAENtAENtAEZtAEpuFk9wLlRzO1h1Q1t2QWaEQGaEPGSENWKEKmCEGF6FAFyFAFqFAFqFAFuGAF6GAGCGIGOHM2aHP2iHRmqHSXSQR3SQQ3ORPXKTNHGVJ3CXFXCZAHCbAHGcAHKdCHOcIHSbMXWZPXaXRnaVS3eUUn2WUX2XTn6ZSX6dQ4CiO4GmM4KqLYOtKYSvKoSuMIStOISqQYOmSYKiT4CeU4CbWoGWWYGYWIOcVoejUoqqTo2xSpC3R5K6RJK8RJK7RpC4SY6zTousU4imWIagW4ScYX+QYYCSYYWaYYqjYZGuX5a3XZq+WpzDWJzEVprBVZe9VpO1WY6tXIqkYIedYoSYZnmFZ3uJaIKTa4ugbJSubZu6bKDCaqPHZqLHY5/EYJq9X5S0YY6pY4ieZoSVaIGPaXF4anR9bn6LcombdZWsd566d6TDdKbIcKXIa6DDZ5q7ZZKwZoujaISWa3+LbXyDa2psbW5zcXqDdoiXe5WqfZ+5fabDe6jIdqbHcKHCbJm4aZCsaYida4CPbnuCcHh6bGdobWxvcniAeIeVfJWpf6C5f6bDfajIeKbHcqDBbZi3ao+qaoabbH+Mb3p/cXZ2
     ratio: 1
     source: static-intake
 falafels.gif:
     dominantColor:
-        - 0
-        - 0
+        - 0.09719222462203024
+        - 0.11231101511879049
         - 0
     friendlyName: falafels.gif
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAOWJbOGNdOGdjOWxqOnJxPHh4P319QoCARYGBRoF/Rn17RHh2QHJvO2tpNWRjMF9ePmdkPWhlPGlpO2xtOm9yOnJ3PHV7Pnd9QXl+Q3l9RHd7Q3R3QHByPWxtOWdpNWRmRG5vQ25vQW1wPmxyO2t0OWp2OGp4Omt6PGx7P217QW57Qm55Qm52QG1zPmxwPGtuS3V4SnR4R3F3Qm12PWh1OGN1NmB2N193OWB5PWN7QGZ8Q2p8RG17RG95RHF3Q3F2UXx/UHp+THZ8R295QWd3O191OFl1N1d2Oll5Pl18QmN+Rml/SG5+SXJ9SXV7SXZ6VoCCVH6BUXl/S3J7RWl4QGF2PVt2PVl4P1t7Q2B+R2aBS2yCTXGBTnV/Tnd8TXh6WIKBV4CAVHx+T3V7Sm14Rmd3RGN4RGJ7R2V/SmqCTm+EUHOEUXaCUXd+UHh5T3d2WIF9V398VHx6UXd4TXJ3Sm53Sm16S25+TnGDUXWGU3iHVHqFVHqBU3h6UHZzT3RuVX11VHx1Unl0UHdzTXR0THN3TXV7UHiAUnuFVX6IV4CHVn+EVXx9Und0TnFrS21jT3VsTnVsTXRsS3NtSnNwS3V0TXh6T3x/U4CEVYKGVoKFVX+AUnp4TXNtSWtiRWRYRmxiRmtjRWtkQ2xmQ21pRHBvR3R0Snl6TX1/UH+AUH5/T3t6S3RxRmtmQGJZO1pPOl9aOl9aOF9cN2BeNmJhN2VmOmpsPm9xQnN1RHV3RXR1RHBxQGlpOmFfNFdULk9LK1JUKlJUJ1FVJFFWIlJZIlRcJVhhKlxlL2BoMmNqNGNpM2BmL1tgKlNZIktRHEVLFkRRFENRDEJQAD9QAD1QAD1SAD9UAENXB0dZE0pbGExcGkxbF0lYEEVVBEBRADxOADlQADhPADROAC5MACdKACJJACBJACNKAClMAC9PADRRADdSADlSADhSADdSADZRADVPADNPAC5NACZKABtIAA5GAAVFAAhFABNHAB5KACdMAC1OADFQADNRADRSADRS
@@ -2064,72 +2064,81 @@ falafels.gif:
     source: static-intake
 finger-pointer.webp:
     dominantColor:
-        - 254.91419816138918
-        - 254.9070480081716
-        - 254.91419816138918
+        - 254.9511201629328
+        - 254.9470468431772
+        - 254.9511201629328
     friendlyName: finger-pointer.webp
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAA/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/f39/f39/f39/f39/f39/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/Pz8/Pz8/f39/f39/f39/f39/f39/f39/v7+/v7+/v7+/v7+/v7+/v7+/v7+/f39/f39/f39/f39/f39/f39/v7+/v7+/v7+/v7+/////////////////////v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/////////////////////////////////////v7+/v7+/v7+/v7+/v7+/////////////////////////////////////////////////v7+/////////////////////////////////////////////////////////v7+/v7+/////////////////////////////////////////////////////v7+/v7+/v7+/////////////v7+/v7+/v7+/v7+/////////////////////v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/f39/f39/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/v7+/f39/f39/f39/f39/f39/f39/v7+/v7+/v7+/v7+/////////////v7+/v7+/v7+/v7+/f39/Pz8/f39/f39/f39/v7+/v7+/v7+/////////////////////////v7+/v7+/v7+/Pz8/Pz8/Pz8/f39/v7+/v7+/////////////////////////////////v7+/v7+/Pz8/Pz8/Pz8/f39/v7+/v7+/////////////////////////////////////v7++/v7/Pz8/Pz8/f39/v7+/v7+////////////////////////////////////////
     ratio: 1.3333333333333333
     source: static-intake
 glitch-screenshot-3.webp:
     dominantColor:
-        - 215.5413870246085
-        - 231.4228187919463
-        - 238.00447427293065
+        - 213.5501066098081
+        - 230.24307036247336
+        - 237.21108742004265
     friendlyName: glitch-screenshot-3.webp
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAA5+ri5uni5ejh4+bf4uTc4eLa4uHW4+DS497O4drI29PC0Mi6wbuyr6upnZuijo+d6+7k6u3k6ezi5+ng5ufd5eXa5ePW5eHS5N7N4drH29PB0sq6xb6yt7GqqKSknZqf8PLm8PLm7/Dk7e7h6+vd6ujZ6ObV5+LQ5d/L4drG29TA1Mu5ysKywLirtq+lr6ih9fbo9Pbn8/Tl8vHh8O7d7evY6+fT6OPO5N7I4NnD29O91cy3z8Wxyb6rxLmmwLSj9/jo9/fn9vXk9PPg8u/b7+vV6+bP5+HK4tvF3ta/2tG61cu10savz8Kqzb+mzL2j9/bm9/Xk9vPh9PDd8ezX7ejR6OLL5NzF39fA2tG718y21Mix0sWt0sOo0cGk0sCh9PHh9PDg8u7d7+vY7OfR6OHL49zF3ta/2dC61cu20sax0cOt0MGp0L+k0b6g0r6e7una7ujZ7ObW6OPR5N7K4NnE29O+1s240si0z8Owzb+szLyozLqkzLmfzLiczbiZ5+DT5t/S5N3O4NnJ29TD1s680sm2zsSxy7+tybuqyLinx7WjxrOfxbGaxbCWxK+T39fM3tbK29PH18/C0sq7zcS1yb+wxrurxbeoxLSlw7Giwq+ewKyav6qVvaiRvKaN2NHF19DE1MzB0Mi7y8K1xryvw7iqwbSmwLGjwK+hv62evqubvKiWuaWRt6KMtaCJ083B0szAz8i8y8O3x72xw7erwLOmvrCivq6gvqyevaubvKmYuqaUt6OOtKCJsZ2G0My+z8u9zce5ycK0xbuuwrWov7Gjvq6gvayevaycvauau6qXuaeStqSNs6GIsZ6Ez829zsy8zMi4ycKzxrytw7anwLGiv66fvq2dvq2bvayZvKyWuqqSt6eNtaSHtKKDz8+9zs28zMm4ysOzx72sxLamwrKiwK+ev66cvq6bva6ZvK2Wu6ySuamNt6eHtqWDz9C9zs68zMq4ysSzx72sxbemw7Khwa+ewK6cv66bvq6Zva6Wu62SuaqNuKiIt6aE
     ratio: 1.495016611295681
     source: static-intake
+lamps-animated.webp:
+    dominantColor:
+        - 3.5824468085106385
+        - 1.672872340425532
+        - 0.9175531914893617
+    friendlyName: lamps-animated.webp
+    placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAAB5MABpKAAlFAABBAABDHRtNMTdeQE5wSV+ATmuLTXCRR26RO2WLJlWBAD90ACdpADNeADJeAC5cAC1cCjNfJz9oOU90RV6CTWuOUHSXT3ebSHSbOmuVIl2MAEuBADl4AElzAEl0AEp1CE14JVR9N12FRWiPT3SZVn2iWIKoVYOqTX+oP3ejJmqaAFuRAE6KCV+HEGCIHmKLLWeQPG6XSnefVoGoX4qwZZG3ZpS7Y5S7W4+4TYayOXuqGG6iAGScOHSYOnWaQHieSH2kU4SsXo21aZa+cZ/Fd6XLeajNd6fNb6LIY5nCUo25PoGxKXiqVYemV4inWoqsYI+zaJa7cp/FfKnOhbLWjLjcjrvejbvdh7XYfKzPbaDFXZS8T4q0bpevbpexcZm1dZ68fKTGhK3QjrfamMHjn8npo83sos3qncfkk77bhrHPeKTDbZm6gqO1gqS2g6W6hqjBi67KlLfVncLhp8zrr9XytNv2tdv0sNbtp8zim77UjrDGg6S7kKy3kKy4kay7k67Cl7PLn7zWqMfis9Puu932weT6wuX5vuDyttXmqsfWnbfFk6u4mrC2mbC3mbC5m7G/nrXIpb3Tr8ngudXswuD1yOf6yej5xuTyvtnlssrUpbnCm6yznrCznbCzna+1nrC6obPCp7vNsMbautPmw93wyeT2yub1x+Huvtbgs8fPp7a8namsna2unKyunKuwnKyzn6+6pbbFrcDRt8zdv9bnxN3txd7twdnmuc/Zrr/Hoa+0l6GlmaepmKepmKaqmKatm6mzoLC8p7nIsMPTt8zdu9LivNPiuM3cr8PPo7S/lqStjJaek6Gkk6CkkqClkqCnlaOsmam0oLG/qLrKrsLSscbXscbXrMDRo7bGl6e3iZimf4uZjpuhjpuhjZuhjpyjkJ+olKSvmqy5obPCprrLqb3PqLzPo7bKmau/jJ2xfo6ic4KWjJqgjJmgi5mgjJqijp2mkqKtmKm2nrHApLfIprnMpbjMn7LHlae9iJmveoqgbn6U
+    ratio: 0.8939393939393939
+    source: static-intake
 pizza.gif:
     dominantColor:
-        - 13.264591439688717
-        - 8.96692607003891
-        - 9.562256809338521
+        - 14.057377049180328
+        - 9.454918032786885
+        - 9.952868852459016
     friendlyName: pizza.gif
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAAg8zCxY4GiJCJy1NMDZVNDtaNTxaMDhVKDBLGCQ+AA8wAAAkAAAfAAAkAAAsAAAzAxUzDBo3GyRAJy5KLzVTNDlXNDlWMDVRJyxHFx46AAMqAAAdAAAYAAAeAAAnAAAuCR4zESE3HilAKTFJMjdRNjpUNjlUMjROKSpEGho2AAAmAAAVAAANAAAUAAAfAAAmFCk2Gis5JTJCMDlLOD5TPUFXPT9WOTpRMTBHJCA5DwMoAAAWAAAIAAANAAAYAAAgIDQ7JTc/Lz1IOkRTQ0pbSExfSUtfRUZaPTxRMi9DIh0zDgEiAAAUAAARAAAXAAAeKz9CMEJHO0lRRlFdUFdnVVttVlpuU1ZqTE1gQEFTMzJDJCMzFxUlEQ4eEhEfFhYjNklKOkxPRVRbUl1pXGV1Yml8ZGl+YWV6WV1xTlJkQURTMzZDKSw0JCYsJCYqJigrPU9QQlNVTlxjW2dzZm+AbXWJb3aLbHKIZGp/WV9xS1JhPkRPNDpALzQ3LzM0MTQ0QlNTR1dZU2FpYWx6bHaIc3ySdX6Vc3uRa3OIX2d6UlppRU1YOkJINTs+NTo7Njo7Q1NTSFdaVGFqYm18bniLdX6Vd4CYdH2VbXWMYWp9VF1sRk9aPERLNz1BNjs9ODs+QE5ORVJVUV1mX2l4anOIcnqRdHyVcXmRaXGIXmZ6UFlpQ0tXOEBIMzk+Mzc8NDc9OUVFPklNSlNdV19vYml+aW+Ha3GKaG6HYGd+VVxvSE5eOkFNMDU+Ki42KSw1Kyw3Ljc4MztAPkVQS1BhVVpvW194XWB6Wl12U1ZtSEpfOj1NLC48ICAuGRcnGBUpGxctHyUnJSkvMDNAPD5RRUZdS0tlTEtmSUdiQT9YNjJJJyE2FQUiAAAPAAAMAAAXAAAgDQ4SFBQdIiAwLitBNzJNPDZTPDVUOS9OMCRDIw0xDwAXAAAAAAAAAAAAAAAAAAAQAgADCwUTGhUpJyE6MClGNSxMNSpMMSJFKBI5GQAlAAAAAAAAAAAAAAAAAAAAAAAF
     ratio: 2
     source: static-intake
 spider-pointer.webp:
     dominantColor:
-        - 254.94753086419752
-        - 254.94444444444446
-        - 254.94753086419752
+        - 254.97013388259526
+        - 254.96910401647787
+        - 254.97013388259526
     friendlyName: spider-pointer.webp
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAA+/v7+/v7+/v7+/v7+/v7+/v7/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8+/v7+/v7+/v7/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/f39/f39/f39/f39/f39/Pz8/Pz8/Pz8/Pz8/f39/f39/f39/f39/f39/f39/f39/v7+/v7+/v7+/v7+/v7+/f39/f39/f39/f39/v7+/v7+/v7+/v7+/v7+/v7+/v7+/////////////////////v7+/v7+/v7+/v7+/////////////////////////////////////////////////////////////v7+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v7+/v7+/v7+/v7+/v7+/v7+/////////////////////////////////v7+/v7+/f39/f39/f39/f39/v7+/v7+/v7+/////////////////////v7+/v7+/v7+/v7+/Pz8/Pz8/f39/f39/f39/v7+/v7+/v7+/v7+/////////v7+/v7+/v7+/v7+/f39/Pz8/Pz8/Pz8/f39/f39/v7+/v7+/v7+/////////////v7+/v7+/v7+/v7+/f39/Pz8/Pz8/f39/f39/f39/v7+/v7+/v7+/////////////////v7+/v7+/v7+/v7+/f39/f39/f39/f39/v7+/v7+/v7+/////////////////////////v7+/v7+/v7+/f39/f39/f39/v7+/v7+/v7+/////////////////////////////////v7+/v7+/f39/f39/f39/v7+/v7+/v7+/////////////////////////////////////v7+
     ratio: 1.3333333333333333
     source: static-intake
 spider-shower-animated.webp:
     dominantColor:
-        - 238.59855334538878
-        - 245.8625678119349
-        - 246.35262206148283
+        - 237.05149501661128
+        - 244.31893687707642
+        - 244.19269102990035
     friendlyName: spider-shower-animated.webp
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAvbWqv7etxL2zy8W70czD1dHJ19TM1dPM0M/IycnCwcK7ubu0sravrrKrq7Cqqq+pwLqwwryyx8K4zsrA1dHI2tfO3NnR29nS19bP0dDKycrEwsS+vL65t7q0tLiys7ewxcG4x8O6zcnA1NHH29jO4N7V4+HZ4+Ha39/Y2trV1NTQzc7Kx8jEwsTAv8K8vsC6y8nAzcvC09DH2tjO4eDW5+bc6ung6uni5+fh4uLe3NzZ1tbU0NHOzM3KysvGyMrE0M/G0tHI2NfO4N/V6Ofd7u3j8PDn8O/o7Ozm5ufi4ODd2trY1dbT0tPQ0dHN0NHM1NPK1tXM3dzT5eTb7e3j8vLp9PTr8vLr7e3n5ubi3t/c2NnW1NXT0tTR09TQ1NXQ1tTL2NfN397V6Ofe8PDm9fXs9fXt8fLr6urk4OHc19jU0NLOzc/MztDN0NLP09XR1dPI2NbL397U6ejf8fDo9fXt9PTt7u7o4+Te19jSy83IxMbCwsXBxMjEyc3KztHP0c/D1dLG3dvQ5+Xc7+7m8vLr8PDq6Onj29zWzM7HvsG6trqztLmzub66wMXCxsvJzMm7z8zA2NXL4uDY6uni7u3o6+vm4uPd1NXPw8a+tLivqrCmqa+nrrWvtr26vcTCxMG0x8W40M7E29nR4+Lc5+fi5eXh3N7Yz9HKv8K5r7Sqpauho6qhp6+or7aytb26u7msvr2wx8a80tHJ29vV4ODb3+Db2drVzdDJwMO6sretqK6jpKuhpq2mq7Ktr7aysbGmtLWqvb60yMnB0tPN2NrU2tzW19nTz9LLxcjAur61sbasq7GoqbCnqrGqrLKsqauhrK6ktLeuv8G6yszF0tTO1tnT1tnT09XPzM/IxMe/u7+3tLmwr7SrrLGpq7Coo6eepqqhrrKqub21xMjAztHK1NfQ19nT1tjS0dTOy87Hw8a/u7+3tLivrrKpq6+loaWdpKigrLCot7uzwsa/zM/I09bQ19rT19rT09bQzdHKxsnCvcG5trmwr7Opq66l
     ratio: 1
     source: static-intake
-spider-shower-sprite-sheet.webp:
+trumpet-people-animated.webp:
     dominantColor:
-        - 238.14598540145985
-        - 244.61459854014598
-        - 244.1824817518248
-    friendlyName: spider-shower-sprite-sheet.webp
-    placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAA2dbR2NbR1tTP09PN0dHLz9DJzs/Iz8/J0NDK0tLM09LN1NPN09LM0dLLz9HKztDI3NnV29nU2tjT19fR1dXP09TO09TN09TO1dXP1tbQ19bR19fR19bQ1dbQ1NXO0tXO4d7Z4N7Z393Y3dzW29vV2drU2drU2drU2trV3NvV3NvW3NzW3NzW29vV2dvV2NrU5ePd5ePd4+Lc4uHb4ODb3+Da3t/a39/a4ODa4eDa4eDb4eDb4eDb3+Da3uDa3d/a6efh6Obg5+bg5eXf4+Te4uPd4uLd4uPd4+Pd5OPe5eTe5OTe5OPe4uPd4eLd4OLd6+ni6uji6Ofh5ubg5OTf4uPe4uPd4uPe5OTe5eTf5uXf5eXf5OTf4uPe4OLd3+Hc6+ni6ujh5+bg5OTe4uLc4ODb3+Da4ODb4uLc4+Pd5OTe5OPe4uLd4ODb3d7Z29zY6efg5+bf5ePd4eDa3d3X2tvV2trV29vW3d3X4N/Z4eDa4eDa3t7Z29vW19jT1NbR5ePc5OLb4N/Z3NvV19fR1NXP09TO1dXP2NjS29rU3NzV3NvV2dnT1dbQ0NLMzc7J4d/Y397X3NrU1tbQ0tLLzs/Jzc7Iz8/J0tLM1tXP19fR19fQ1NTO0NDKy8zGx8jD3NrU29nT19bQ0tLLzs7HysvEysrEy8zFzs7I0dHL09PM09PM0NDKzM3Gx8nCxMW/2NbQ19XP1NPN0M/JzMzFycnDyMnCysrEzMzGz8/I0dDK0NDKzs7Iy8zFx8jCxMa/1dPO1NPN0tHLz87IzMzGysvEysrDy8vEzMzGzs7Iz8/Jz8/Jzs7IzM3GysvEyMnC09HM0tHM0dDKz8/Jzs7HzM3GzMzGzM3Gzc3Hzs7Iz8/J0M/Jz8/Jzs/Izc7HzM7G0dDL0dDL0dDK0M/Kz8/Jzs/Izs/Izs/Iz8/Iz8/J0M/J0NDK0NDK0NDK0NHK0NHJ0dDL0dDL0dDK0NDK0NDJz9DJz8/Jz8/Jz8/Jz8/J0M/K0NDK0dHK0dHK0dLL0dLL
-    ratio: 3
+        - 228.02631578947367
+        - 198.07894736842104
+        - 159.3830409356725
+    friendlyName: trumpet-people-animated.webp
+    placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAfqWsgKathKqviq+ykLO1k7W1lLSzkrCvjKmphaGjfJmddJSZbJKYZ5OZZJWbY5edhqmzh6q0ia23jbC7kLO/krPAk7LAka69jqi4iaGygpytfJipdZeob5ioa5qpaJyqka+8ka+9kbDBkrHGkrLKk7HOk6/Ok6zNkqjKkKTFjKHAh5+8gZ+6eqG5dKO5cKS6nLXDnLXEm7TJmbTOmLPUmLHZma/bmq3bm6vZm6nVmqjRlajNj6nLh6rJgKzJeq3Jp7rFprrHpbnMo7fTorbZo7TfpLPip7LkqbHjqrHgqbLcpLPZnrTWlbTUjLXThbbTsL3Cr73Er7zJr7zRsLvYsrretbrjuLrlurvlurzjuL3gs73dq73bor3ZmL3Ykb3Ytr65t7+7ub/Bu8DIv8HQw8LWx8TbysXey8bfysfexsfcv8bat8XZrcTXo8PXnMLWu72rvL6swMCyxsO5zcbB08rI2M3N2s/Q2tDS19DS0c/Ryc3Qv8rPtcfPrMXPpsPPvbmXv7qZxr6ez8Ol2cmt4M+05tO559a95ta/4NXA2dLAz8/AxcvAu8fBs8TBrsLCvrKBwbSDyrqI1cKP4MqW6dCd7tWj79im7Nep5dWq3NGr0cysx8etv8KvuL+wtL2xvqpswa1uy7Rz171648aB7M2H8dKN8dSQ7NOS5M+U2smV0MOWx76Yv7mauracuLSdvaFbwaRdyqtj1rVq4r9x6sZ37sp87ct+6MiA38OA1b2By7aCw7GEvq2Gu6uIuqqJvJhSwJtVyKJa06xi3bVp5btv575y5b5037p017NzzaxyxKZyvqFyu550up12u513vJFRv5NUxppaz6Nh2Kpo3rBu37Fx3K9x1qlvzaJtxZppvZRnuZBmuI9muZBnupJovIxTvo5WxJRczJxj1KJq2KZw2ady1aNyzpxvxpRrvoxmuIZitYNftoReuIdeuoleu4pVvoxXxJJdy5ll0p9s1qNx1qNz0p5yzJdvw45qu4ZltoBgtH5dtYBbt4NbuoZb
+    ratio: 1
     source: static-intake
 wiki.gif:
     dominantColor:
-        - 135.00744416873448
-        - 135.00744416873448
-        - 135.00744416873448
+        - 133.14690721649484
+        - 133.14690721649484
+        - 133.14690721649484
     friendlyName: wiki.gif
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAWFhYWVlZXFxcYWFhZWVlampqbW1tb29vb29vbm5ua2traGhoY2NjX19fW1tbWFhYYWFhYmJiZGRkaGhobGxscHBwc3NzdXV1dnZ2dXV1c3NzcHBwa2trZ2dnYmJiX19fampqa2trbW1tcHBwc3Nzd3d3e3t7fX19f39/f39/fX19enp6dXV1cXFxbGxsaWlpcnJycnJydHR0d3d3enp6fn5+gYGBhYWFh4eHh4eHhoaGg4ODfn5+eXl5dHR0cXFxdXV1dXV1d3d3enp6fn5+goKChoaGiYmJjIyMjY2NjIyMiYmJhISEf39/enp6dnZ2cnJyc3NzdXV1eXl5fn5+goKCh4eHi4uLjo6Oj4+Pjo6Oi4uLhoaGgYGBfHx8eHh4a2trbGxsb29vdHR0enp6gICAhYWFioqKjIyMjY2NjIyMiYmJhISEf39/enp6d3d3Xl5eYGBgZWVlbGxsc3Nze3t7gYGBhYWFiIiIiIiIh4eHhISEf39/e3t7d3d3dHR0T09PUVFRWVlZYmJibGxsdXV1e3t7gICAgoKCgoKCgICAfX19eXl5dXV1cnJycHBwQEBARERETk5OWlpaZmZmb29vdnZ2enp6e3t7e3t7eHh4dXV1c3NzcHBwbm5ubW1tODg4PT09SUlJVlZWY2NjbGxsc3NzdnZ2dnZ2dXV1c3NzcHBwbm5ubm5ubm5ubm5uPDw8QUFBTExMWFhYZGRkbW1tcnJydHR0dHR0cnJyb29vbm5ubW1tbm5ucHBwcXFxR0dHS0tLVFRUX19faWlpcHBwdHR0dXV1dHR0cnJyb29vbm5ub29vcnJydXV1d3d3U1NTVVVVXV1dZmZmbm5udHR0d3d3d3d3dnZ2c3NzcXFxcXFxc3NzdnZ2enp6fX19W1tbXV1dY2Nja2trcnJyd3d3enp6eXl5d3d3dXV1c3Nzc3NzdXV1eXl5fn5+gYGBXl5eYGBgZmZmbW1tdHR0eXl5e3t7enp6eHh4dXV1c3NzdHR0d3d3e3t7f39/goKC
     ratio: 2
     source: static-intake
 wikipi.webp:
     dominantColor:
-        - 249.75400291120815
-        - 249.04512372634645
-        - 248.96069868995633
+        - 250.67462686567166
+        - 249.72388059701493
+        - 249.7537313432836
     friendlyName: wikipi.webp
     placeholderUri: data:image/bmp;base64,Qk02BAAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAA5ePl4+Lj3t3g1tfbzdDVxsrRw8fOw8bNxsjPysrRzs3Tz87Tz87TzM3SycvQxsnO5+bm5eTl4ODh2Nrc0NPXys3SxsrQxsnPycvQzc3T0NDU0tHV0tHVz9DUzM7SyczQ6uno6Ojn4+Pj3N3e1NfZztHVys7Sys3Rzc7T0dHV1NPX1dXY1dXX09PW0NHUzdDT7Ozq6urp5ubl3+Dg19nb0dTWztDTztDT0NHU09TW1tbY2NfZ19fZ1dbY0tTW0NLU7e3q6+vp5ufl3+Hg2Nrb0tTWz9HTztDT0dLU1NTX19fZ2Nja2NjZ1tfY09XW0dPU7Ozq6urp5ebl3t/f19nZ0NPUzc/Szc7Rz9DT0tLV1dXX19bY1tbY1NXW0tTUz9LS6enp5+jn4uPj293d09bXzc/SyczPycrOy8zQz87T0tHV1NPW09PV0dLUztDRzM/P5ubn5OTm3+Dh2Nnbz9LVyczPxcjMxcbMx8fOy8rQzs3T0M/Uz8/Tzc7Ry83OyMzM5OTn4uLl3d7h1dfazdDUxsnOwsXLwsTLxcXNyMfPzMrSzszTzc3Sy8zPyMvMxsrK5eTo4+Lm3t7i1tjcztHWx8vQw8bNw8XNxcbPycjRzcvTzs3Uzs3TzM3RyczOx8vM6Ofr5ubq4eLm2tzh09XbzNDWyczTycvSy8zUzs7W0dDY09LY09LX0dLVz9HTzNDR7u3x7Ozv6Ojs4uPn293i1dje0tXb0tTa1NXb19bd2djf29rf29re2drd19na1djZ9fT38/P28PDz6uvv5Ofq4OPn3eDk3N/j3t/k4ODl4+Lm5OPn5OPm4uPl4eLj3+Hi+/r8+vr79/f58vP17e/y6ezu5+ns5ujs5+ns6ert6+vt7Ozu7Ozt6+zs6uvr6Orq//////7//Pz9+Pn68/X38PL07fDy7e/x7u/x8PDy8fHy8vLz8vLy8fHy8PHx7/Dw/////////v7/+vv89vf58vT28PL07/Hz8PLz8vP08/P09PT09PT08/T08vPz8fLy
     ratio: 1.82648401826484
